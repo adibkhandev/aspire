@@ -6,6 +6,7 @@ import { Account } from './pages/account/Account'
 import { Login } from './pages/login/Login'
 import { AuthContextProvider , Context} from './pages/login/AuthContext'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
+import { Social } from './pages/login/Social'
 const App = () => {
   
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/' element={<Home/>}></Route>
           <Route path='/:username' element={<Account/>}></Route>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/demo' element={<Social/>}/>
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>
