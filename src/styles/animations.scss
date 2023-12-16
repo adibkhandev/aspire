@@ -1,0 +1,46 @@
+@keyframes loader-bottom-slide {
+    to{
+        transform: translateY(150vw);
+    }
+}
+@keyframes loader-top-slide {
+    to{
+        transform: translateY(-150vw);
+    }
+}
+@keyframes go-left {
+    to{
+        transform: translateX(-80vw);
+    }
+}
+@keyframes go-right {
+    to{
+        transform: translateX(90vw);
+    }
+}
+@keyframes pulse-effect{
+    0%{
+        opacity: 0.4;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.4;
+    }
+}
+.pulse{
+    animation: pulse-effect 2s ease-in-out infinite forwards;
+}
+.goRight{
+    animation:go-right  1.8s ease-out forwards;
+}
+.goLeft{
+    animation: go-left 1.8s ease-out forwards;
+}
+.bottomSlide{
+    animation: loader-bottom-slide 1s ease-out 2s forwards;
+}
+.topSlide{
+    animation: loader-top-slide 1s ease-out 2s forwards;
+}

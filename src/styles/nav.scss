@@ -1,0 +1,14 @@
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 4em;
+    padding: 0 1.4em 0 1.5em;
+    position: absolute;
+    top: 0;
+    border-bottom: 0.3px solid #3E3E3E;
+    .logo{
+        margin-top: 0.2em;
+    }
+}

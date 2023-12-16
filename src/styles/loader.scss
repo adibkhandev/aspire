@@ -1,0 +1,49 @@
+$teacher-height:40%;
+*{
+    margin: 0;
+    padding: 0;
+}
+.loader-cont{
+    width: 100vw;
+    height: 100svh;
+    overflow: hidden;
+    position: relative;
+}
+.teacher-cont , .student-cont {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease-in;
+}
+.heading{
+    position: absolute;
+    bottom: -1.4em;
+    margin-left: 0.4em;
+    z-index: 2;
+    color: #AEAEAE;
+    font-family: 'Krona One', sans-serif;
+    font-size: 2.4rem;
+    line-height: 1.4;
+}
+.tap-info{
+    color: #6A6A6A;
+    font-family: 'Krona One', sans-serif;
+   
+}
+.teacher-cont{
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    height: $teacher-height;
+    width: 100%;
+    background: #2D2D2D;
+}
+.student-cont{
+    position: absolute;
+    bottom: 0;
+    height: calc(100% - $teacher-height);
+    width: 100%;
+    background-color: #252525;
+}
