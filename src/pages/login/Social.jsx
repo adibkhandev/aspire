@@ -27,7 +27,13 @@ export const Social = () => {
                     </div>
                 </LoginSocialFacebook>
                 <LoginSocialGoogle
-                    isOnlyGetToken
+                    scope = 'https://www.googleapis.com/auth/userinfo.profile'
+                    prompt = 'select_account'
+                    isOnlyGetToken = {false}
+                    cookie_policy = 'single_host_origin'
+                    hosted_domain = 'https://iridescent-dusk-085b1e.netlify.app/'
+                    redirect_uri = '/'
+                    fetch_basic_profile = {true}
                     client_id={import.meta.env.VITE_GG_APP_ID || ''}
                     onLoginStart={()=>{
 
@@ -36,7 +42,7 @@ export const Social = () => {
                         console.log(provider,'provider',data,'data')
                     }}
                     onReject={(err) => {
-                    console.log(err)
+                        console.log(err)
                     }}
                 >
                     <div className="social-btns">
