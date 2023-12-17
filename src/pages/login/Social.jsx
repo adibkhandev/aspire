@@ -15,6 +15,7 @@ export const Social = () => {
       clientId={import.meta.env.VITE_GG_APP_ID || ''}
       onLogoutSuccess={logout}
     >
+        Logout
     </GoogleLogout>
           <div className='social-cont'>
                 <LoginSocialFacebook
