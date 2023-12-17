@@ -4,7 +4,7 @@ import apple from './../../assets/images/apple.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialApple} from 'reactjs-social-login'
 import { useGoogleLogin } from '@react-oauth/google';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+
 export const Social = () => {
     const login = useGoogleLogin({
         onSuccess: tokenResponse => console.log(tokenResponse),
