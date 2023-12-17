@@ -9,7 +9,9 @@ export const Social = () => {
         <>
           <div className='social-cont'>
                 <LoginSocialFacebook
-                    isOnlyGetToken
+                  fieldsProfile = 'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
+                return_scopes = {true}
+                  isOnlyGetToken = {false}
                     appId={import.meta.env.VITE_FB_APP_ID || ''}
                     onLoginStart={()=>{
 
