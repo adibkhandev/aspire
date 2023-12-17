@@ -7,11 +7,13 @@ import { Login } from './pages/login/Login'
 import { AuthContextProvider , Context} from './pages/login/AuthContext'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import { Social } from './pages/login/Social'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 const App = () => {
   
   return (
     <>
     <BrowserRouter>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GG_APP_ID || ''}>
       <AuthContextProvider>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
@@ -20,6 +22,7 @@ const App = () => {
           <Route path='/demo' element={<Social/>}/>
         </Routes>
       </AuthContextProvider>
+     </GoogleOAuthProvider>
     </BrowserRouter>
     </>
   )

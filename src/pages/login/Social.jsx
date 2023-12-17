@@ -3,8 +3,12 @@ import fb from './../../assets/images/fb.svg'
 import apple from './../../assets/images/apple.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialApple} from 'reactjs-social-login'
-
+import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 export const Social = () => {
+    const login = useGoogleLogin({
+        onSuccess: tokenResponse => console.log(tokenResponse),
+      });
     return (
         <>
           <div className='social-cont'>
@@ -26,7 +30,7 @@ export const Social = () => {
                         <img src={fb} alt="" />
                     </div>
                 </LoginSocialFacebook>
-                <LoginSocialGoogle
+                {/* <LoginSocialGoogle
                     scope = 'https://www.googleapis.com/auth/userinfo.profile'
                     prompt = 'select_account'
                     isOnlyGetToken = {false}
@@ -44,11 +48,11 @@ export const Social = () => {
                     onReject={(err) => {
                         console.log(err)
                     }}
-                >
-                    <div className="social-btns">
+                > */}
+                    <div onClick={()=>login()} className="social-btns">
                         <img src={google} alt="" />
                     </div>
-                </LoginSocialGoogle>
+                {/* </LoginSocialGoogle> */}
                 
                         <div className="social-btns">
                             <img src={apple} alt="" />
