@@ -32,7 +32,7 @@ export const Social = () => {
                     isOnlyGetToken = {false}
                     cookie_policy = 'single_host_origin'
                     hosted_domain = 'https://iridescent-dusk-085b1e.netlify.app/'
-                    redirect_uri = '/'
+                    redirect_uri = 'https://iridescent-dusk-085b1e.netlify.app/login'
                     fetch_basic_profile = {true}
                     client_id={import.meta.env.VITE_GG_APP_ID || ''}
                     onLoginStart={()=>{
