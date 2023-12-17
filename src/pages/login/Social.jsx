@@ -4,13 +4,18 @@ import apple from './../../assets/images/apple.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialApple} from 'reactjs-social-login'
 import { useGoogleLogin } from '@react-oauth/google';
-
+import { GoogleLogout } from 'react-google-login';
 export const Social = () => {
     const login = useGoogleLogin({
         onSuccess: tokenResponse => console.log(tokenResponse),
-      });
+    });
     return (
         <>
+    <GoogleLogout
+      clientId={import.meta.env.VITE_GG_APP_ID || ''}
+      onLogoutSuccess={logout}
+    >
+    </GoogleLogout>
           <div className='social-cont'>
                 <LoginSocialFacebook
                   fieldsProfile = 'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'
