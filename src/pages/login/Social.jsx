@@ -64,7 +64,7 @@ export const Social = () => {
                 >
 
                         <div className="social-btns">
-                            <img src={linkedin} alt="" />
+                            <img className='w-5' src={linkedin} alt="" />
                         </div>
                 </LoginSocialLinkedin>
            
