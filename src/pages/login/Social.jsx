@@ -1,8 +1,8 @@
 import React from 'react'
 import fb from './../../assets/images/fb.svg'
-import apple from './../../assets/images/apple.svg'
+import linkedin from './../../assets/images/linkedin.svg'
 import google from './../../assets/images/google.svg'
-import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialApple} from 'reactjs-social-login'
+import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
     
     return (
@@ -49,10 +49,24 @@ export const Social = () => {
                         <img src={google} alt="" />
                     </div>
                 </LoginSocialGoogle>
-                
+                <LoginSocialLinkedin
+                    onLoginStart={()=>{
+
+                    }}
+                    onResolve={({ provider, data }) => {
+                        console.log(provider,'provider',data,'data')
+                    }}
+                    onReject={(err) => {
+                        console.log(err)
+                    }}
+                    client_id={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
+                    client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
+                >
+
                         <div className="social-btns">
-                            <img src={apple} alt="" />
+                            <img src={linkedin} alt="" />
                         </div>
+                </LoginSocialLinkedin>
            
            
             </div>
