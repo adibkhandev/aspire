@@ -4,7 +4,7 @@ import linkedin from './../../assets/images/linkedin.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('updated last 2.0')
+    console.log('updated killshot')
     return (
         <>
           <div className='social-cont'>
