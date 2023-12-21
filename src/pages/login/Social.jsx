@@ -53,6 +53,7 @@ export const Social = () => {
                 <LoginSocialLinkedin
                     response_type = 'code'
                     isOnlyGetCode = {true}
+                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
                         
                     }}
