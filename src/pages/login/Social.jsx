@@ -50,6 +50,7 @@ export const Social = () => {
                     </div>
                 </LoginSocialGoogle>
                 <LoginSocialLinkedin
+                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
 
                     }}
