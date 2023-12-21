@@ -6,16 +6,6 @@ import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
     console.log('updated killshot damnit fuckkkk yeahh please')
-    const { linkedInLogin } = useLinkedIn({
-        clientId: `${import.meta.env.VITE_LINKEDIN_CLIENT_ID}`,
-        redirectUri: `${window.location.origin}/login`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
-        onSuccess: (code) => {
-          console.log(code);
-        },
-        onError: (error) => {
-          console.log(error);
-        },
-      });
     return (
         <>
           <div className='social-cont'>
@@ -60,11 +50,10 @@ export const Social = () => {
                         <img src={google} alt="" />
                     </div>
                 </LoginSocialGoogle>
-                {/* <LoginSocialLinkedin
+                <LoginSocialLinkedin
                     response_type = 'code'
                     isOnlyGetCode = {false}
                     scope = 'email'
-                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app'
                     onLoginStart={()=>{
                         
                     }}
@@ -76,14 +65,13 @@ export const Social = () => {
                     }}
                     client_id={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
                     client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_SECRET || ''}
-                > */}
+                >
 
                         <div
-                         onClick={linkedInLogin}
                         className="social-btns">
                             <img className='w-5' src={linkedin} alt="" />
                         </div>
-                {/* </LoginSocialLinkedin> */}
+                </LoginSocialLinkedin>
            
            
             </div>
