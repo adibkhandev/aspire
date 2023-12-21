@@ -4,7 +4,7 @@ import linkedin from './../../assets/images/linkedin.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('updated')
+    console.log('updated 2')
     return (
         <>
           <div className='social-cont'>
@@ -51,7 +51,6 @@ export const Social = () => {
                 </LoginSocialGoogle>
                 <LoginSocialLinkedin
                     scope = 'email'
-                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
 
                     }}
