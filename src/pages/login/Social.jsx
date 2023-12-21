@@ -64,7 +64,7 @@ export const Social = () => {
                         console.log(err)
                     }}
                     client_id={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
-                    client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
+                    client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_SECRET || ''}
                 >
 
                         <div className="social-btns">
