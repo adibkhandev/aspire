@@ -5,7 +5,7 @@ import google from './../../assets/images/google.svg'
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('updated killshot damnit fuckkkk yeahh please')
+    console.log('never giving up')
     return (
         <>
           <div className='social-cont'>
@@ -51,21 +51,21 @@ export const Social = () => {
                     </div>
                 </LoginSocialGoogle>
                 <LoginSocialLinkedin
+                    client_id={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
+                    client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_SECRET || ''}
                     response_type = 'code'
-                    isOnlyGetCode = {true}
+                    isOnlyGetCode = {false}
+                    scope='email'
                     redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
                         
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
-                        window.close()
                     }}
                     onReject={(err) => {
                         console.log(err)
                     }}
-                    client_id={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
-                    client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_SECRET || ''}
                 >
 
                         <div
