@@ -7,7 +7,7 @@ import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs
 export const Social = () => {
     console.log('updated killshot damnit fuckkkk yeahh please')
     const { linkedInLogin } = useLinkedIn({
-        clientId: `${import.meta.env.VITE_LINKEDIN_CLIENT_SECRET}`,
+        clientId: `${import.meta.env.VITE_LINKEDIN_CLIENT_ID}`,
         redirectUri: `${window.location.origin}/login`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
         onSuccess: (code) => {
           console.log(code);
