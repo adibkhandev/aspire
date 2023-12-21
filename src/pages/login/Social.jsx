@@ -53,7 +53,7 @@ export const Social = () => {
                     response_type = 'code'
                     isOnlyGetCode = {false}
                     scope = 'email'
-                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login/'
+                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app'
                     onLoginStart={()=>{
                         
                     }}
