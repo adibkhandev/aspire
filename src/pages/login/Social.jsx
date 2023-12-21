@@ -3,7 +3,7 @@ import fb from './../../assets/images/fb.svg'
 import linkedin from './../../assets/images/linkedin.svg'
 import google from './../../assets/images/google.svg'
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
-import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
+import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin, LoginSocialTwitter} from 'reactjs-social-login'
 export const Social = () => {
     console.log('never giving up')
     return (
@@ -50,12 +50,8 @@ export const Social = () => {
                         <img src={google} alt="" />
                     </div>
                 </LoginSocialGoogle>
-                <LoginSocialLinkedin
-                    client_id={import.meta.env.VITE_LINKEDIN_CLIENT_ID || ''}
-                    client_secret={import.meta.env.VITE_LINKEDIN_CLIENT_SECRET || ''}
-                    response_type = 'code'
-                    isOnlyGetCode = {false}
-                    scope='email'
+                <LoginSocialTwitter
+                    client_id={import.meta.env.VITE_TWITTER_CLIENT_ID || ''}
                     redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
                         
@@ -72,7 +68,7 @@ export const Social = () => {
                         className="social-btns">
                             <img className='w-5' src={linkedin} alt="" />
                         </div>
-                </LoginSocialLinkedin>
+                </LoginSocialTwitter>
            
            
             </div>
