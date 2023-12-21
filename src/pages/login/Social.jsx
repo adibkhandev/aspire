@@ -5,7 +5,7 @@ import google from './../../assets/images/google.svg'
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin, LoginSocialTwitter} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('never giving up')
+    console.log('never giving up twitter')
     return (
         <>
           <div className='social-cont'>
