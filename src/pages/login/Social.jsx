@@ -4,7 +4,7 @@ import linkedin from './../../assets/images/linkedin.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('updated 2')
+    console.log('updated 3')
     return (
         <>
           <div className='social-cont'>
@@ -18,6 +18,7 @@ export const Social = () => {
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
+                        parent.close()
                     }}
                     onReject={(err) => {
                     console.log(err)
