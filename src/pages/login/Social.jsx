@@ -5,7 +5,7 @@ import google from './../../assets/images/google.svg'
 import { useLinkedIn } from 'react-linkedin-login-oauth2';
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin, LoginSocialTwitter} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('never giving up twitter')
+    console.log('almost')
     return (
         <>
           <div className='social-cont'>
@@ -52,7 +52,6 @@ export const Social = () => {
                 </LoginSocialGoogle>
                 <LoginSocialTwitter
                     client_id={import.meta.env.VITE_TWITTER_CLIENT_ID || ''}
-                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
                         
                     }}
