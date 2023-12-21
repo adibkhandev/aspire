@@ -58,7 +58,6 @@ export const Social = () => {
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
-                        parent.close()
                     }}
                     onReject={(err) => {
                         console.log(err)
