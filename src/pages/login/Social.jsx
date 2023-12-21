@@ -4,7 +4,7 @@ import linkedin from './../../assets/images/linkedin.svg'
 import google from './../../assets/images/google.svg'
 import {LoginSocialGoogle,LoginSocialFacebook,LoginSocialLinkedin} from 'reactjs-social-login'
 export const Social = () => {
-    console.log('updated 3')
+    console.log('updated last')
     return (
         <>
           <div className='social-cont'>
@@ -40,12 +40,11 @@ export const Social = () => {
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
-                        parent.close()
                     }}
                     onReject={(err) => {
                         console.log(err)
                     }}
-                >
+                    >
                     <div className="social-btns">
                         <img src={google} alt="" />
                     </div>
@@ -54,10 +53,11 @@ export const Social = () => {
                     scope = 'email'
                     redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
-
+                        
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
+                        parent.close()
                     }}
                     onReject={(err) => {
                         console.log(err)
