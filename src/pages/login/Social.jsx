@@ -52,13 +52,13 @@ export const Social = () => {
                 </LoginSocialGoogle>
                 <LoginSocialLinkedin
                     response_type = 'code'
-                    isOnlyGetCode = {false}
-                    scope = 'email'
+                    isOnlyGetCode = {true}
                     onLoginStart={()=>{
                         
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
+                        window.close()
                     }}
                     onReject={(err) => {
                         console.log(err)
