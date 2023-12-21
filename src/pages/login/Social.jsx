@@ -18,7 +18,6 @@ export const Social = () => {
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
-                        parent.close()
                     }}
                     onReject={(err) => {
                     console.log(err)
@@ -41,6 +40,7 @@ export const Social = () => {
                     }}
                     onResolve={({ provider, data }) => {
                         console.log(provider,'provider',data,'data')
+                        parent.close()
                     }}
                     onReject={(err) => {
                         console.log(err)
@@ -52,6 +52,7 @@ export const Social = () => {
                 </LoginSocialGoogle>
                 <LoginSocialLinkedin
                     scope = 'email'
+                    redirect_uri='https://iridescent-dusk-085b1e.netlify.app/login'
                     onLoginStart={()=>{
 
                     }}
