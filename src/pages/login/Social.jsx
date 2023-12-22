@@ -46,7 +46,7 @@ export const Social = () => {
                         console.log(err)
                     }}
                     >
-                    <div className="social-btns">
+                    <div id='google-btn' className="social-btns">
                         <img src={google} alt="" />
                     </div>
                 </LoginSocialGoogle>

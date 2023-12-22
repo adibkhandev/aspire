@@ -1,18 +1,23 @@
-import React , {useEffect, useRef , useContext} from 'react'
+import React , {useEffect, useRef , useContext, useState , useLayoutEffect} from 'react'
 import { Context } from './AuthContext';
 import { Checkbox } from './Checkbox'
 import cam from './../../assets/images/cam.svg'
 import {Social} from './Social'
 import axios from 'axios'
 export const Signup = ({userType , setMode , setError , setToken}) => {
+    const [num,setNum] = useState(5)
     const {tokenize} = useContext(Context)
     const clickRef = useRef(null)
-    useEffect(()=>{
-        // setToken({
-        //     accessToken:'shits',
-        //     refreshToken:'shits',
-        // })
+    useLayoutEffect(()=>{
+        console.log(window.innerHeight,'height')
+        if(window.innerHeight<700){
+            setNum(4)
+        }
+        if(window.innerWidth>760 && window.innerHeight<900){
+            setNum(4)
+        }
     },[])
+    console.log(num,'num')
     const signupHandler = (e) =>{
         e.preventDefault()
         if(e.target){
@@ -73,7 +78,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                     Skills
                 </div>
                 <div className="textarea-container">
-                   <textarea className='attributes' name="" id="" cols="40" rows="5" placeholder='Search for skills'></textarea>
+                   <textarea className='attributes' name="" id="" cols="40" rows={num} placeholder='Search for skills'></textarea>
                 </div>
 
             </div>
