@@ -25,12 +25,18 @@ $teacher-height:40%;
     color: #AEAEAE;
     font-family: 'Krona One', sans-serif;
     font-size: 2.4rem;
+    @media (width<420px) {
+        font-size: clamp(1.7rem,9vw,2.4rem);
+    }
     line-height: 1.4;
 }
 .tap-info{
     color: #6A6A6A;
     font-family: 'Krona One', sans-serif;
-   
+    @media (width>420px) {
+        font-size: 1rem;
+    }
+    font-size: clamp(0.5rem,3.9vw,0.94rem);
 }
 .teacher-cont{
     position: absolute;
