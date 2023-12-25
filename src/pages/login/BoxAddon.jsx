@@ -1,39 +1,48 @@
-import React from 'react'
+import React,{useState,useRef} from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
-import { TextField } from '@mui/material';
+import { TextField , Popper } from '@mui/material';
 import {Chip} from '@mui/material';
 import './../../styles/custom.css'
-export const BoxAddon = ({num}) => {
-const list = ['Physics','Chemistry','Hoe','Music']
-    return (
+export const BoxAddon = ({num,setError}) => {
+const list = ['Physics','Chemistry','Hoe','Music','Dance','Acting','Art','Finance']
+let [open,setOpen] = useState(true)
+const [inLimit,setInLimit]=useState(true);    
+let inputRef = useRef(null)
+return (
         <div className="textarea-container">
           
            <Autocomplete
             multiple
-            limitTags={3}
-            id="multiple-limit-tags attributes"
+            id="multiple-limit-tags "
             options={list}
+            PopperComponent={(props) => (
+              <Popper style={{marginTop:'1000px'}} id='popper' {...props} />
+            )}
             getOptionLabel={(option) => option}
-            // renderInput={(params) => (
-            //     console.log(params)
-            //     // <textarea list="cityname" className='attributes' name="" id="" cols="40" rows={num} placeholder='Search for skills'/>
-            // )}
+            onChange={(e,value)=>{
+              console.log(value,'value')
+              if(value.length>6){
+                  setInLimit(false)
+                  setError('Max number of interests reached')
+              }
+            }}
             renderTags={(tagValue, getTagProps) =>
-                tagValue.map((option, index) => (
-                  <Chip
-                    label={option}
-                    variant='outlined'
-                    size='small'
-                    style={{border:'0.3px solid #3E3E3E'}}
-                    {...getTagProps({ index })}
-                    // disabled={fixedOptions.indexOf(option) !== -1}
-                  />
+              tagValue.map((option, index) => (
+                <Chip
+                label={option}
+                variant='outlined'
+                size='small'
+                style={{border:'0.3px solid #3E3E3E'}}
+                {...getTagProps({ index })}
+                />
                 ))
               }
               renderInput={(params) => (
-                <TextField sx={{outline:'none',padding:'0'}} className='attributes' {...params}/>
-              )}
+                <TextField ref={inputRef} sx={{outline:'none',padding:'0'}} placeholder='Search for skills'{...params} disabled={!inLimit} />
+                )}
+                
             sx={{ width: '500px' }}
+            disabled={!inLimit}
             />
         </div>
     )

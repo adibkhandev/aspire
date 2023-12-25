@@ -78,7 +78,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                 <div className="title">
                     Skills
                 </div>
-                <BoxAddon num={num}></BoxAddon>
+                <BoxAddon setError={setError} num={num}></BoxAddon>
 
             </div>
                 {

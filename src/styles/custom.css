@@ -16,14 +16,17 @@
     font-size: 0.7em !important;
 
     font-weight: 700;
-    padding: none !important;
+    padding-top: 0.2em !important;
+    padding-bottom: 4em !important;
+}
+.MuiInputBase-inputAdornedStart{
+    padding-top: 0.6em !important;
 }
 .MuiChip-deleteIcon{
     fill: #383838 !important;
 }
 .MuiOutlinedInput-root{
-    padding: none !important;
-    height: 5em;
+    padding: 0 !important;
     
 }
 .MuiChip-label{
@@ -37,5 +40,32 @@
 }
 .MuiAutocomplete-endAdornment{
     display: none !important;
+}
+.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper{
+    color: #898989 !important;
+font-family: Cabin;
+font-size: 0.7em !important;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+border-radius: 3px;
+background: #303030 !important;
+    width: 55%;
+    position: absolute;
+    top: -3em;
+    left:0.4em;
+}
+.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper ul li {
+    background-color: aquamarine I !important;
+}
+.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper:active , .css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper:visited {
+    background-color: red;
+}
+&.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border: none;
+    background-color: red !important;
+}
+.Mui-disabled::placeholder{
+    opacity: 0 !important;
 }
   
