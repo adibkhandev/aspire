@@ -141,7 +141,7 @@
 .textarea-container{
     font-size: 1.18em;
     padding: 0.4em 0.7em 0.4em 0.7em;
-    border: 0.3px solid #3E3E3E;
+    border: 0.3px solid #303030;
     border-radius: 3px;
 
 }
@@ -152,7 +152,7 @@
     resize: none;
 }
 .attributes , .attributes::placeholder{
-    color: #595959;
+    color: #595959 !important;
     font-family: Cabin;
     font-size: 0.88em;
     font-weight: 700;

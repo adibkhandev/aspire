@@ -1,0 +1,41 @@
+
+.MuiOutlinedInput-notchedOutline {
+    border: none !important;
+}
+.MuiAutocomplete-root{
+    width: 100% !important;
+}
+.css-1i9x9p3-MuiAutocomplete-root .MuiOutlinedInput-root{
+    padding: 0 !important;
+    align-items: flex-start;
+}
+.MuiInputBase-input{
+    color: wheat !important;
+    color: #595959 !important;
+    font-family: Cabin !important;
+    font-size: 0.7em !important;
+
+    font-weight: 700;
+    padding: none !important;
+}
+.MuiChip-deleteIcon{
+    fill: #383838 !important;
+}
+.MuiOutlinedInput-root{
+    padding: none !important;
+    height: 5em;
+    
+}
+.MuiChip-label{
+    font-family: Cabin !important;
+    font-size: 0.88em !important;
+    color: #595959 !important;
+}
+.colorSecondary{
+    color: white !important;
+    background-color: aqua !important;
+}
+.MuiAutocomplete-endAdornment{
+    display: none !important;
+}
+  

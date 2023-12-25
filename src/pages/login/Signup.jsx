@@ -1,4 +1,5 @@
 import React , {useEffect, useRef , useContext, useState , useLayoutEffect} from 'react'
+import { BoxAddon } from './BoxAddon';
 import { Context } from './AuthContext';
 import { Checkbox } from './Checkbox'
 import cam from './../../assets/images/cam.svg'
@@ -77,9 +78,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                 <div className="title">
                     Skills
                 </div>
-                <div className="textarea-container">
-                   <textarea className='attributes' name="" id="" cols="40" rows={num} placeholder='Search for skills'></textarea>
-                </div>
+                <BoxAddon num={num}></BoxAddon>
 
             </div>
                 {
