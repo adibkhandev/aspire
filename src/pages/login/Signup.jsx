@@ -7,6 +7,7 @@ import {Social} from './Social'
 import axios from 'axios'
 export const Signup = ({userType , setMode , setError , setToken}) => {
     const [num,setNum] = useState(5)
+    const [skills,setSkills]=useState([])
     const {tokenize} = useContext(Context)
     const clickRef = useRef(null)
     useLayoutEffect(()=>{
@@ -19,15 +20,20 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
         }
     },[])
     console.log(num,'num')
+    useEffect(()=>{
+        console.log(skills,'array')
+    },[skills])
     const signupHandler = (e) =>{
         e.preventDefault()
+        console.log('clicked')
         if(e.target){
             if(e.target.username.value && e.target.password.value){
-                let formdata = new FormData()
-                formdata.append('usertype',userType)
-                formdata.append('username',e.target.username.value)
-                formdata.append('password',e.target.password.value)
-                formdata.append('profile',e.target.profile.files[0])
+                let formData = new FormData()
+                formData.append('usertype',userType)
+                formData.append('username',e.target.username.value)
+                formData.append('password',e.target.password.value)
+                formData.append('pfp',e.target.profile.files[0])
+                formData.append('skills',JSON.stringify(skills))
                 const headers = {
                     'Content-Type':'multipart/form-data',
                     'Access-Control-Allow-Origin': '*',
@@ -35,10 +41,10 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                     'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
                   }
                 const url = import.meta.env.VITE_API_URL + '/auth/register'
-                axios.post(url,formdata,headers)
+                axios.post(url,formData,headers)
                 .then((response)=>{
                     if(response.status==201){
-                        console.log(response.data.accesstoken,'data')
+                        console.log(response.data,'data')
                         // setToken({
                         //     accessToken:response.data.accesstoken,
                         //     refreshToken:response.data.refreshtoken,
@@ -78,7 +84,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                 <div className="title">
                     Skills
                 </div>
-                <BoxAddon setError={setError} num={num}></BoxAddon>
+                <BoxAddon setSkills={setSkills} setError={setError} num={num}></BoxAddon>
 
             </div>
                 {

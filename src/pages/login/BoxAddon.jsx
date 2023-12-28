@@ -3,7 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { TextField , Popper } from '@mui/material';
 import {Chip} from '@mui/material';
 import './../../styles/custom.css'
-export const BoxAddon = ({num,setError}) => {
+export const BoxAddon = ({num,setError,setSkills}) => {
 const list = ['Physics','Chemistry','Hoe','Music','Dance','Acting','Art','Finance']
 let [open,setOpen] = useState(true)
 const [inLimit,setInLimit]=useState(true);    
@@ -24,6 +24,9 @@ return (
               if(value.length>6){
                   setInLimit(false)
                   setError('Max number of interests reached')
+              }
+              else{
+                  setSkills(value)
               }
             }}
             renderTags={(tagValue, getTagProps) =>
