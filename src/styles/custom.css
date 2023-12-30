@@ -7,10 +7,9 @@
 }
 .css-1i9x9p3-MuiAutocomplete-root .MuiOutlinedInput-root{
     padding: 0 !important;
-    align-items: flex-start;
+    align-items: flex-start !important;
 }
 .MuiInputBase-input{
-    color: wheat !important;
     color: #595959 !important;
     font-family: Cabin !important;
     font-size: 0.7em !important;
@@ -34,10 +33,6 @@
     font-size: 0.88em !important;
     color: #595959 !important;
 }
-.colorSecondary{
-    color: white !important;
-    background-color: aqua !important;
-}
 .MuiAutocomplete-endAdornment{
     display: none !important;
 }
@@ -49,16 +44,16 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 border-radius: 3px;
-background: #303030 !important;
+background-color: #303030 !important;
     width: 55%;
     position: absolute;
     top: -3em;
     left:0.4em;
 }
-.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper ul li {
+/* .css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper ul li {
     background-color: aquamarine I !important;
-}
-.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper:active , .css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper:visited {
+} */
+/* .css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper:active , .css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper:visited {
     background-color: red;
 }
 &.Mui-focused .MuiOutlinedInput-notchedOutline {
@@ -68,4 +63,4 @@ background: #303030 !important;
 .Mui-disabled::placeholder{
     opacity: 0 !important;
 }
-  
+   */

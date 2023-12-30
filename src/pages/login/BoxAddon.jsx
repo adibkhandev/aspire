@@ -3,7 +3,7 @@ import { Autocomplete } from '@mui/material';
 import { TextField , Popper } from '@mui/material';
 import {Chip} from '@mui/material';
 import { StyledEngineProvider } from '@mui/material/styles';
-import './../../styles/custom.css'
+
 export const BoxAddon = ({num,setError,setSkills}) => {
 const list = ['Physics','Chemistry','Hoe','Music','Dance','Acting','Art','Finance']
 let [open,setOpen] = useState(true)
