@@ -2,8 +2,9 @@ import React , {useEffect, useRef , useContext, useState , useLayoutEffect} from
 import { BoxAddon } from './BoxAddon';
 import { Context } from './AuthContext';
 import { Checkbox } from './Checkbox'
-import cam from './../../assets/images/cam.svg'
+import Cam from '../components/svg/Cam';
 import {Social} from './Social'
+import Image from '../components/FileImage'
 import axios from 'axios'
 export const Signup = ({userType , setMode , setError , setToken}) => {
     const [num,setNum] = useState(5)
@@ -64,6 +65,11 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
 
         }
     }
+    const [imageFile,setImageFile]=useState(null)
+    const imageHandler = (e)=>{
+        setImageFile(e.target.files[0])
+    }
+
     return (
         <form onSubmit={(e)=>signupHandler(e)} className='signup'>
            <div onClick={()=>{
@@ -73,11 +79,12 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                   } 
              }}
                className="pfp-clicker">
+             <Image style={'pfpUpload'} file={imageFile} ></Image>
              <div className="cam-cont">
-                <img src={cam} alt="" />
+                <Cam></Cam>
              </div>
             </div> 
-            <input className='hidden' ref={clickRef} type="file" name="profile" id="" />
+            <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
             <input name='username' type="text" className="regular-inputs" id='name-input' placeholder='What should we call you?' />
             <input name='password' type="text" className="regular-inputs" id='password-input' placeholder='Enter a secure password' />
             <div className="data">
