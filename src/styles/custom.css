@@ -36,7 +36,7 @@
 .MuiAutocomplete-endAdornment{
     display: none !important;
 }
-.css-9e5uuu-MuiPaper-root-MuiAutocomplete-paper{
+.MuiAutocomplete-paper-root{
     color: #898989 !important;
 font-family: Cabin;
 font-size: 0.7em !important;
