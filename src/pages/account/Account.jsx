@@ -145,7 +145,7 @@ const Grids = ({userData}) => {
                                     ):(
                                         <h1 className="sub">
                                             <span className='bold'>Create 
-                                                <span>your</span>
+                                                <span className='bold'>your</span>
                                             </span>
                                             your first 
                                             <span className='italic'>
@@ -181,6 +181,7 @@ const Grids = ({userData}) => {
                                             <h1 className="sub">
                                                 <span className='bold'>
                                                     Enroll in
+                                                    
                                                 </span>
                                                 your first 
                                                 <span className='italic'>
@@ -190,8 +191,8 @@ const Grids = ({userData}) => {
                                                                              
                                         ):(
                                             <h1 className="sub">
-                                                <span className='bold'>Create 
-                                                    <span>your</span>
+                                                <span className='bold'>Create
+                                                  
                                                 </span>
                                                 your first 
                                                 <span className='italic'>

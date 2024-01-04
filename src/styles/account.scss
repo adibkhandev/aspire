@@ -11,7 +11,7 @@ body{
     scroll-behavior: smooth;
     position: relative;
     .nav-container{
-        position: sticky;
+        position: static;
         top: 0;
         background-color: inherit;
         z-index: 3;
