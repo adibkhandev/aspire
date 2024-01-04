@@ -5,7 +5,7 @@ export const Nav = () => {
     return (
         <div className='nav-container'>
             <img className='logo' src={logo} alt="" />
-            <img src={hamburger} alt="" />
+            <img className='ham' src={hamburger} alt="" />
         </div>
     )
 }

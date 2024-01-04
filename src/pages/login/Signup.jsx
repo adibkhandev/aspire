@@ -30,7 +30,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
         if(e.target){
             if(e.target.username.value && e.target.password.value){
                 let formData = new FormData()
-                formData.append('usertype',userType)
+                formData.append('userType',userType)
                 formData.append('username',e.target.username.value)
                 formData.append('password',e.target.password.value)
                 formData.append('pfp',e.target.profile.files[0])
