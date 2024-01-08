@@ -20,8 +20,10 @@ const Image = ({file,input}) => {
          return(
             <>
             
-            <div onClick={()=>{
-            console.log(input.current)
+            <motion.div 
+             whileTap={{ scale: 0.9 }}
+             onClick={()=>{
+               console.log(input.current)
                   if(input){
                     input.current.click()
                   } 
@@ -45,10 +47,11 @@ const Image = ({file,input}) => {
                 ):''}
              
              
-             <div className="cam-cont">
+             <motion.div
+               className="cam-cont">
                 <Cam></Cam>
-             </div>
-            </div> 
+             </motion.div>
+            </motion.div> 
             </>
             
            

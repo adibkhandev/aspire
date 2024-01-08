@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import Image from "../components/FileImage"
+import { motion } from "framer-motion"
 import { BoxAddon } from "../components/BoxAddon"
 const FirstStep = ({setError,setStep}) => {
     const courseImageRef = useRef()
@@ -25,8 +26,8 @@ const FirstStep = ({setError,setStep}) => {
           <input className="hidden" onChange={(e)=>setImageFile(e.target.files[0])} type="file" name="courseImage"  id="" ref={courseImageRef} />
         
           <div className="handy-btns">
-              <div className="secondary-btn">Discard</div>
-              <div onClick={()=>setStep(2)} className="cta-btn">Continue</div>
+              <motion.div  whileTap={{ scale: 0.98 }} className="secondary-btn">Discard</motion.div>
+              <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>setStep(2)} className="cta-btn">Continue</motion.div>
           </div>
         </div>
       </div>

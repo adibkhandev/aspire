@@ -27,3 +27,6 @@ input:focus::placeholder , textarea:focus::placeholder{
     transform-origin: bottom left;
     transition: transform 0.1s ease-in;
 }
+input , a , .cta-btn , .secondary-btn , .video-clicker , .pfp-clicker{
+    cursor: pointer;
+}
