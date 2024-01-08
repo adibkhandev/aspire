@@ -1,11 +1,11 @@
 import React , {useState , useEffect} from "react";
 import {motion} from 'framer-motion'
-const Image = ({file,style}) => {
+import Cam from '../components/svg/Cam';
+const Image = ({file,input}) => {
 
     let [url,setUrl] = useState(null)
-    
+    let fileIns = file
     useEffect(() => {
-        
         if(file){
             const reader = new FileReader()
             reader.onloadend = () =>{
@@ -16,21 +16,40 @@ const Image = ({file,style}) => {
         else{
             setUrl(null)
         }
-        }, [file])
-        
-        if(!url) return
-        else return(
-            <div className="mask">
-                <motion.div 
-                className={`${style}Container`}
-                initial={{ scale: 0.2}}
-                animate={{ scale: 1 }}
-                transition={{ ease: "linear", duration: 6 ,type:'spring', mass: 0.8 ,stiffness:80 }}
-                >
-                    <img className={style} src={url} alt=""/>
-                </motion.div>
+    }, [fileIns])
+         return(
+            <>
+            
+            <div onClick={()=>{
+            console.log(input.current)
+                  if(input){
+                    input.current.click()
+                  } 
+             }}
+               className="pfp-clicker">
 
-            </div>
+
+
+                {url?(
+                    <div className="mask">
+                        <motion.div 
+                        className={`pfpUploadContainer`}
+                        initial={{ scale: 0.2}}
+                        animate={{ scale: 1 }}
+                        transition={{ ease: "linear", duration: 6 ,type:'spring', mass: 0.8 ,stiffness:80 }}
+                        >
+                            <img className='pfpUpload' src={url} alt=""/>
+                        </motion.div>
+
+                    </div>
+                ):''}
+             
+             
+             <div className="cam-cont">
+                <Cam></Cam>
+             </div>
+            </div> 
+            </>
             
            
         )

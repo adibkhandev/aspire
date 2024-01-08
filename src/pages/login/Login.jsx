@@ -4,7 +4,7 @@ import {Loader} from './Loader'
 import {Nav} from './../Nav'
 import {Signup} from './Signup'
 import { Signin } from './Signin'
-import {CustomAlert} from './CustomAlert'
+import {CustomAlert} from '../components/CustomAlert'
 import { useNavigate } from 'react-router'
 export const Login = () => {
     const [userType,setUserType] = useState(null)

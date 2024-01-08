@@ -16,3 +16,14 @@ input:-webkit-autofill {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
 }
+*:focus {
+    outline: none;
+}
+textarea {
+    resize: none;
+}
+input:focus::placeholder , textarea:focus::placeholder{
+    transform: scale(0.01);
+    transform-origin: bottom left;
+    transition: transform 0.1s ease-in;
+}

@@ -8,6 +8,12 @@
     justify-content: center;
     align-items:flex-end;
 }
+.home{
+ .nav-container{
+    z-index: 4 !important;
+ }
+}
+    
 .toast{
     width: 80%;
     max-width:46em;
@@ -69,6 +75,7 @@ $border:15px;
    filter: blur(6px);
 }
 .pfp-clicker{
+    aspect-ratio: 1/1;
     position: relative;
     // font-size: clamp(0.9rem,1.3vw,1rem);
     // font-size: 1.1rem 0.7rem;
@@ -91,6 +98,7 @@ $border:15px;
    
     padding: 7.7em;
     width:auto;
+    // max-width: 4rem;
     height:auto;
     border-radius:50%;
     -moz-border-radius:50%;

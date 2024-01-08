@@ -1,8 +1,8 @@
 import React , {useEffect, useRef , useContext, useState , useLayoutEffect} from 'react'
-import { BoxAddon } from './BoxAddon';
+import { BoxAddon } from '../components/BoxAddon';
 import { Context } from './AuthContext';
 import { Checkbox } from './Checkbox'
-import Cam from '../components/svg/Cam';
+
 import {Social} from './Social'
 import Image from '../components/FileImage'
 import axios from 'axios'
@@ -72,18 +72,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
 
     return (
         <form onSubmit={(e)=>signupHandler(e)} className='signup'>
-           <div onClick={()=>{
-            console.log(clickRef.current)
-                  if(clickRef){
-                    clickRef.current.click()
-                  } 
-             }}
-               className="pfp-clicker">
-             <Image style={'pfpUpload'} file={imageFile} ></Image>
-             <div className="cam-cont">
-                <Cam></Cam>
-             </div>
-            </div> 
+            <Image file={imageFile} input={clickRef}></Image>
             <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
             <input name='username' type="text" className="regular-inputs" id='name-input' placeholder='What should we call you?' />
             <input name='password' type="text" className="regular-inputs" id='password-input' placeholder='Enter a secure password' />
