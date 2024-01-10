@@ -55,6 +55,7 @@ const UploadCourse = () => {
                  console.log(response)
                   if(response.status==201){
                       console.log(response.data,'data')
+                      navigate('/')
                    }
               })
               .catch((err)=>{
