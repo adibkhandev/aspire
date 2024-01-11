@@ -4,9 +4,11 @@ import { easeIn, motion } from 'framer-motion'
 import { Nav } from '../Nav'
 import earth from './../../assets/images/earth.svg'
 import axios from 'axios'
+import Popup from './Popup'
 export const Account = () => {
     let {username} = useParams()
     let [userData,setUserData] = useState(null)
+    let [courseActive,setCourseAcitve] = useState(null)
     let hasVideo = true
     
     useEffect(()=>{
@@ -26,43 +28,66 @@ export const Account = () => {
                 console.log(err)
             })
     },[])
+    const homeVariants = {
+        non:{
+            filter:'brightness(100%) blur(0px)',
+            scale:1,
+        },
+        blur:{
+            filter:'brightness(50%) blur(1px)',
+            scale:1.01
+        }
+    }
     return (
-        <div  className='home'>
-            <Nav></Nav>
-            <div className="account-container">
-                <div className="details-container">
-                    <div className="details">
+        <>
+            <Popup course={courseActive?courseActive:null}></Popup>
+            <motion.div
+              className='home'
+              variants={homeVariants}
+              animate={!courseActive?"non":"blur"}
+              transition={{delay:0.08}}
+            >
+                <Nav></Nav>
+                <div onClick={()=>{
+                    if(courseActive){
+                        setCourseAcitve(null)
+                    }
+                    
+                }} className="account-container">
+                    <div className="details-container">
+                        <div className="details">
 
-                        <div className="pfp-cont">
-                            <img src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
-                        </div>
-                        <div className="text-cont">
-                            <h1 className="username">
-                                {userData?userData.username:''}
-                            </h1>
-                            <div className="fields">
-                                {(userData && userData.skills)?(
-                                    userData.skills.map((skill)=>{
-                                        return <div className="field">{skill}</div>
-                                    })
-                                ):''}
+                            <div className="pfp-cont">
+                                <img src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
                             </div>
-                            <div className="edit-btn">
-                                Edit profile
-                            </div>
+                            <div className="text-cont">
+                                <h1 className="username">
+                                    {userData?userData.username:''}
+                                </h1>
+                                <div className="fields">
+                                    {(userData && userData.skills)?(
+                                        userData.skills.map((skill)=>{
+                                            return <div className="field">{skill}</div>
+                                        })
+                                    ):''}
+                                </div>
+                                <div className="edit-btn">
+                                    Edit profile
+                                </div>
 
+                            </div>
                         </div>
                     </div>
+                    
+                    <Grids setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
                 </div>
-                
-                <Grids userData={userData} ></Grids>
-            </div>
-</div>
+                </motion.div>
+        </>
     )
 }
 
 
-const Grids = ({userData}) => {
+const Grids = ({userData , setCourseAcitve}) => {
     let [navState,setNavState] = useState(0)
     let hasVideo = false
     const videoNavVariants = {
@@ -116,7 +141,7 @@ const Grids = ({userData}) => {
             <div className="grid">
                 {
                     (userData && hasVideo)?(
-                                    <Videos/>
+                                    <Videos />
                     ):(
                         <div className="empty-container">
                             <img src={earth} alt="" className="earth" />
@@ -161,8 +186,8 @@ const Grids = ({userData}) => {
             </div>
             <div className="grid">
                 {
-                    (userData && hasVideo)?(
-                       <Videos/>
+                    (userData && userData.uploadedCourses)?(
+                       <Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
                     ):(
                             <div className="empty-container">
                                 <img src={earth} alt="" className="earth" />
@@ -212,17 +237,18 @@ const Grids = ({userData}) => {
 )}
 
 
-const Videos = ({}) => {
+const Videos = ({thumbnails,uploadedCourses,setCourseAcitve}) => {
     const list = [0,1,2,4]
     return(
           <div className="videoListCont">
-              {list.map((video,index)=>{
+              {uploadedCourses.map((course,index)=>{
                   return (
                     <div className="videoCont">
-
+                        <img onClick={()=>setCourseAcitve(course)} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />
                     </div>
                   )
               })}
           </div>
     )
 }
+

@@ -1,8 +1,10 @@
 import React , {useRef}  from 'react'
 import { motion } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
+
 const SecondStep = ({setStep}) => {
   const input = useRef(null)
+ 
     return (
       <div className="upload-parts" id='video'>
         <div className="videos">
