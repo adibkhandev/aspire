@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import {motion} from 'framer-motion'
 const Popup = ({course,setCourse}) => {
-    console.log(course,'course')
-  const [lastVal,setLastVal] = useState(0)
+    // console.log(course.topics[0].videos[0].title,'course')
+    const [lastVal,setLastVal] = useState(0)
   return (
     <motion.div
       animate={course?{bottom:0}:{bottom:'-70vh'}}
@@ -11,7 +11,7 @@ const Popup = ({course,setCourse}) => {
       drag='y'
       dragConstraints={{ top: -0, bottom: 100 }}
       dragElastic={0.6}
-      dragTransition={{ bounceStiffness: 1000, bounceDamping: 100 }}
+      dragTransition={{ bounceStiffness: 100, bounceDamping: 15 }}
       onDragEnd={
         (event, info) =>{
          console.log(info.offset,info.offset.y)
@@ -42,15 +42,32 @@ const Popup = ({course,setCourse}) => {
                     <div className="course-nav-cont">
                          <div className="topic-cont">
                             <div className="text">
-
+                                  Topic : <span className='topic-title'>{course.topics[0].title}</span>
                             </div>
                             <img src="" alt="" />
                          </div>
                          <div className="video-names">
-                            <div className="video"></div>
+                            
+                            {
+                              course && course.topics && course.topics.map((topic)=>{
+                                return(
+                                  topic && topic.videos.map((video)=>{
+                                    return(
+                                      <div className="video-title">
+                                          {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                                      </div> 
+                                    )
+                                   
+                                  })
+
+                                )
+                                  
+                              })
+                            }
+
+                           
                          </div>
                     </div>
-                    `
                 </motion.div>
             ):''
         }
