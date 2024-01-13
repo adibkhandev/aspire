@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { easeIn, motion } from 'framer-motion'
+import { easeIn, motion , useDragControls } from 'framer-motion'
 import { Nav } from '../Nav'
 import earth from './../../assets/images/earth.svg'
 import axios from 'axios'
@@ -42,7 +42,7 @@ export const Account = () => {
     }
     return (
         <div className='home-container'>
-            <Popup course={courseActive?courseActive:null}></Popup>
+            <Popup  course={courseActive?courseActive:null} setCourse={setCourseAcitve}></Popup>
             <motion.div
               className='home'
               variants={homeVariants}
@@ -288,8 +288,10 @@ const Grids = ({userData , setCourseAcitve}) => {
 
 const Videos = ({thumbnails,uploadedCourses,setCourseAcitve}) => {
     const list = [0,1,2,4]
+    let controls = useDragControls()
     return(
-          <div className="videoListCont">
+          <div 
+           className="videoListCont">
               {uploadedCourses.map((course,index)=>{
                   return (
                     <div className="videoCont">

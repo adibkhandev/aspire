@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {motion} from 'framer-motion'
-const Popup = ({course}) => {
+const Popup = ({course,setCourse}) => {
     console.log(course,'course')
+  const [lastVal,setLastVal] = useState(0)
   return (
     <motion.div
       animate={course?{bottom:0}:{bottom:'-70vh'}}
       transition={{delay:0}}
       className='popup-container'
+      drag='y'
+      dragConstraints={{ top: -0, bottom: 100 }}
+      dragElastic={0.6}
+      dragTransition={{ bounceStiffness: 1000, bounceDamping: 100 }}
+      onDragEnd={
+        (event, info) =>{
+         console.log(info.offset,info.offset.y)
+         if(info.offset.y>170){
+             setCourse(null)
+         }
+            
+        }  
+      }
     >
         {
             course?(
-                <div className="content-cont">
+                <motion.div 
+                    
+                   
+                   className="content-cont">
                     <div className="player">
                         <img src={import.meta.env.VITE_API_URL + course.coverPhotoLink} alt="" />
                     </div>
@@ -34,7 +51,7 @@ const Popup = ({course}) => {
                          </div>
                     </div>
                     `
-                </div>
+                </motion.div>
             ):''
         }
        

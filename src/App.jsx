@@ -8,6 +8,7 @@ import { AuthContextProvider , Context} from './pages/login/AuthContext'
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import { Social } from './pages/login/Social'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Demo from './pages/Demo'
 import UploadCourse from './pages/upload/UploadCourse'
 const App = () => {
   
@@ -20,7 +21,7 @@ const App = () => {
           <Route path='/' element={<Home/>}></Route>
           <Route path='/:username' element={<Account/>}></Route>
           <Route path='/login' element={<Login/>}/>
-          <Route path='/demo' element={<Social/>}/>
+          <Route path='/demo' element={<Demo/>}/>
           <Route path='/upload/video' element={<UploadCourse/>}/>
         </Routes>
       </AuthContextProvider>
