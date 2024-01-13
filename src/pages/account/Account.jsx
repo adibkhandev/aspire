@@ -5,6 +5,8 @@ import { Nav } from '../Nav'
 import earth from './../../assets/images/earth.svg'
 import axios from 'axios'
 import Popup from './Popup'
+import { Link } from "react-router-dom";
+import {Skeleton} from '@mui/material'
 export const Account = () => {
     let {username} = useParams()
     let [userData,setUserData] = useState(null)
@@ -39,7 +41,7 @@ export const Account = () => {
         }
     }
     return (
-        <>
+        <div className='home-container'>
             <Popup course={courseActive?courseActive:null}></Popup>
             <motion.div
               className='home'
@@ -58,22 +60,53 @@ export const Account = () => {
                         <div className="details">
 
                             <div className="pfp-cont">
-                                <img src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
+                                {
+                                    userData?(
+                                        <img className='pfpImage' src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
+                                    ):(
+                                        <Skeleton
+                                         sx={{ bgcolor: '#2B2B2B' }}
+                                         className='pfpImage' variant='circlar' animation="wave"/>
+                                    )
+                                }
+                               
                             </div>
                             <div className="text-cont">
-                                <h1 className="username">
-                                    {userData?userData.username:''}
-                                </h1>
-                                <div className="fields">
-                                    {(userData && userData.skills)?(
-                                        userData.skills.map((skill)=>{
-                                            return <div className="field">{skill}</div>
-                                        })
-                                    ):''}
-                                </div>
-                                <div className="edit-btn">
-                                    Edit profile
-                                </div>
+                                {
+                                    userData?(
+                                        <>
+                                        {
+                                            userData.username?(
+                                                <h1 className="username">
+                                                    {userData.username}
+                                                </h1>
+
+                                            ):''
+                                        }
+                                        <div className="fields">
+                                            {(userData.skills)?(
+                                                userData.skills.map((skill)=>{
+                                                    return <div className="field">{skill}</div>
+                                                })
+                                            ):''}
+                                        </div>
+                                        <div className="edit-btn">
+                                            Edit profile
+                                        </div>
+                                        </>
+                                         
+                                    ):(
+                                        <>
+                                            <Skeleton animation="wave"  sx={{ bgcolor: '#2B2B2B' , border:'none' }} className='empty-field-username' width={'70%'} />
+                                            <div className="fields">
+                                               <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field' />
+                                               <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
+                                            </div>
+                                        </>
+                                        
+                                    )
+                                }
+                                
 
                             </div>
                         </div>
@@ -82,7 +115,7 @@ export const Account = () => {
                     <Grids setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
                 </div>
                 </motion.div>
-        </>
+        </div>
     )
 }
 
@@ -139,11 +172,12 @@ const Grids = ({userData , setCourseAcitve}) => {
           className="playlists"
         >
             <div className="grid">
-                {
-                    (userData && hasVideo)?(
-                                    <Videos />
+                {   
+                    (userData && userData.uploadedCourses)?(
+                        userData.userType=='teacher'?<Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
                     ):(
-                        <div className="empty-container">
+                        userData?(
+                            <div className="empty-container">
                             <img src={earth} alt="" className="earth" />
                             <div className="notify-heading">
                                 {
@@ -168,26 +202,41 @@ const Grids = ({userData , setCourseAcitve}) => {
                                         </h1> 
                                                                         
                                     ):(
-                                        <h1 className="sub">
-                                            <span className='bold'>Create 
-                                                <span className='bold'>your</span>
-                                            </span>
-                                            your first 
-                                            <span className='italic'>
-                                                course                                
-                                            </span>
-                                        </h1>    
+                                        <Link to="/upload/video">
+                                            <h1 className="sub">
+                                                <span className='bold'>Create 
+                                                    <span className='bold'>your</span>
+                                                </span>
+                                                your first 
+                                                <span className='italic'>
+                                                    course                                
+                                                </span>
+                                            </h1>
+                                        </Link>
+                                            
                                     )
                                 } 
                             </div>
                         </div>
+                        ):(
+                            <div className="videoListCont">
+                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                                 
+                            </div>
+                        )
+                        
                     )
                 }
             </div>
             <div className="grid">
                 {
-                    (userData && userData.uploadedCourses)?(
-                       <Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
+                    (userData && hasVideo)?(
+                        userData.userType=='student'?<Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
                     ):(
                             <div className="empty-container">
                                 <img src={earth} alt="" className="earth" />

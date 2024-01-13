@@ -22,7 +22,18 @@ const Popup = ({course}) => {
                         {course.description}
                         </h1>
                     </div>
-                    
+                    <div className="course-nav-cont">
+                         <div className="topic-cont">
+                            <div className="text">
+
+                            </div>
+                            <img src="" alt="" />
+                         </div>
+                         <div className="video-names">
+                            <div className="video"></div>
+                         </div>
+                    </div>
+                    `
                 </div>
             ):''
         }
