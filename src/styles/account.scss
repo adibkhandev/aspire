@@ -390,6 +390,13 @@ body{
             .topic-cont{
                 background-color: #2D2D2D;
                 color: #6B6B6B;
+                display: flex;
+                justify-content: space-between;
+                padding-right: 1.02em;
+                img{
+                    height: 34%;
+
+                }
             }
             .video-title{
                 color: #878787;

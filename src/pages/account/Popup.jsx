@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import {motion} from 'framer-motion'
+import smallPlus from './../../assets/images/small-plus.svg'
+import { jwtDecode } from "jwt-decode";
+import { decode } from 'punycode';
 const Popup = ({course,setCourse}) => {
-    // console.log(course.topics[0].videos[0].title,'course')
-    const [lastVal,setLastVal] = useState(0)
+  const [lastVal,setLastVal] = useState(0)
+  const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
+  const decoded = accessToken? jwtDecode(accessToken):null
+  
   return (
     <motion.div
       animate={course?{top: '45vh'}:{top:'180vh'}}
@@ -44,7 +49,15 @@ const Popup = ({course,setCourse}) => {
                             <div className="text">
                                   Topic : <span className='topic-title'>{course.topics[0].title}</span>
                             </div>
-                            <img src="" alt="" />
+                            {
+                                  (course && decoded && decoded._id==course.uploadedBy)?(
+                                    <div className="adding">
+                                        <img src={smallPlus} alt="" />
+        
+                                    </div>
+                                  ):''
+                            }
+                            
                          </div>
                          <div className="video-names">
                             

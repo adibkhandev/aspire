@@ -7,11 +7,14 @@ import axios from 'axios'
 import Popup from './Popup'
 import { Link } from "react-router-dom";
 import {Skeleton} from '@mui/material'
+import { jwtDecode } from "jwt-decode";
 export const Account = () => {
     let {username} = useParams()
     let [userData,setUserData] = useState(null)
     let [courseActive,setCourseAcitve] = useState(null)
     let hasVideo = true
+    const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
+    const decoded = accessToken? jwtDecode(accessToken):null
     
     useEffect(()=>{
         const url = import.meta.env.VITE_API_URL + '/user/' + username
@@ -21,14 +24,14 @@ export const Account = () => {
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
             'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
           }
-            axios.get(url,headers)
-            .then((response)=>{
-                console.log(response.data,'acount data')
-                setUserData(response.data)
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
+              axios.get(url,headers)
+                .then((response)=>{
+                    console.log(response.data,'acount data')
+                    setUserData(response.data)
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
     },[])
     const homeVariants = {
         non:{
@@ -90,9 +93,14 @@ export const Account = () => {
                                                 })
                                             ):''}
                                         </div>
-                                        <div className="edit-btn">
-                                            Edit profile
-                                        </div>
+                                        {
+                                            (decoded && userData && decoded._id==userData.id)?(
+                                                <div className="edit-btn">
+                                                    Edit profile
+                                                </div>
+                                            ):''
+                                        }
+                                       
                                         </>
                                          
                                     ):(
