@@ -5,11 +5,11 @@ const Popup = ({course,setCourse}) => {
     const [lastVal,setLastVal] = useState(0)
   return (
     <motion.div
-      animate={course?{bottom:0}:{bottom:'-70vh'}}
-      transition={{delay:0}}
+      animate={course?{top: '45vh'}:{top:'180vh'}}
+      transition={{delay:0 }}
       className='popup-container'
       drag='y'
-      dragConstraints={{ top: -0, bottom: 100 }}
+      dragConstraints={{ top: window.innerWidth<600?-300 : 600<window.innerWidth<1000? -400: -500 , bottom: 0 }}
       dragElastic={0.6}
       dragTransition={{ bounceStiffness: 100, bounceDamping: 15 }}
       onDragEnd={
@@ -53,9 +53,23 @@ const Popup = ({course,setCourse}) => {
                                 return(
                                   topic && topic.videos.map((video)=>{
                                     return(
-                                      <div className="video-title">
-                                          {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
-                                      </div> 
+                                      <>
+                                        <div className="video-title">
+                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                                        </div> 
+                                        <div className="video-title">
+                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                                        </div> 
+                                        <div className="video-title">
+                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                                        </div> 
+                                        <div className="video-title">
+                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                                        </div> 
+                                        <div className="video-title">
+                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                                        </div> 
+                                      </>
                                     )
                                    
                                   })
