@@ -2,14 +2,19 @@ import React, { useState } from 'react'
 import {motion} from 'framer-motion'
 import smallPlus from './../../assets/images/small-plus.svg'
 import { jwtDecode } from "jwt-decode";
-import { decode } from 'punycode';
+import {Link} from 'react-router-dom'
 const Popup = ({course,setCourse}) => {
   const [lastVal,setLastVal] = useState(0)
   const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
   const decoded = accessToken? jwtDecode(accessToken):null
-  
+  const [adding,setAdding]=useState(false)
+  // console.log(decded)
   return (
     <motion.div
+      onClick={()=>{
+        if(adding){
+           setAdding(false)
+      }}}
       animate={course?{top: '45vh'}:{top:'180vh'}}
       transition={{delay:0 }}
       className='popup-container'
@@ -52,8 +57,17 @@ const Popup = ({course,setCourse}) => {
                             {
                                   (course && decoded && decoded._id==course.uploadedBy)?(
                                     <div className="adding">
-                                        <img src={smallPlus} alt="" />
-        
+                                        <motion.img whileTap={{scale:0.8}} onClick={()=>setAdding(true)} src={smallPlus} alt="" />
+                                        <motion.div 
+                                          animate={adding?{transformOrigin:"bottom right",rotate:0,scale:1}:{transformOrigin:"bottom right",scale:0,rotate:-90}}
+                                          className="options">
+                                            <Link to={`/${course._id}/add/topic`}>
+                                               <div className="option" id='first'>Add video to topic</div>
+                                            </Link>
+                                            <Link to={`/${course._id}/add/video`}>
+                                               <div className="option">Add new topic</div>
+                                            </Link>
+                                        </motion.div>
                                     </div>
                                   ):''
                             }

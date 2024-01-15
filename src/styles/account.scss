@@ -393,9 +393,29 @@ body{
                 display: flex;
                 justify-content: space-between;
                 padding-right: 1.02em;
+                
+            }
+            .adding{
+                position: relative;
+                transform-origin: bottom right;
                 img{
                     height: 34%;
 
+                }
+                .options{
+                    position: absolute;
+                    right: 120%;
+                    bottom: 0;
+                    font-size: 0.9rem;
+                    background-color: #303030;
+                    border-radius: 4px;
+                    #first{
+                        border-bottom: 1px solid #363636;
+                    }
+                    .option{
+                        white-space: nowrap;
+                        padding: 0.8em 1.5em;
+                    }
                 }
             }
             .video-title{

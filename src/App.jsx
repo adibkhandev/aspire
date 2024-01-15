@@ -10,6 +10,8 @@ import { Social } from './pages/login/Social'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Demo from './pages/Demo'
 import UploadCourse from './pages/upload/UploadCourse'
+import UploadTopic from './pages/upload/UploadTopic'
+import UploadVideo from './pages/upload/UploadVideo'
 const App = () => {
   
   return (
@@ -23,6 +25,8 @@ const App = () => {
           <Route path='/login' element={<Login/>}/>
           <Route path='/demo' element={<Demo/>}/>
           <Route path='/upload/video' element={<UploadCourse/>}/>
+          <Route path='/:courseId/add/topic' element={<UploadTopic/>}/>
+          <Route path='/:courseId/add/video' element={<UploadVideo/>}/>
         </Routes>
       </AuthContextProvider>
      </GoogleOAuthProvider>

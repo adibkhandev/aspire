@@ -2,15 +2,20 @@ import React , {useRef}  from 'react'
 import { motion } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
 
-const SecondStep = ({setStep}) => {
+const SecondStep = ({setStep,onlyVideo}) => {
   const input = useRef(null)
  
     return (
       <div className="upload-parts" id='video'>
         <div className="videos">
-          <div className="entitle-cont courseNameCont">
-            <input name="topicTitle" type="text" className="regular-inputs courseName" id='entitle' placeholder='Name this part of the course' />
-          </div>
+          {
+            !onlyVideo?(
+              <div className="entitle-cont courseNameCont">
+                <input name="topicTitle" type="text" className="regular-inputs courseName" id='entitle' placeholder='Name this part of the course' />
+              </div>     
+            ):''
+          }
+         
           
 
           <motion.div 
