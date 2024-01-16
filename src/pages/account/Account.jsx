@@ -65,7 +65,7 @@ export const Account = () => {
                             <div className="pfp-cont">
                                 {
                                     userData?(
-                                        <img className='pfpImage' src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
+                                        <img draggable="false" className='pfpImage' src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
                                     ):(
                                         <Skeleton
                                          sx={{ bgcolor: '#2B2B2B' }}
@@ -186,7 +186,7 @@ const Grids = ({userData , setCourseAcitve}) => {
                     ):(
                         userData?(
                             <div className="empty-container">
-                            <img src={earth} alt="" className="earth" />
+                            <img draggable="false" src={earth} alt="" className="earth" />
                             <div className="notify-heading">
                                 {
                                     (userData && userData.userType=='student')?(
@@ -247,7 +247,7 @@ const Grids = ({userData , setCourseAcitve}) => {
                         userData.userType=='student'?<Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
                     ):(
                             <div className="empty-container">
-                                <img src={earth} alt="" className="earth" />
+                                <img draggable="false" src={earth} alt="" className="earth" />
                                 <div className="notify-heading">
                                     {
                                         (userData && userData.userType=='teacher')?(
@@ -303,7 +303,7 @@ const Videos = ({thumbnails,uploadedCourses,setCourseAcitve}) => {
               {uploadedCourses.map((course,index)=>{
                   return (
                     <div className="videoCont">
-                        <img onClick={()=>setCourseAcitve(course)} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />
+                        <img draggable="false" onClick={()=>setCourseAcitve(course)} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />
                     </div>
                   )
               })}

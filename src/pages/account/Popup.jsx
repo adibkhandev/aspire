@@ -39,7 +39,7 @@ const Popup = ({course,setCourse}) => {
                    
                    className="content-cont">
                     <div className="player">
-                        <img src={import.meta.env.VITE_API_URL + course.coverPhotoLink} alt="" />
+                        <img draggable="false" src={import.meta.env.VITE_API_URL + course.coverPhotoLink} alt="" />
                     </div>
                     <div className="texts">
                         <h1 className="title">
@@ -81,18 +81,6 @@ const Popup = ({course,setCourse}) => {
                                   topic && topic.videos.map((video)=>{
                                     return(
                                       <>
-                                        <div className="video-title">
-                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
-                                        </div> 
-                                        <div className="video-title">
-                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
-                                        </div> 
-                                        <div className="video-title">
-                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
-                                        </div> 
-                                        <div className="video-title">
-                                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
-                                        </div> 
                                         <div className="video-title">
                                             {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
                                         </div> 
