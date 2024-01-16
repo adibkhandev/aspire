@@ -19,7 +19,7 @@ const Popup = ({course,setCourse}) => {
       transition={{delay:0 }}
       className='popup-container'
       drag='y'
-      dragConstraints={{ top: window.innerWidth<600?-300 : 600<window.innerWidth<1000? -400: -500 , bottom: 0 }}
+      dragConstraints={{ top: window.innerWidth<600?-300 : 600<window.innerWidth<1000? -550: -400 , bottom: 0 }}
       dragElastic={0.6}
       dragTransition={{ bounceStiffness: 100, bounceDamping: 15 }}
       onDragEnd={
@@ -61,10 +61,10 @@ const Popup = ({course,setCourse}) => {
                                         <motion.div 
                                           animate={adding?{transformOrigin:"bottom right",rotate:0,scale:1}:{transformOrigin:"bottom right",scale:0,rotate:-90}}
                                           className="options">
-                                            <Link to={`/${course._id}/add/topic`}>
+                                            <Link to={`/${course._id}/add/video`}>
                                                <div className="option" id='first'>Add video to topic</div>
                                             </Link>
-                                            <Link to={`/${course._id}/add/video`}>
+                                            <Link to={`/${course._id}/add/topic`}>
                                                <div className="option">Add new topic</div>
                                             </Link>
                                         </motion.div>
