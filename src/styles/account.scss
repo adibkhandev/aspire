@@ -19,8 +19,8 @@ body{
     // filter: brightness(50%) blur(1px);
     // transform: scale(1.01);
     .nav-container{
-        position: static;
-        top: 0;
+        position: initial;
+        // top: 0;
         background-color: inherit;
         z-index: 3;
         // @media (width>1500px) {
@@ -36,49 +36,42 @@ body{
     
 }
 .details-container{
-    height: 37.5vh;
-    min-height: 24rem;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    @media (width<800px) {
-        height: 30vh;
-        min-height: 14rem;
+    font-size: clamp(1rem,calc(1vh + 3vw),3.5rem);
+    @media (width<460px) {
+        font-size: clamp(0.6rem,calc(0.3vh + 4vw),1.5rem);
     }
-    
+    padding: 3em 0;
     .details{
-        font-size: clamp(0.8rem,8vw,2.2rem);
         width: 100%;
-        height: 4.6em;
+        // height: 4.6em;
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        
         // margin-top: max(calc(5vw + 4vh),6rem);
         // @media (width<550px) {
         //     margin-top: 1rem;
         // }
-        @media (width>800px) {
-            margin-left: 5%;
-            font-size: clamp(2rem,6vw,3.6rem);
-        }
-        @media (width>1000px) {
-            margin-left: 10%;
-        }
-        @media (width<550px) {
-            font-size: 1.9rem;
-            transform: scale(0.9);
-            margin-left: 5%;
-        }
-        @media (width<400px) {
-            font-size: 1.9rem;
-            transform: scale(0.89);
-            margin-left: 10%;
-        }
-        @media (width<380px) {
-            transform: scale(0.8);
-            margin-left: 6%;
-        }
+        // @media (width>800px) {
+        //     margin-left: 5%;
+        //     font-size: clamp(2rem,6vw,3.6rem);
+        // }
+        // @media (width>1000px) {
+        //     margin-left: 10%;
+        // }
+        // @media (width<550px) {
+        //     font-size: 1.9rem;
+        //     transform: scale(0.9);
+        //     margin-left: 5%;
+        // }
+        // @media (width<380px) {
+        //     transform: scale(0.8);
+        //     margin-left: 6%;
+        // }
         
         .pfp-cont{
             border-radius: 12000px;
@@ -86,9 +79,7 @@ body{
             font-size: 1em;
             height: max-content;
             aspect-ratio: 1/1;
-            width: 4.5em;
-            min-width: 6.5rem;
-            max-width: 13rem;
+            width: 7em;
             .pfpImage{
                 width: 100%;
                 height: 100%;
@@ -96,19 +87,19 @@ body{
             }
         }
         .text-cont{
-            font-size: 1em;
-            width: 46%;
-            min-width: 10rem;
+            font-size: 2em;
+            // width: 46%;
+            // min-width: 10rem;
             margin-left: 0.6em;
+            // margin-top: -0.1em;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            min-width: 14rem;
             .username{
                 color: #FFF;
                 font-family: Raleway;
-                font-size: 1.05em;
+                font-size: 0.8em;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
@@ -118,7 +109,7 @@ body{
             .fields{
                 color: #838383;
                 font-family: Cabin;
-                font-size:0.3em;
+                font-size:0.25em;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
@@ -131,8 +122,8 @@ body{
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: 1em;
-                    padding: 0.384em 2em;
+                    font-size: 0.9em;
+                    padding: 0.4em 2.2em;
                     border-radius: 6px;
                     border: 1px solid #3A3A3A;
                     margin-right: 0.5em;
@@ -153,15 +144,16 @@ body{
                 height: 1.8em;
                 margin-top: -0.6em;
             }
-            .edit-btn{
+            .edit-btn-cont{
                 border-radius: 10px;
                 background: #303030;
                 color: #FFF;
                 font-family: Raleway;
-                font-size: 0.4em;
+                font-size: 0.19em;
                 font-weight: 400;
-                width: 8.8em;
-                height: 1.8em;
+                padding: 0.7em ;
+                width: 10em;
+                min-width: 6.2rem;
                 min-height: 1.8rem;
                 display: flex;
                 justify-content: center;

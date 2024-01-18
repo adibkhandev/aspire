@@ -95,8 +95,10 @@ export const Account = () => {
                                         </div>
                                         {
                                             (decoded && userData && decoded._id==userData.id)?(
-                                                <div className="edit-btn">
-                                                    Edit profile
+                                                <div className="edit-btn-cont">
+                                                    <div className="edit-btn">
+                                                        Edit profile
+                                                    </div>
                                                 </div>
                                             ):''
                                         }
