@@ -12,6 +12,7 @@ import Demo from './pages/Demo'
 import UploadCourse from './pages/upload/UploadCourse'
 import UploadTopic from './pages/upload/UploadTopic'
 import UploadVideo from './pages/upload/UploadVideo'
+import Course from './pages/Course'
 const App = () => {
   
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/:username' element={<Account/>}></Route>
+          <Route path='/course/:courseId' element={<Course/>}></Route>
           <Route path='/login' element={<Login/>}/>
           <Route path='/demo' element={<Demo/>}/>
           <Route path='/upload/video' element={<UploadCourse/>}/>
