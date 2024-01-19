@@ -91,7 +91,9 @@ export const Account = () => {
                                                 userData.skills.map((skill)=>{
                                                     return <div className="field">{skill}</div>
                                                 })
-                                            ):''}
+                                            ):(
+                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field' />
+                                            )}
                                         </div>
                                         {
                                             (decoded && userData && decoded._id==userData.id)?(
@@ -100,7 +102,9 @@ export const Account = () => {
                                                         Edit profile
                                                     </div>
                                                 </div>
-                                            ):''
+                                            ):(
+                                               <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
+                                            )
                                         }
                                        
                                         </>
@@ -143,6 +147,9 @@ const Grids = ({userData , setCourseAcitve}) => {
     }
     return(
 <div className="video-data">
+
+
+    {/* //nav */}
     <div className="video-nav">
         <div onClick={()=>setNavState(0)} className="nav-elements">
             <motion.h1 
@@ -174,6 +181,13 @@ const Grids = ({userData , setCourseAcitve}) => {
          transition={{ease:'linear' , duration:0.4}}
         ></motion.div>
     </div>
+    
+
+    {/* // */}
+
+
+
+
     <div className="video-grids">
         <motion.div 
           animate={navState==0?"first":"second"}
@@ -181,12 +195,46 @@ const Grids = ({userData , setCourseAcitve}) => {
           transition={{ease:'linear', duration:0.4}}
           className="playlists"
         >
+            
+            
+            
+            
+            
+            
+            
+            
+     {/* //left wing        */}
             <div className="grid">
                 {   
+
+                    // (!userData?(
+                    //     <div className="videoListCont">
+                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    //     </div>
+                    // ):(
+                    //      userData.userType=="student"?(
+                    //            userData.uploadedCourses?(
+                    //               <Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
+                    //            ):(
+                                 
+                    //         )
+ 
+                    //      ):(
+                    //         userData.uploadedCourses?(
+                                   
+                    //             ):(
+                                  
+                    //         ) 
+                    //      )
+                    // ))
                     (userData && userData.uploadedCourses)?(
                         userData.userType=='teacher'?<Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
-                    ):(
-                        userData?(
+                    ):( userData )?(
                             <div className="empty-container">
                             <img draggable="false" src={earth} alt="" className="earth" />
                             <div className="notify-heading">
@@ -240,9 +288,16 @@ const Grids = ({userData , setCourseAcitve}) => {
                             </div>
                         )
                         
-                    )
+                    
                 }
             </div>
+
+
+
+
+
+{/* //right wing */}
+
             <div className="grid">
                 {
                     (userData && hasVideo)?(
@@ -290,6 +345,16 @@ const Grids = ({userData , setCourseAcitve}) => {
                         )
                     }
                 </div>
+
+
+{/* // */}
+
+
+
+
+
+
+
         </motion.div>
     </div>
 </div>

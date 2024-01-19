@@ -11,7 +11,7 @@ import reverse from './../assets/images/reverse.svg'
 import upload from './../assets/images/upload.svg'
 import acc from './../assets/images/acc.svg'
 export const Nav = () => {
-    const [drawerOpen,setDrawerOpen] = useState(true)
+    const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
     
     
