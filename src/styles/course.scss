@@ -3,8 +3,12 @@
         position: initial;
     }
     .content-cont{
-        .player{
-            border-radius: 3px;
+        .player-cont{
+            border-radius: 3px !important;
+        }
+        .course-nav-scroll-cont{
+           height: 44vh;
+           margin-bottom: 0;
         }
     }
 }

@@ -1,7 +1,3 @@
-import React , {useState} from 'react'
-import logo from './../assets/images/aspire-logo.svg'
-import hamburger from './../assets/images/hamburger.svg'
-import { Drawer } from '@mui/material';
 import compass from './../assets/images/compass.svg'
 import crop from './../assets/images/crop.svg'
 import info from './../assets/images/info.svg'
@@ -10,6 +6,11 @@ import play from './../assets/images/play.svg'
 import reverse from './../assets/images/reverse.svg'
 import upload from './../assets/images/upload.svg'
 import acc from './../assets/images/acc.svg'
+import React , {useState} from 'react'
+import logo from './../assets/images/aspire-logo.svg'
+import hamburger from './../assets/images/hamburger.svg'
+import { Drawer } from '@mui/material';
+import { Link } from 'react-router-dom'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
@@ -17,7 +18,9 @@ export const Nav = () => {
     
     return (
         <div className='nav-container'>
-            <img className='logo' src={logo} alt="" />
+           <Link to={'/'}>
+               <img className='logo' src={logo} alt="" />
+           </Link>
             <img onClick={()=>{
                 console.log('clcik')
                 setDrawerOpen(true)
@@ -28,7 +31,7 @@ export const Nav = () => {
               open={drawerOpen}
               variant="temporary"
               onClose={(event,reason)=>{
-                setDrawerOpen(false)
+                  setDrawerOpen(false)
                   console.log(reason,'reason')
               }}
             >
