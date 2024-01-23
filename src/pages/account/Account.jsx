@@ -96,12 +96,15 @@ export const Account = () => {
                                             )}
                                         </div>
                                         {
-                                            (decoded && userData && decoded._id==userData.id)?(
-                                                <div className="edit-btn-cont">
-                                                    <div className="edit-btn">
-                                                        Edit profile
+                                            (userData)?(
+                                                (decoded && decoded._id==userData.id)?(
+                                                    <div className="edit-btn-cont">
+                                                        <div className="edit-btn">
+                                                            Edit profile
+                                                        </div>
                                                     </div>
-                                                </div>
+
+                                                ):''
                                             ):(
                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
                                             )

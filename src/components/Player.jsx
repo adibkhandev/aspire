@@ -132,12 +132,12 @@ const CourseNav = ({containerRef,author,topic,adding,setAdding,setActiveVideo,co
 
 
                                 adding==topic._id ?(
-                                    {transformOrigin:`${down?"top":"bottom"} right`,rotate:0,scale:1}
+                                    {transformOrigin:`${down?"top":"bottom"} right`,rotate:down?0:0,scale:1}
                             ) :(
-                                {transformOrigin:`${down?"top":"bottom"} right`,scale:0,rotate:-90}
+                                {transformOrigin:`${down?"top":"bottom"} right`,scale:0,rotate:down?90:-90}
                             )}
                             className="options">
-                                <Link to={`/${courseId}/add/video`}>
+                                <Link to={`/${courseId}/${topic._id}/add/video`}>
                                     <div className="option" id='first'>Add video to topic</div>
                                 </Link>
                                 <Link to={`/${courseId}/add/topic`}>

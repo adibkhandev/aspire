@@ -1,13 +1,14 @@
 import React , {useEffect,useState} from 'react'
 import { useParams } from 'react-router'
 import axios  from 'axios'
+import { useNavigate } from 'react-router'
 import { Nav } from './../../pages/Nav'
 import SecondStep from './SecondStep'
 const UploadVideo = () => {
   const token = localStorage.getItem('accessToken');
-  let {courseId} = useParams()
+  let {courseId,topicId} = useParams()
   let [error,setError]=useState(null)
-
+  const navigate = useNavigate() 
   useEffect(()=>{
     if(!token){
      navigate('/login')
@@ -26,6 +27,7 @@ const UploadVideo = () => {
             if(token && courseId){
               let form = new FormData()
               form.append('id',courseId)
+              form.append('topicId',topicId)
               form.append('title',e.target.title.value)
               form.append('description',e.target.description.value)
               form.append('videoFile',e.target.video.files[0])   
@@ -44,6 +46,7 @@ const UploadVideo = () => {
                   console.log(response)
                     if(response.status==201){
                         console.log(response.data,'data','unique')
+                        navigate('/')
                     }
                 })
                 .catch((err)=>{

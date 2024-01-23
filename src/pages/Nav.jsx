@@ -1,22 +1,23 @@
 import compass from './../assets/images/compass.svg'
 import crop from './../assets/images/crop.svg'
 import info from './../assets/images/info.svg'
-import logout from './../assets/images/logout.svg'
+import logouticon from './../assets/images/logout.svg'
 import play from './../assets/images/play.svg'
 import reverse from './../assets/images/reverse.svg'
 import upload from './../assets/images/upload.svg'
 import acc from './../assets/images/acc.svg'
-import React , {useState} from 'react'
+import React , {useState,useContext} from 'react'
+import { Context } from './login/AuthContext'
 import logo from './../assets/images/aspire-logo.svg'
 import hamburger from './../assets/images/hamburger.svg'
 import { Drawer } from '@mui/material';
-import { Link } from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
-    
-    
-    return (
+    const navigate = useNavigate() 
+    const {logout} = useContext(Context)
+      return (
         <div className='nav-container'>
            <Link to={'/'}>
                <img className='logo' src={logo} alt="" />
@@ -24,8 +25,7 @@ export const Nav = () => {
             <img onClick={()=>{
                 console.log('clcik')
                 setDrawerOpen(true)
-                // localStorage.removeItem('accessToken')
-                // localStorage.removeItem('refreshToken')
+                
             }} className='ham' src={hamburger} alt="" />
             <Drawer
               open={drawerOpen}
@@ -67,8 +67,8 @@ export const Nav = () => {
                           <img src={upload} alt="" />
                           <h1>Contribute</h1>
                        </div>
-                       <div className="option">
-                          <img className='giveMargin' src={logout} alt="" />
+                       <div onClick={(e)=>logout()} className="option">
+                          <img className='giveMargin' src={logouticon} alt="" />
                           <h1>Logout</h1>
                        </div>
                        <div className="option">

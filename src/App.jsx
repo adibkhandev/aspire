@@ -28,7 +28,7 @@ const App = () => {
           <Route path='/demo' element={<Demo/>}/>
           <Route path='/upload/video' element={<UploadCourse/>}/>
           <Route path='/:courseId/add/topic' element={<UploadTopic/>}/>
-          <Route path='/:courseId/add/video' element={<UploadVideo/>}/>
+          <Route path='/:courseId/:topicId/add/video' element={<UploadVideo/>}/>
         </Routes>
       </AuthContextProvider>
      </GoogleOAuthProvider>
