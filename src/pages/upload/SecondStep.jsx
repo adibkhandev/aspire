@@ -4,7 +4,6 @@ import bigPlus from './../../assets/images/big-plus.svg'
 
 const SecondStep = ({setStep,onlyVideo}) => {
   const input = useRef(null)
- 
     return (
       <div className="upload-parts" id='video'>
         <div className="videos">
