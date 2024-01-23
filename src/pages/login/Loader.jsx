@@ -1,16 +1,17 @@
 import React , {useState} from 'react'
-
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useEffect } from 'react'
 export const Loader = ({children,userType,setUserType}) => {
+    const value = 30
     return (
         <>
             <div className="loader-cont">
-
-
-
-                <div onClick={()=>{
+              <motion.div 
+                // animate={value?{height:`${value}%`}:{height:auto}} 
+                onClick={()=>{
                     setUserType('teacher')
                 }
-            }  className={userType?"teacher-cont topSlide":"teacher-cont"}>
+            }  className={userType?"teacher-cont topSlide mover":"teacher-cont mover"}>
                     <div className="heading">
                         <h1 className={userType?'goLeft':''}>
                             Choose 
@@ -22,14 +23,16 @@ export const Loader = ({children,userType,setUserType}) => {
                     <div className={`tap-info ${!userType?'pulse':'vanish'}`}>
                        Tap here if you are a teacher
                     </div>
-                </div>
+                </motion.div>
 
 
-                     {children} //signup/in
+                     {children} 
 
 
 
-                <div onClick={()=>{
+                <motion.div 
+                //    animate={value?{height:`${100-value}%`}:{height:auto}} 
+                  onClick={()=>{
                      setUserType('student')
                    }
                  } 
@@ -38,7 +41,7 @@ export const Loader = ({children,userType,setUserType}) => {
                        className={`tap-info ${!userType?'pulse':'vanish'}`}>
                        Tap here if you are a student
                     </div>
-                </div>
+                </motion.div>
             </div>
         </>
     )

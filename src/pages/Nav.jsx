@@ -15,7 +15,7 @@ import { Link , useNavigate } from 'react-router-dom'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
-    const navigate = useNavigate() 
+   
     const {logout} = useContext(Context)
       return (
         <div className='nav-container'>

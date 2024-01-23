@@ -1,4 +1,4 @@
-$teacher-height:40%;
+
 *{
     margin: 0;
     padding: 0;
@@ -8,6 +8,8 @@ $teacher-height:40%;
     height: 100svh;
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .teacher-cont , .student-cont {
     width: 100%;
@@ -15,7 +17,7 @@ $teacher-height:40%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 1s ease-in;
+    transition: all 1s ease-out;
 }
 .heading{
     position: absolute;
@@ -39,17 +41,19 @@ $teacher-height:40%;
     font-size: clamp(0.5rem,3.9vw,0.94rem);
 }
 .teacher-cont{
-    position: absolute;
-    top: 0;
+    // position: absolute;
+    // top: 0;
     z-index: 3;
-    height: $teacher-height;
+    height: 40%;
     width: 100%;
     background: #2D2D2D;
 }
+
 .student-cont{
-    position: absolute;
-    bottom: 0;
-    height: calc(100% - $teacher-height);
+    // position: absolute;
+    // bottom: 0;
+    height: fit-content;
+    flex-grow: 1;
     width: 100%;
     background-color: #252525;
 }

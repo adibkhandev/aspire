@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import axios  from 'axios'
 import { Nav } from './../../pages/Nav'
 import SecondStep from './SecondStep'
+import { useNavigate } from 'react-router'
 const UploadTopic = () => {
   let {courseId} = useParams()
   const token = localStorage.getItem('accessToken');

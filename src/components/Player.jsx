@@ -1,25 +1,40 @@
-import React , {useState , useRef , useEffect} from 'react'
+import React , {useState , useRef , useEffect , useLayoutEffect} from 'react'
 import {Link} from 'react-router-dom'
 import smallPlus from './../assets/images/small-plus.svg'
 import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
-const Player = ({course}) => {
+const Player = ({course,setHeight,popupRef}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
     const containerRef = useRef(null)
-    
+    useLayoutEffect(() => {
+        console.log(popupRef.current.clientHeight)
+        if(popupRef){
+            setHeight(popupRef.current.clientHeight);
+
+        }
+    });
     
        
     console.log(course,'course')
     console.log(activeVideo,'linkactive')
   return (
     <motion.div  
-       onClick={()=>{
-        if(adding){
-           setAdding(false)
-        }}}            
-        className="content-cont">
+    className="content-cont">
+        <div 
+              onClick={()=>{
+               if(adding){
+                  setAdding(false)
+               }
+               if(activeVideo){
+                   setActiveVideo(null)
+               }
+           
+               }}            
+          className="defocus-cont absolute top-0 h-full w-full">
+          
+        </div>
         <div className="player-cont">
            {
                activeVideo?(
@@ -28,7 +43,7 @@ const Player = ({course}) => {
                      controls 
                      width={'100%'} 
                      playing={false}
-                     url={import.meta.env.VITE_API_URL + activeVideo} />        
+                     url={import.meta.env.VITE_API_URL + activeVideo.videoLink} />        
                     ):(
                        <img draggable="false" src={import.meta.env.VITE_API_URL + course.coverPhotoLink} alt="" />
                     )
@@ -37,11 +52,11 @@ const Player = ({course}) => {
         <div className="texts">
             <Link to={`/course/${course._id}`} >
                 <h1 className="title">
-                   {course.title}
+                   {activeVideo?activeVideo.title:course.title}
                 </h1>
             </Link>
             <h1 className="description">
-            {course.description}
+                   {activeVideo?activeVideo.description:course.description}
             </h1>
         </div>
         <div className="total-cont">
@@ -54,7 +69,7 @@ const Player = ({course}) => {
                             (course && course.topics)? course.topics.map((topic)=>{
                                 console.log(topic,'topic')
                                 return (
-                                    <CourseNav containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
+                                    <CourseNav activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
 
                                 }
@@ -72,7 +87,7 @@ const Player = ({course}) => {
 
 
 
-const CourseNav = ({containerRef,author,topic,adding,setAdding,setActiveVideo,courseId}) => {
+const CourseNav = ({containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
     const adderContRef = useRef(null)
@@ -151,12 +166,25 @@ const CourseNav = ({containerRef,author,topic,adding,setAdding,setActiveVideo,co
                 (topic && topic.videos)?topic.videos.map((video)=>{
                     // console.log(video.videoLink,'link')
                     return(
-                        <div onClick={()=>{
+                      <motion.div 
+                        onClick={()=>{
                             console.log('clicks')
-                            setActiveVideo(video.videoLink)
-                        }} className="video-title">
+                            setActiveVideo(video)
+                        }} 
+                        className="video-title"
+                        animate={activeVideo==video?{
+                            backgroundColor:'#2b2b2b'
+                        }:{
+                            backgroundColor:'#242424'
+                        }}
+                        whileHover={activeVideo!=video?{
+                            height: "3.2em",
+                            backgroundColor:'#272727',
+                        }:{}}
+                        transition={{duration:0.2}}
+                       >
                             {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
-                        </div> 
+                      </motion.div> 
 
                     )
                     }

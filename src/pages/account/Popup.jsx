@@ -10,22 +10,29 @@ const Popup = ({course,setCourse}) => {
   const [height, setHeight] = useState(0);
   const popupRef = useRef(null);
 
-  useLayoutEffect(() => {
-    console.log(popupRef.current.clientHeight)
-    setHeight(popupRef.current.clientHeight);
-  });
+
   // console.log(decded)
   return (
     <motion.div
       ref={popupRef}
       initial={{top:'180vh'}}
-      animate={course?{top:`calc(100vh - ${height}px)`}:{top:'180vh'}}
-      transition={{delay:0 }}
+      animate={course?
+        {
+          top:`calc(100vh - ${height-150}px)`,
+          transition:{
+             type:'spring' ,
+             duration:1
+          }
+        }:
+        {
+          top:'180vh'
+        }
+      }
       className='popup-container'
       drag='y'
       dragConstraints={{top:0,bottom:0}}
       dragElastic={0.6}
-      dragTransition={{ bounceStiffness: 100, bounceDamping: 15 }}
+      dragTransition={{ bounceStiffness: 500, bounceDamping: 25 }}
       onDragEnd={
         (event, info) =>{
          console.log(info.offset,info.offset.y)
@@ -38,7 +45,7 @@ const Popup = ({course,setCourse}) => {
     >
         {
             course?(
-               <Player course={course} />
+               <Player course={course} popupRef={popupRef} setHeight={setHeight}/>
             ):''
         }
        
