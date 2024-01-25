@@ -52,6 +52,7 @@
             padding-left: 1rem;
             padding-top: 0.4rem;
             font-size: 2vw;
+            
             .option{
                 display: flex;
                 align-items: center;
@@ -71,12 +72,14 @@
                     font-weight: 500;
                     line-height: normal;
                     margin-left: 4.4em;
+                    cursor: pointer;
                 }
                 img{
                     max-height: 2rem;
                     height: 40%;
                     position: absolute;
                     left: 0.5em;
+                    cursor: pointer;
                 }
             }
         }

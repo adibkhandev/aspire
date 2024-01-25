@@ -1,0 +1,94 @@
+.explore-page-container{
+    .nav-container{
+        position: initial;
+    }
+}
+.slider{
+    padding: 1em 1.2em;
+}
+.niche{
+    color: #686868;
+    font-family: "Titan One";
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 0.4em;
+    margin-left: 0.1em;
+}
+.course-pack-cont{
+    width: 19em;
+    padding: 0.6em 0.8em;
+    border-radius: 10px;
+    background-color: #2C2C2C;
+    .author{
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.6em;
+        .pfp{
+            width: 2.2em;
+            height: max-content;
+            aspect-ratio: 1/1;
+            border-radius: 2000px;
+            overflow: hidden;
+            img{
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
+            }
+        }
+        .texts{
+            color: #A7A7A7;
+            font-family: Cabin;
+            line-height: 1;
+            margin-left: 0.6em;
+            .username{
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 700;
+                margin-bottom: 0.4em;
+            }
+            .view{
+                font-size: 10px;
+                font-style: italic;
+                font-weight: 400;
+            }
+        }
+    }
+    .cover-image{
+        width: 100%;
+        max-height: 20vh;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .specs{
+        display: flex;
+        justify-content: space-between;
+        .name{
+            color: #ADADAD;
+            font-family: Cabin;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-top: 0.2em;
+        }
+        .videoCount{
+            display: flex;
+            align-items: center;
+            margin-right: 0.6em;
+            font-size: 13px;
+            .num{
+                color: #515151;
+                font-family: "Exo 2";
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1;
+                margin-right: 0.4em;
+            }
+            img{
+                height: 40%;
+            }
+        }
+    }
+}

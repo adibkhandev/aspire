@@ -10,6 +10,7 @@ const UploadCourse = () => {
   const navigate = useNavigate()
   const [error,setError] = useState(null)
   const [step,setStep]=useState(1)
+  const [skills,setSkills]=useState([])
   const token = localStorage.getItem('accessToken');
   useEffect(()=>{
     if(!token){
@@ -18,6 +19,7 @@ const UploadCourse = () => {
     }  
   },[])
   const uploadHandler = (e) => {
+    console.log(JSON.stringify(skills),'array')
     e.preventDefault()
     if(e.target){
       console.log(e.target.courseTitle.value,'tt')
@@ -38,6 +40,7 @@ const UploadCourse = () => {
               formData.append('topicTitle',e.target.topicTitle.value)
               formData.append('courseTitle',e.target.courseTitle.value)
               formData.append('courseDescription',e.target.courseDescription.value)
+              formData.append('skills',JSON.stringify(skills))
               formData.append('courseCoverPhoto',e.target.courseImage.files[0])
               formData.append('videoFile',e.target.video.files[0])
               const headers = {
@@ -79,7 +82,7 @@ const UploadCourse = () => {
          onSubmit={(e)=>uploadHandler(e)}
          animate={step==2?{x:'-100vw'}:{x:0}}
         >
-          <FirstStep setStep={setStep} setError={setError}/>
+          <FirstStep skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/>
           <SecondStep uploadHandler={uploadHandler} setStep={setStep} setError={setError} />  
        </motion.form>
        <CustomAlert error={error} setError={setError}/>

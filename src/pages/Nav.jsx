@@ -15,7 +15,7 @@ import { Link , useNavigate } from 'react-router-dom'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
-   
+    const navigate = useNavigate()
     const {logout} = useContext(Context)
       return (
         <div className='nav-container'>
@@ -47,7 +47,12 @@ export const Nav = () => {
                           <img src={play} alt="" />
                           <h1>Subscribed</h1>
                        </div>
-                       <div className="option">
+                       <div
+                         className="option"
+                         onClick={()=>{
+                           navigate('/')
+                         }}  
+                        >
                           <img src={acc} alt="" />
                           <h1>Account</h1>
                        </div>
@@ -59,11 +64,20 @@ export const Nav = () => {
                           <img src={crop} alt="" />
                           <h1>Edit profile</h1>
                        </div>
-                       <div className="option">
+                       <div 
+                         className="option"
+                         onClick={()=>{
+                           navigate('/explore')
+                         }} 
+                        >
                           <img src={compass} alt="" />
                           <h1>Explore</h1>
                        </div>
-                       <div className="option">
+                       <div 
+                         onClick={()=>{
+                           navigate('/upload')
+                         }} 
+                         className="option">
                           <img src={upload} alt="" />
                           <h1>Contribute</h1>
                        </div>

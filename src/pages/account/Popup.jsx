@@ -3,20 +3,20 @@ import {motion} from 'framer-motion'
 import Player from '../../components/Player';
 import { jwtDecode } from "jwt-decode";
 
-const Popup = ({course,setCourse}) => {
+const Popup = ({course,setCourse,popupOpen,setPopupOpen}) => {
   const [lastVal,setLastVal] = useState(0)
   const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
   const decoded = accessToken? jwtDecode(accessToken):null
   const [height, setHeight] = useState(0);
   const popupRef = useRef(null);
-
-
-  // console.log(decded)
+  
+  
+  console.log(popupOpen,'popstate')
   return (
     <motion.div
       ref={popupRef}
       initial={{top:'180vh'}}
-      animate={course?
+      animate={popupOpen?
         {
           top:`calc(100vh - ${height-150}px)`,
           transition:{
@@ -37,7 +37,7 @@ const Popup = ({course,setCourse}) => {
         (event, info) =>{
          console.log(info.offset,info.offset.y)
          if(info.offset.y>170){
-             setCourse(null)
+             setPopupOpen(null)
          }
             
         }  
@@ -45,7 +45,7 @@ const Popup = ({course,setCourse}) => {
     >
         {
             course?(
-               <Player course={course} popupRef={popupRef} setHeight={setHeight}/>
+               <Player popupOpen={popupOpen} course={course} popupRef={popupRef} setHeight={setHeight}/>
             ):''
         }
        

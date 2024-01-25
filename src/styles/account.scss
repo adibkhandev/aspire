@@ -232,11 +232,18 @@ body{
     @media (width<800px) {
         height: 65vh;
     }
+    .text{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
 .earth{
     width: calc(16vh + 10vw);
     max-width: 14rem;
 }
+
 .notify-heading{
     
     margin-top: 3em;

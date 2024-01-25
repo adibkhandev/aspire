@@ -2,10 +2,10 @@ import { useRef, useState } from "react"
 import Image from "../components/FileImage"
 import { motion } from "framer-motion"
 import { BoxAddon } from "../components/BoxAddon"
-const FirstStep = ({setError,setStep}) => {
+const FirstStep = ({setError,setStep,setSkills,skills}) => {
     const courseImageRef = useRef()
     const [imageFile,setImageFile] = useState(null)
-    const [skills,setSkills]=useState([])
+    
     return (
       <div className="upload-parts" id='course'>
         <div className="courses">

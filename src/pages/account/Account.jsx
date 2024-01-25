@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { easeIn, motion , useDragControls } from 'framer-motion'
 import { Nav } from '../Nav'
 import earth from './../../assets/images/earth.svg'
@@ -15,7 +15,7 @@ export const Account = () => {
     let hasVideo = true
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
-    
+    const [popupOpen,setPopupOpen] = useState(false)
     useEffect(()=>{
         const url = import.meta.env.VITE_API_URL + '/user/' + username
         const headers = {
@@ -45,17 +45,17 @@ export const Account = () => {
     }
     return (
         <div className='home-container'>
-            <Popup  course={courseActive?courseActive:null} setCourse={setCourseAcitve}></Popup>
+            <Popup setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
             <motion.div
               className='home'
               variants={homeVariants}
-              animate={!courseActive?"non":"blur"}
+              animate={!popupOpen?"non":"blur"}
               transition={{delay:0.08}}
             >
                 <Nav></Nav>
                 <div onClick={()=>{
-                    if(courseActive){
-                        setCourseAcitve(null)
+                    if(popupOpen){
+                        setPopupOpen(false)
                     }
                     
                 }} className="account-container">
@@ -129,7 +129,7 @@ export const Account = () => {
                         </div>
                     </div>
                     
-                    <Grids setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
+                    <Grids setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
                 </div>
                 </motion.div>
         </div>
@@ -137,9 +137,10 @@ export const Account = () => {
 }
 
 
-const Grids = ({userData , setCourseAcitve}) => {
+const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
     let [navState,setNavState] = useState(0)
     let hasVideo = false
+    const navigate = useNavigate()
     const videoNavVariants = {
         first:{
             x:0
@@ -236,47 +237,58 @@ const Grids = ({userData , setCourseAcitve}) => {
                     //      )
                     // ))
                     (userData && userData.uploadedCourses)?(
-                        userData.userType=='teacher'?<Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
+                        userData.userType=='teacher'?<Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
                     ):( userData )?(
                             <div className="empty-container">
                             <img draggable="false" src={earth} alt="" className="earth" />
-                            <div className="notify-heading">
-                                {
-                                    (userData && userData.userType=='student')?(
-                                            'Find skills from all over the world'                                     
-                                    ):(
-                                        'Share your skills with the rest of the world'
-                                    )
-                                }
-                            </div>
-                            <div className="notify-subheading">
-                                {
-                                    (userData && userData.userType=='student')?(
-                                        <h1 className="sub">
-                                            <span className='bold'>
-                                                Enroll in
-                                            </span>
-                                            your first 
-                                            <span className='italic'>
-                                                course                                
-                                            </span>
-                                        </h1> 
-                                                                        
-                                    ):(
-                                        <Link to="/upload/video">
+                                <div className="text">
+                                <div
+                                onClick={()=>{
+                                    if(userData.userType=="student"){
+                                        navigate('/explore')
+                                    }
+                                    else{
+                                        navigate('/upload')
+                                    }
+                                }} 
+                                className="notify-heading">
+                                    {
+                                        (userData && userData.userType=='student')?(
+                                                'Find skills from all over the world'                                     
+                                        ):(
+                                            'Share your skills with the rest of the world'
+                                        )
+                                    }
+                                </div>
+                                <div className="notify-subheading">
+                                    {
+                                        (userData && userData.userType=='student')?(
                                             <h1 className="sub">
-                                                <span className='bold'>Create 
-                                                    <span className='bold'>your</span>
+                                                <span className='bold'>
+                                                    Enroll in
                                                 </span>
                                                 your first 
                                                 <span className='italic'>
                                                     course                                
                                                 </span>
-                                            </h1>
-                                        </Link>
-                                            
-                                    )
-                                } 
+                                            </h1> 
+                                                                            
+                                        ):(
+                                            <Link to="/upload/video">
+                                                <h1 className="sub">
+                                                    <span className='bold'>Create 
+                                                        <span className='bold'>your</span>
+                                                    </span>
+                                                    your first 
+                                                    <span className='italic'>
+                                                        course                                
+                                                    </span>
+                                                </h1>
+                                            </Link>
+                                                
+                                        )
+                                    } 
+                                </div>
                             </div>
                         </div>
                         ):(
@@ -304,45 +316,60 @@ const Grids = ({userData , setCourseAcitve}) => {
             <div className="grid">
                 {
                     (userData && hasVideo)?(
-                        userData.userType=='student'?<Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
+                        userData.userType=='student'?<Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
                     ):(
                             <div className="empty-container">
                                 <img draggable="false" src={earth} alt="" className="earth" />
-                                <div className="notify-heading">
-                                    {
-                                        (userData && userData.userType=='teacher')?(
-                                                'Find skills from all over the world'                                     
-                                        ):(
-                                            'Share your skills with the rest of the world'
-                                        )
-                                    }
-                                </div>
-                                <div className="notify-subheading">
-                                    {
-                                        (userData && userData.userType=='teacher')?(
-                                            <h1 className="sub">
-                                                <span className='bold'>
-                                                    Enroll in
+                                <div 
+                                   onClick={()=>{
+                                        if(userData.userType=="teacher"){
+                                            navigate('/explore')
+                                        }
+                                        else{
+                                            navigate('/upload')
+                                        }
+                                   }}   
+                                  className="text">
+                                    <div 
+                                    className="notify-heading"
+                                    
+                                    >
+                                        {
+                                            (userData && userData.userType=='teacher')?(
+                                                    'Find skills from all over the world'                                     
+                                            ):(
+                                                'Share your skills with the rest of the world'
+                                            )
+                                        }
+                                    </div>
+                                    <div className="notify-subheading">
+                                        {
+                                            (userData && userData.userType=='teacher')?(
+                                                <h1 className="sub">
+                                                    <span className='bold'>
+                                                        Enroll in
+                                                        
+                                                    </span>
+                                                    your first 
+                                                    <span className='italic'>
+                                                        course                                
+                                                    </span>
+                                                </h1> 
+                                                                                
+                                            ):(
+                                                <h1 className="sub">
+                                                    <span className='bold'>Create
                                                     
-                                                </span>
-                                                your first 
-                                                <span className='italic'>
-                                                    course                                
-                                                </span>
-                                            </h1> 
-                                                                             
-                                        ):(
-                                            <h1 className="sub">
-                                                <span className='bold'>Create
-                                                  
-                                                </span>
-                                                your first 
-                                                <span className='italic'>
-                                                    course                                
-                                                </span>
-                                            </h1>  
-                                        )
-                                    } 
+                                                    </span>
+                                                    your first 
+                                                    <span className='italic'>
+                                                        course                                
+                                                    </span>
+                                                </h1>  
+                                            )
+                                        } 
+                                    </div>
+
                                 </div>
                             </div>
                         )
@@ -364,7 +391,7 @@ const Grids = ({userData , setCourseAcitve}) => {
 )}
 
 
-const Videos = ({thumbnails,uploadedCourses,setCourseAcitve}) => {
+const Videos = ({thumbnails,uploadedCourses,setCourseAcitve,setPopupOpen}) => {
     const list = [0,1,2,4]
     let controls = useDragControls()
     return(
@@ -373,7 +400,10 @@ const Videos = ({thumbnails,uploadedCourses,setCourseAcitve}) => {
               {uploadedCourses.map((course,index)=>{
                   return (
                     <div className="videoCont">
-                        <img draggable="false" onClick={()=>setCourseAcitve(course)} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />
+                        <img draggable="false" onClick={()=>{
+                            setCourseAcitve(course)
+                            setPopupOpen(true)
+                         }} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />
                     </div>
                   )
               })}

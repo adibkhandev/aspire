@@ -26,7 +26,8 @@
     "react-router": "^6.20.1",
     "react-router-dom": "^6.20.1",
     "react-social-login-buttons": "^3.9.1",
-    "reactjs-social-login": "^2.6.3"
+    "reactjs-social-login": "^2.6.3",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
