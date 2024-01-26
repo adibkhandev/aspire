@@ -4,7 +4,8 @@
     }
 }
 .slider{
-    padding: 1em 1.2em;
+    padding: 1em 0em;
+    
 }
 .niche{
     color: #686868;
@@ -14,19 +15,32 @@
     font-weight: 400;
     line-height: normal;
     margin-bottom: 0.4em;
-    margin-left: 0.1em;
+    margin-left: 0.6em;
+}
+.swiper-slide-active{
+    // margin-left: 0.6em !important;
+    // transition: all ease-in 0.2s;
+    
+}
+.swiper-slide{
+    font-size: clamp(1rem,3vw,1.2rem);
+   
+    width: 15.5em;
+    margin:0 0 0 1em !important;
 }
 .course-pack-cont{
-    width: 19em;
+    font-size: clamp(1rem,3vw,2rem);
     padding: 0.6em 0.8em;
     border-radius: 10px;
     background-color: #2C2C2C;
+    
     .author{
         display: flex;
         align-items: flex-start;
         margin-bottom: 0.6em;
+       
         .pfp{
-            width: 2.2em;
+            width: 1.5em;
             height: max-content;
             aspect-ratio: 1/1;
             border-radius: 2000px;
@@ -43,13 +57,13 @@
             line-height: 1;
             margin-left: 0.6em;
             .username{
-                font-size: 10px;
+                font-size: 0.7em;
                 font-style: normal;
                 font-weight: 700;
-                margin-bottom: 0.4em;
+                margin-bottom: 0.3em;
             }
             .view{
-                font-size: 10px;
+                font-size: 0.6em;
                 font-style: italic;
                 font-weight: 400;
             }
@@ -57,7 +71,8 @@
     }
     .cover-image{
         width: 100%;
-        max-height: 20vh;
+       
+        max-height: 30vh;
         border-radius: 4px;
         overflow: hidden;
     }
@@ -67,7 +82,7 @@
         .name{
             color: #ADADAD;
             font-family: Cabin;
-            font-size: 20px;
+            font-size: 0.7em;
             font-style: normal;
             font-weight: 700;
             line-height: 1.6;
@@ -76,9 +91,9 @@
         .videoCount{
             display: flex;
             align-items: center;
-            margin-right: 0.6em;
-            font-size: 13px;
+            margin-right: 0.4em;
             .num{
+                font-size: 0.4em;
                 color: #515151;
                 font-family: "Exo 2";
                 font-style: normal;

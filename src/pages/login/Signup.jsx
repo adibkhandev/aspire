@@ -50,7 +50,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                         //     accessToken:response.data.accesstoken,
                         //     refreshToken:response.data.refreshtoken,
                         // })
-                        tokenize(response.data.accesstoken,response.data.refreshtoken)
+                        tokenize(response.data.accesstoken,response.data.refreshtoken,response.data.user)
                      }
                 })
                 .catch((err)=>{

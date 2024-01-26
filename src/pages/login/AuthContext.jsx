@@ -10,7 +10,7 @@ export const AuthContextProvider = ({children}) => {
     useEffect(()=>{
          console.log(token,'updated')
     },[token])
-    const tokenize = (access,refresh) => {
+    const tokenize = (access,refresh,userData) => {
         console.log('tokenizing')
         setToken({
             accessToken:access,
@@ -18,6 +18,7 @@ export const AuthContextProvider = ({children}) => {
         })
         localStorage.setItem('accessToken',JSON.stringify(access))
         localStorage.setItem('refreshToken',JSON.stringify(refresh))
+        localStorage.setItem('userData',JSON.stringify(userData))
     }
     const logout = () =>{
         setToken({
@@ -26,6 +27,7 @@ export const AuthContextProvider = ({children}) => {
         })
        localStorage.removeItem('accessToken')
        localStorage.removeItem('refreshToken')
+       localStorage.removeItem('userData')
        navigate('/')
     } 
     return (

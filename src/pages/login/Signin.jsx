@@ -24,11 +24,12 @@ export const Signin = ({userType,setMode,setError , setToken}) => {
             axios.post(url,data,headers)
             .then((response)=>{
                 if(response.status==200){
+                    console.log(response.data)
                     // setToken({
                     //     accessToken:response.data.accesstoken,
                     //     refreshToken:response.data.refreshtoken,
                     // })
-                    tokenize(response.data.accesstoken,response.data.refreshtoken)
+                    tokenize(response.data.accesstoken,response.data.refreshtoken,response.data.user)
 
                 }
             })

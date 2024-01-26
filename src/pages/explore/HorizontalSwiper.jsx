@@ -33,24 +33,36 @@ const HorizontalSwiper = ({skill}) => {
          <div className="niche">
             {skill}
          </div>
-        <Swiper
-        slidesPerView={'auto'}
-        slidesPerGroup={1}
-        loop={true}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-        >
+         <Swiper
+            slidesPerView={2}
+            slidesPerGroup={1}
+            breakpoints={{
+                1312:{
+                    slidesPerView:4
+                },
+                992:{
+                    slidesPerView:3
+                },
+                688:{
+                    slidesPerView:2
+                },
+
+            }}
+            loop={true}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
+         >
             {
                 courses?courses.map((course)=>{
                     return(
                         <SwiperSlide>
-                        <CoursePack info={course}></CoursePack>
+                           <CoursePack info={course}></CoursePack>
                         </SwiperSlide>
                     )
                 }):''
             }
         
-        </Swiper>
+         </Swiper>
     </div>
   )
 }
