@@ -1,15 +1,57 @@
 .course-cont{
-    
+    height: 100vh;
+    height: 100vh;
+    overflow-y: hidden;
+    contain: paint;
     .nav-container{
         position: initial;
+        z-index: 10;
     }
     .content-cont{
+        display: flex;
+        align-items: center;
+        padding-top: 1.8em;
+        height: auto;
+        .defocus-cont{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 4em;
+            // display: none;
+        }
+        .title{
+            margin-top:0 ;
+            font-size: 2em;
+        }
         .player-cont{
-            border-radius: 3px !important;
+            border-radius: 5px !important;
+            order: 2;
+            width: 96%;
+        }
+        .texts{
+            order: 1;
+            margin-bottom: 1em;
+            width: 95%;
         }
         .course-nav-scroll-cont{
-           height: 44vh;
+           height: auto;
            margin-bottom: 0;
+           width: 100%;
+           height: 39vh;
+        }
+        .total-cont{
+            width: 96%;
+            order: 3;
+            height: auto;
+            .topper-cont{
+                height: auto;
+            }
         }
     }
+}
+.defocus-cont{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }

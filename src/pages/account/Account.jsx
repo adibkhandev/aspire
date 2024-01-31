@@ -99,9 +99,12 @@ export const Account = () => {
                                             (userData)?(
                                                 (decoded && decoded._id==userData.id)?(
                                                     <div className="edit-btn-cont">
-                                                        <div className="edit-btn">
-                                                            Edit profile
-                                                        </div>
+                                                        <Link to={`/${decoded._id}/edit`}>
+                                                            <div className="edit-btn">
+                                                                Edit profile
+                                                            </div>
+                                                        </Link>
+                                                       
                                                     </div>
 
                                                 ):''
@@ -199,201 +202,116 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
           transition={{ease:'linear', duration:0.4}}
           className="playlists"
         >
-            
-            
-            
-            
-            
-            
-            
-            
-     {/* //left wing        */}
-            <div className="grid">
-                {   
 
-                    // (!userData?(
-                    //     <div className="videoListCont">
-                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    //         <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    //     </div>
-                    // ):(
-                    //      userData.userType=="student"?(
-                    //            userData.uploadedCourses?(
-                    //               <Videos setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
-                    //            ):(
-                                 
-                    //         )
- 
-                    //      ):(
-                    //         userData.uploadedCourses?(
-                                   
-                    //             ):(
-                                  
-                    //         ) 
-                    //      )
-                    // ))
-                    (userData && userData.uploadedCourses)?(
-                        userData.userType=='teacher'?<Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
-                    ):( userData )?(
-                            <div className="empty-container">
-                            <img draggable="false" src={earth} alt="" className="earth" />
-                                <div className="text">
-                                <div
-                                onClick={()=>{
-                                    if(userData.userType=="student"){
-                                        navigate('/explore')
-                                    }
-                                    else{
-                                        navigate('/upload')
-                                    }
-                                }} 
-                                className="notify-heading">
-                                    {
-                                        (userData && userData.userType=='student')?(
-                                                'Find skills from all over the world'                                     
-                                        ):(
-                                            'Share your skills with the rest of the world'
-                                        )
-                                    }
-                                </div>
-                                <div className="notify-subheading">
-                                    {
-                                        (userData && userData.userType=='student')?(
-                                            <h1 className="sub">
-                                                <span className='bold'>
-                                                    Enroll in
-                                                </span>
-                                                your first 
-                                                <span className='italic'>
-                                                    course                                
-                                                </span>
-                                            </h1> 
-                                                                            
-                                        ):(
-                                            <Link to="/upload/video">
-                                                <h1 className="sub">
-                                                    <span className='bold'>Create 
-                                                        <span className='bold'>your</span>
-                                                    </span>
-                                                    your first 
-                                                    <span className='italic'>
-                                                        course                                
-                                                    </span>
-                                                </h1>
-                                            </Link>
-                                                
-                                        )
-                                    } 
-                                </div>
-                            </div>
-                        </div>
-                        ):(
-                            <div className="videoListCont">
-                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                                 <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                                 
-                            </div>
-                        )
-                        
-                    
-                }
+            <div className="grid">
+                {userData?(
+                   userData.uploadedCourses.length?(
+                      <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
+                   ):(
+                      <Empty userType={userData.userType} />
+                   )
+                ):(
+                    <div className="videoListCont">
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    </div>
+                )}
             </div>
-
-
-
-
-
-{/* //right wing */}
-
             <div className="grid">
-                {
-                    (userData && hasVideo)?(
-                        userData.userType=='student'?<Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>:''
-                    ):(
-                            <div className="empty-container">
-                                <img draggable="false" src={earth} alt="" className="earth" />
-                                <div 
-                                   onClick={()=>{
-                                        if(userData.userType=="teacher"){
-                                            navigate('/explore')
-                                        }
-                                        else{
-                                            navigate('/upload')
-                                        }
-                                   }}   
-                                  className="text">
-                                    <div 
-                                    className="notify-heading"
-                                    
-                                    >
-                                        {
-                                            (userData && userData.userType=='teacher')?(
-                                                    'Find skills from all over the world'                                     
-                                            ):(
-                                                'Share your skills with the rest of the world'
-                                            )
-                                        }
-                                    </div>
-                                    <div className="notify-subheading">
-                                        {
-                                            (userData && userData.userType=='teacher')?(
-                                                <h1 className="sub">
-                                                    <span className='bold'>
-                                                        Enroll in
-                                                        
-                                                    </span>
-                                                    your first 
-                                                    <span className='italic'>
-                                                        course                                
-                                                    </span>
-                                                </h1> 
-                                                                                
-                                            ):(
-                                                <h1 className="sub">
-                                                    <span className='bold'>Create
-                                                    
-                                                    </span>
-                                                    your first 
-                                                    <span className='italic'>
-                                                        course                                
-                                                    </span>
-                                                </h1>  
-                                            )
-                                        } 
-                                    </div>
-
-                                </div>
-                            </div>
-                        )
-                    }
-                </div>
-
-
-{/* // */}
-
-
-
-
-
-
-
-        </motion.div>
+                {userData?(
+                   userData.subscribedCourses?(
+                      <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
+                   ):(
+                      <Empty userType={userData.userType=="student"?"teacher":"student"} />
+                   )
+                ):(
+                    <div className="videoListCont">
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
+                    </div>
+                )}
+            </div>
+          </motion.div>
     </div>
 </div>
 )}
 
 
+
+
+const Empty = ({userType}) => {
+    
+    return(
+        <div className="empty-container">
+            <img draggable="false" src={earth} alt="" className="earth" />
+                <div className="text">
+                    <div 
+                    onClick={()=>{
+                        if(userData.userType=="student"){
+                            navigate('/explore')
+                        }
+                        else{
+                            navigate('/upload')
+                        }
+                    }} 
+                    className="notify-heading">
+                        {
+                            userType=='student'?(
+                                    'Find skills from all over the world'                                     
+                            ):(
+                                'Share your skills with the rest of the world'
+                            )
+                        }
+                    </div>
+                <div className="notify-subheading">
+                    {
+                        userType=='student'?(
+                            <h1 className="sub">
+                                <span className='bold'>
+                                    Enroll in
+                                </span>
+                                your first 
+                                <span className='italic'>
+                                    course                                
+                                </span>
+                            </h1> 
+                                                            
+                        ):(
+                            <Link to="/upload/video">
+                                <h1 className="sub">
+                                    <span className='bold'>Create 
+                                        <span className='bold'>your</span>
+                                    </span>
+                                    your first 
+                                    <span className='italic'>
+                                        course                                
+                                    </span>
+                                </h1>
+                            </Link>
+                                
+                        )
+                    } 
+                </div>
+            </div>
+    </div>
+    )
+}
+
+
+
+
 const Videos = ({thumbnails,uploadedCourses,setCourseAcitve,setPopupOpen}) => {
     const list = [0,1,2,4]
     let controls = useDragControls()
+    console.log(uploadedCourses,'ase naki?')
     return(
           <div 
            className="videoListCont">

@@ -14,12 +14,12 @@ useEffect(()=>{
     if (!token) navigate('/')
     const headers = {
       headers:{
-        'Authorization':'Bearer ' + token,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
-      }
-    }
+          'Authorization':'Bearer ' + token,
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+          'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
+       }
+     }
             axios.get(url,headers)
             .then((response)=>{
                 console.log(response.data.populatedCourse,'course data')

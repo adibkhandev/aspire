@@ -1,5 +1,5 @@
 import React , {useState , useRef , useEffect , useLayoutEffect} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import smallPlus from './../assets/images/small-plus.svg'
 import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
@@ -8,8 +8,9 @@ const Player = ({course,setHeight,popupRef}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
     const containerRef = useRef(null)
+    const navigate = useNavigate()
     useLayoutEffect(() => {
-        console.log(popupRef.current.clientHeight)
+        // console.log(popupRef.current.clientHeight)
         if(popupRef){
             setHeight(popupRef.current.clientHeight);
 
@@ -30,9 +31,12 @@ const Player = ({course,setHeight,popupRef}) => {
                if(activeVideo){
                    setActiveVideo(null)
                }
+               else if(popupRef){
+                navigate(`/course/${course._id}`)
+               }
            
                }}            
-          className="defocus-cont absolute top-0 h-full w-full">
+          className="defocus-cont">
           
         </div>
         <div className="player-cont">
@@ -50,11 +54,10 @@ const Player = ({course,setHeight,popupRef}) => {
             }
         </div>
         <div className="texts">
-            <Link to={`/course/${course._id}`} >
+            
                 <h1 className="title">
                    {activeVideo?activeVideo.title:course.title}
                 </h1>
-            </Link>
             <h1 className="description">
                    {activeVideo?activeVideo.description:course.description}
             </h1>

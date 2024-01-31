@@ -6,7 +6,7 @@ import { Checkbox } from './Checkbox'
 import {Social} from './Social'
 import Image from '../components/FileImage'
 import axios from 'axios'
-export const Signup = ({userType , setMode , setError , setToken}) => {
+export const Signup = ({userType , setMode , setError , setToken }) => {
     const [num,setNum] = useState(5)
     const [skills,setSkills]=useState([])
     const {tokenize} = useContext(Context)
@@ -24,6 +24,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
     useEffect(()=>{
         console.log(skills,'array')
     },[skills])
+    const token = localStorage.getItem('accessToken');
     const signupHandler = (e) =>{
         e.preventDefault()
         console.log('clicked')
@@ -36,12 +37,13 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                 formData.append('pfp',e.target.profile.files[0])
                 formData.append('skills',JSON.stringify(skills))
                 const headers = {
+                    'Authorization':'Bearer ' + token,
                     'Content-Type':'multipart/form-data',
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
                     'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
                   }
-                const url = import.meta.env.VITE_API_URL + '/auth/register'
+                const url =  import.meta.env.VITE_API_URL + '/auth/register' 
                 axios.post(url,formData,headers)
                 .then((response)=>{
                     if(response.status==201){
@@ -50,7 +52,8 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                         //     accessToken:response.data.accesstoken,
                         //     refreshToken:response.data.refreshtoken,
                         // })
-                        tokenize(response.data.accesstoken,response.data.refreshtoken,response.data.user)
+                            tokenize(response.data.accesstoken,response.data.refreshtoken,response.data.user)
+                        
                      }
                 })
                 .catch((err)=>{
@@ -69,7 +72,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
     const imageHandler = (e)=>{
         setImageFile(e.target.files[0])
     }
-
+   
     return (
         <form onSubmit={(e)=>signupHandler(e)} className='signup'>
             <Image file={imageFile} input={clickRef}></Image>
@@ -84,7 +87,7 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
 
             </div>
                 {
-                    userType && userType=='teacher'?(
+                  userType && userType=='teacher'?(
                         <div className="terms">
 
                             <Checkbox></Checkbox>
@@ -103,16 +106,17 @@ export const Signup = ({userType , setMode , setError , setToken}) => {
                     ):''
                 }
             <button type='submit' className="signup-btn">
-                Signup
+               Signup
             </button>
+           
+                    <div className="linking">
+                        Already a 
+                        &#13;
+                        <span onClick={()=>setMode('signin')} className='underline-line'>
+                            member?
+                        </span>
+                    </div>
             
-            <div className="linking">
-                Already a 
-                &#13;
-                <span onClick={()=>setMode('signin')} className='underline-line'>
-                    member?
-                </span>
-            </div>
             {userType && userType=='student'?<Social/>:''}
              
         </form>
