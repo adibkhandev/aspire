@@ -139,7 +139,7 @@ $border:15px;
 }
 
 
-.regular-inputs , .data , .signup-btn{
+.regular-inputs , .data , .signup-btn , .lock{
     max-width: 38rem;
     
 } 
@@ -161,9 +161,6 @@ $border:15px;
     transform: scale(0.01);
     transform-origin: bottom left;
     transition: transform 0.1s ease-in;
-}
-#name-input{
-    margin-bottom: 0.4em;
 }
 #password-input{
     margin-bottom: 1.4em;

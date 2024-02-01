@@ -1,23 +1,23 @@
 
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef, useEffect} from 'react'
 import { Autocomplete } from '@mui/material';
 import { TextField , Popper } from '@mui/material';
 import {Chip} from '@mui/material';
 import { StyledEngineProvider } from '@mui/material/styles';
 
-export const BoxAddon = ({num,setError,setSkills}) => {
+export const BoxAddon = ({skills,num,setError,setSkills,defaultSkills}) => {
 const list = ['Physics','Chemistry','Hoe','Music','Dance','Acting','Art','Finance']
 let [open,setOpen] = useState(true)
 const [inLimit,setInLimit]=useState(true);    
 let inputRef = useRef(null)
 return (
      <StyledEngineProvider injectFirst>
-         <div className="textarea-container">
-          
-          <Autocomplete
+        <div className="textarea-container">
+         <Autocomplete
            multiple
            id="multiple-limit-tags "
            options={list}
+           value={skills}
            PopperComponent={(props) => (
              <Popper style={{marginTop:'1000px'}} id='popper' {...props} />
            )}
@@ -35,21 +35,19 @@ return (
            renderTags={(tagValue, getTagProps) =>
              tagValue.map((option, index) => (
                <Chip
-               label={option}
-               variant='outlined'
-               size='small'
-               style={{border:'0.3px solid #3E3E3E'}}
-               {...getTagProps({ index })}
+                  label={option}
+                  variant='outlined'
+                  size='small'
+                  style={{border:'0.3px solid #3E3E3E'}}
+                  {...getTagProps({ index })}
                />
-               ))
-             }
-             renderInput={(params) => (
-               <TextField ref={inputRef} sx={{outline:'none',padding:'0'}} placeholder='Search for skills'{...params} disabled={!inLimit} />
-               )}
-               
-           sx={{ width: '500px' }}
-           disabled={!inLimit}
-           />
+            ))}
+            renderInput={(params) => (
+                <TextField ref={inputRef} sx={{outline:'none',padding:'0'}} placeholder='Search for skills'{...params} disabled={!inLimit} />
+            )}
+            sx={{ width: '500px' }}
+            disabled={!inLimit}
+        />
        </div>
      </StyledEngineProvider>
        

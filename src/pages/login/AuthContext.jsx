@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router'
 export const Context = createContext()
 export const AuthContextProvider = ({children}) => {
     const navigate = useNavigate() 
+    console.log(localStorage.getItem('accessToken'),'definition')
     const [token,setToken] = useState({
-        accessToken: localStorage.getItem('accessToken')?JSON.parse(localStorage.getItem('accessToken')) : null,
+        accessToken:localStorage.getItem('accessToken')?JSON.parse(localStorage.getItem('accessToken')) : null,
         refreshToken:localStorage.getItem('refreshToken')?JSON.parse(localStorage.getItem('refreshToken')) : null,
     })
     useEffect(()=>{

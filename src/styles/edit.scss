@@ -1,0 +1,47 @@
+.edit{
+    @media (width>750px) {
+        align-items: center !important;
+    }
+    .signup{
+        @media (width>750px) {
+            height: auto;
+            margin-bottom: 16vh;
+        }
+
+    }
+    .lock-cont{
+        position: relative;
+        .icon-cont{
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        img{
+            margin-right: 0.8em;
+            height: 1em;
+        }
+    }
+    .lock-cont{
+        font-size: clamp(0.6rem,3vw,0.9rem);
+        margin-top: 0.8em;
+    }
+    .lock{
+        border:2px #2c2c2c solid;
+        border-radius: 2px;
+        
+        max-width: 38rem;
+        width: calc(100% - 1.96em);
+        padding: 0.6em 0.8em;
+    }
+    .lock , .lock::placeholder{
+        color: #666666;
+        line-height: 1;
+         font-size: 1.1em;
+         font-family: Cabin;
+         font-weight: 400;
+
+    }
+}

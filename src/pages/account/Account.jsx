@@ -285,7 +285,7 @@ const Empty = ({userType}) => {
                             </h1> 
                                                             
                         ):(
-                            <Link to="/upload/video">
+                            <Link to="/upload">
                                 <h1 className="sub">
                                     <span className='bold'>Create 
                                         <span className='bold'>your</span>

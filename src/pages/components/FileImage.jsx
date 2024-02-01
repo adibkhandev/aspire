@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from "react";
 import {motion} from 'framer-motion'
 import Cam from '../components/svg/Cam';
-const Image = ({file,input}) => {
+const Image = ({file,input,existing}) => {
 
     let [url,setUrl] = useState(null)
     let fileIns = file
@@ -12,6 +12,9 @@ const Image = ({file,input}) => {
                 setUrl(reader.result)
             }
             reader.readAsDataURL(file)
+        }
+        if(existing){
+            console.log(existing.pfp,'ex')
         }
         else{
             setUrl(null)
@@ -32,7 +35,7 @@ const Image = ({file,input}) => {
 
 
 
-                {url?(
+                {url || (existing && existing.pfp) ?(
                     <div className="mask">
                         <motion.div 
                         className={`pfpUploadContainer`}
@@ -40,7 +43,7 @@ const Image = ({file,input}) => {
                         animate={{ scale: 1 }}
                         transition={{ ease: "linear", duration: 6 ,type:'spring', mass: 0.8 ,stiffness:80 }}
                         >
-                            <img className='pfpUpload' src={url} alt=""/>
+                            <img className='pfpUpload' src={url?url:import.meta.env.VITE_API_URL + existing.pfp} alt=""/>
                         </motion.div>
 
                     </div>
