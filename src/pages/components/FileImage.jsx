@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from "react";
 import {motion} from 'framer-motion'
 import Cam from '../components/svg/Cam';
-const Image = ({file,input,existing,popupthere,setPopupthere}) => {
+const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
     const [updated,setUpdated] = useState(false)
     let [url,setUrl] = useState(null)
     const [detached,setDetached]=useState(true)
@@ -13,18 +13,6 @@ const Image = ({file,input,existing,popupthere,setPopupthere}) => {
         }
 
     }, [file,detached])
-
-
-
-
-
-
-
-
-
-
-
-
 
     useEffect(()=>{
         if(detached){
@@ -108,6 +96,7 @@ const Image = ({file,input,existing,popupthere,setPopupthere}) => {
                             <div
                              onClick={()=>{
                                 setDetached(true)
+                                setRemovePfp(true)
                              }} 
                              className="option">Remove upload</div>
                         </motion.div>

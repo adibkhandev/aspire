@@ -31,6 +31,7 @@ const EditProfile = () => {
         let formData = new FormData()
         if(e.target.username.value) formData.append('username',e.target.username.value)
         if(e.target.profile.files[0]) formData.append('pfp',e.target.profile.files[0])
+        if(removePfp) formData.append('removePfp',removePfp)       
         if(skills.length && (user.skills.length != skills.length)) formData.append('skills',JSON.stringify(skills))
               const headers = {
                 headers:{
@@ -77,14 +78,15 @@ const EditProfile = () => {
         navigate('/login')
       }
     },[])
-    const [popupThere,setPopupthere]=useState(false)
+    const [popupthere,setPopupthere]=useState(false)
+    const [removePfp,setRemovePfp]=useState(false)
   return (
     <div className="login-container edit">
     <Nav></Nav>
     {user && skills?(
       <form onSubmit={(e)=>updateHandler(e)} className='signup'>
           {
-               popupThere?(
+               popupthere?(
                  <div
                    onClick={()=>{
                       setPopupthere(false)   
@@ -93,7 +95,7 @@ const EditProfile = () => {
 
                ):''
           }
-          <Image popupthere={popupThere} setPopupthere={setPopupthere} existing={user} file={imageFile} input={clickRef}></Image>
+          <Image setRemovePfp={setRemovePfp} popupthere={popupthere} setPopupthere={setPopupthere} existing={user} file={imageFile} input={clickRef}></Image>
           <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
           <div className="data">
               <div className="title">
