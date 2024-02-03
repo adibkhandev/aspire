@@ -471,3 +471,27 @@ body{
         }
     }
 }
+.pfp-clicker{
+    .options{ 
+        position: absolute;
+        top: -22%;
+        left:80%;
+
+        font-size: 0.54rem;
+        background-color: #303030;
+        border-radius: 4px;
+        border-bottom-left-radius: 0;
+        #first{
+            border-bottom: 1px solid #3D3D3D;
+        }
+        .option{
+            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 12em;
+            height: 3.8em;
+            color: #898989;
+        }
+    }
+}
