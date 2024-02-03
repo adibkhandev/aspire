@@ -77,12 +77,23 @@ const EditProfile = () => {
         navigate('/login')
       }
     },[])
+    const [popupThere,setPopupthere]=useState(false)
   return (
     <div className="login-container edit">
     <Nav></Nav>
     {user && skills?(
       <form onSubmit={(e)=>updateHandler(e)} className='signup'>
-          <Image existing={user} file={imageFile} input={clickRef}></Image>
+          {
+               popupThere?(
+                 <div
+                   onClick={()=>{
+                      setPopupthere(false)   
+                   }} 
+                   className="defocus w-full h-full absolute top-0"></div>
+
+               ):''
+          }
+          <Image popupthere={popupThere} setPopupthere={setPopupthere} existing={user} file={imageFile} input={clickRef}></Image>
           <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
           <div className="data">
               <div className="title">

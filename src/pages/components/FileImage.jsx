@@ -1,10 +1,9 @@
 import React , {useState , useEffect} from "react";
 import {motion} from 'framer-motion'
 import Cam from '../components/svg/Cam';
-const Image = ({file,input,existing}) => {
+const Image = ({file,input,existing,popupthere,setPopupthere}) => {
     const [updated,setUpdated] = useState(false)
     let [url,setUrl] = useState(null)
-    const [changerModel,setChangerModel]=useState(false)
     const [detached,setDetached]=useState(true)
     useEffect(()=>{
        
@@ -33,7 +32,7 @@ const Image = ({file,input,existing}) => {
                 setTimeout(()=>{
                    setUrl(null)
                 },1000)
-                setChangerModel(false)
+                setPopupthere(false)
             }
             else{
                 if(file){
@@ -63,15 +62,15 @@ const Image = ({file,input,existing}) => {
             <>
             
             <motion.div 
-             whileTap={{ scale: 0.9 }}
+             whileTap={popupthere?{}:{scale:0.8}} 
              onClick={()=>{
                console.log(input.current)
 
                if(input){
                if(url){
-                   setChangerModel(true)
+                   setPopupthere(true)
                 }
-                if(!url && !changerModel){
+                if(!url && !popupthere){
                    input.current.click()
                 }
               } 
@@ -80,20 +79,25 @@ const Image = ({file,input,existing}) => {
 
 
  
-                    <div className="mask">
+                    <motion.div
+                      className="mask">
                         <motion.div 
                         className={`pfpUploadContainer`}
                         initial={{ scale: 0}}
                         animate={!detached ?{ scale: 1 }:{scale:0}}
                         transition={{ ease: "linear", duration: 6 ,type:'spring', mass: 0.8 ,stiffness:80 }}
-                        >
+                    >
                             <img className='pfpUpload' src={url} alt=""/>
                         </motion.div>
-                    </div>
+                    </motion.div>
                         <motion.div 
                           className="options"
-                          initial={{scale:0}}
-                          animate={changerModel?{scale:1}:{scale:0}}
+                          initial={{scale:0,rotate:90}}
+                            animate={popupthere?(
+                                    {scale:1,rotate:0}
+                            ) :(
+                                {scale:0,rotate:90}
+                            )}
                         >
                             <div onClick={()=>{
                                 if(input){

@@ -72,10 +72,19 @@ export const Signup = ({userType , setMode , setError , setToken }) => {
     const imageHandler = (e)=>{
         setImageFile(e.target.files[0])
     }
-   
+    const [popupthere,setPopupthere]=useState(false)
     return (
         <form onSubmit={(e)=>signupHandler(e)} className='signup'>
-            <Image file={imageFile} input={clickRef}></Image>
+            {
+               popupthere?(
+                 <div
+                   onClick={()=>{
+                      setPopupthere(false)   
+                   }} 
+                   className="defocus w-full h-full absolute top-0"></div>
+                ):''
+            }
+            <Image popupthere={popupthere} setPopupthere={setPopupthere} file={imageFile} input={clickRef}></Image>
             <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
             <input name='username' type="text" className="regular-inputs" id='name-input' placeholder='What should we call you?' />
             <input name='password' type="text" className="regular-inputs" id='password-input' placeholder='Enter a secure password' />

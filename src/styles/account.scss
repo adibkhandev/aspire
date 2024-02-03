@@ -459,7 +459,11 @@ body{
                 }
                 .option{
                     white-space: nowrap;
-                    padding: 0.8em 1.5em;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 12em;
+                    height: 3.8em;
                 }
             }
         }
@@ -481,6 +485,7 @@ body{
         background-color: #303030;
         border-radius: 4px;
         border-bottom-left-radius: 0;
+        transform-origin: bottom left;
         #first{
             border-bottom: 1px solid #3D3D3D;
         }
