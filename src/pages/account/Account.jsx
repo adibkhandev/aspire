@@ -15,6 +15,7 @@ export const Account = () => {
     let hasVideo = true
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
+    console.log(decoded,'pay')
     const [popupOpen,setPopupOpen] = useState(false)
     useEffect(()=>{
         const url = import.meta.env.VITE_API_URL + '/user/' + username

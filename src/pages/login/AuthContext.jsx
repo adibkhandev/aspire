@@ -1,5 +1,6 @@
 import React, { createContext , useState , useEffect} from 'react'
 import { useNavigate } from 'react-router'
+import axios from 'axios'
 export const Context = createContext()
 export const AuthContextProvider = ({children}) => {
     const navigate = useNavigate() 
@@ -19,7 +20,7 @@ export const AuthContextProvider = ({children}) => {
         })
         localStorage.setItem('accessToken',JSON.stringify(access))
         localStorage.setItem('refreshToken',JSON.stringify(refresh))
-        localStorage.setItem('userData',JSON.stringify(userData))
+        if(userData) localStorage.setItem('userData',JSON.stringify(userData))
     }
     const logout = () =>{
         setToken({
@@ -31,6 +32,26 @@ export const AuthContextProvider = ({children}) => {
        localStorage.removeItem('userData')
        navigate('/')
     } 
+    const refreshToken = () => {
+        console.log('pay')
+        const data = {
+            refreshToken:token.refreshToken
+        }
+        axios.post(import.meta.env.VITE_API_URL + '/auth/refresh',data)
+          .then(response=>{
+              console.log(response.data,'refresh')
+              tokenize(response.data.accesstoken,response.data.refreshtoken)
+          
+            })
+          .catch(err=>{
+             console.log(err,'error')
+          })
+    }
+    useEffect(()=>{
+        if(token && token.refreshToken){
+           refreshToken()
+        }
+    },[])
     return (
         <Context.Provider value={{
             'token':token,

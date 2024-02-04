@@ -4,17 +4,15 @@ import { useNavigate } from 'react-router'
 import { Context } from './login/AuthContext'
 import { Nav } from './Nav'
 export const Home = () => {
-    const {token} = useContext(Context)
+    const {token,refreshToken} = useContext(Context)
     const navigate = useNavigate()
     useEffect(()=>{
          if(token.accessToken && token.refreshToken) {
+            const decodedRefresh = jwtDecode(token.refreshToken)
             const decoded = jwtDecode(token.accessToken)
-            if(decoded){
-                console.log(decoded,'decoded')
-                navigate(`/${decoded.username}`)
-            }
+            if(!decoded || !decodedRefresh) navigate('/login')
             else{
-                navigate('/login')
+               navigate(`/${decoded.username}`)
             }
          }
          else{
