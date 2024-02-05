@@ -12,9 +12,11 @@ import logo from './../assets/images/aspire-logo.svg'
 import hamburger from './../assets/images/hamburger.svg'
 import { Drawer } from '@mui/material';
 import { Link , useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
+    const decoded = token ? jwtDecode(token) : null
     const navigate = useNavigate()
     const {logout} = useContext(Context)
       return (
@@ -60,10 +62,12 @@ export const Nav = () => {
                           <img src={reverse} alt="" />
                           <h1>Play recent</h1>
                        </div>
+                       <Link to={`/${decoded._id}/edit`}>
                        <div className="option">
                           <img src={crop} alt="" />
                           <h1>Edit profile</h1>
                        </div>
+                       </Link>
                        <div 
                          className="option"
                          onClick={()=>{
