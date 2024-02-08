@@ -5,6 +5,7 @@ import deletePic from './../assets/images/delete.svg'
 import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
+import axios from 'axios'
 const Player = ({course,setHeight,popupRef}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
@@ -96,11 +97,43 @@ const Player = ({course,setHeight,popupRef}) => {
 
 
 const CourseNav = ({deleteMode, setDeleteMode ,containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
-    const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
+    const accessToken = localStorage.getItem('accessToken')
     const decoded = accessToken? jwtDecode(accessToken):null
     const adderContRef = useRef(null)
     const [down,setDown]=useState(false) 
     const [deleted,setDeleted]=useState([])
+
+    const submitDeletion = () => {
+        if(decoded && deleted.length){
+            let headers = {
+                headers:{
+                    'Authorization':'Bearer ' + accessToken,
+                    'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+                    'Access-Control-Request-Method': 'POST'
+                }
+            }
+            let url = `${import.meta.env.VITE_API_URL}/video/delete/${courseId}/${topic._id}/`
+            console.log(url,'urll')
+            let data = {
+                videos:deleted
+            }
+            axios.post(url,data,headers)
+               .then((response)=>{
+                   console.log(response.data)
+               })
+               .catch(err=>{
+                  console.log(err)
+               })
+        }
+    }
+
+
+
+
+
+
     let callback = entries =>{
         let [entry] = entries
         if(entry){
@@ -143,7 +176,7 @@ console.log(deleted,'adsd')
                                 onClick={()=>{
                                     console.log('clickssasd')
                                     if(deleteMode){
-
+                                       submitDeletion()
                                     }
                                     else{
                                         setAdding(topic._id) 
