@@ -1,12 +1,14 @@
 import React , {useState , useRef , useEffect , useLayoutEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import smallPlus from './../assets/images/small-plus.svg'
+import deletePic from './../assets/images/delete.svg'
 import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
 const Player = ({course,setHeight,popupRef}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
+    const [deleteMode,setDeleteMode] = useState(false)
     const containerRef = useRef(null)
     const navigate = useNavigate()
     useLayoutEffect(() => {
@@ -25,6 +27,9 @@ const Player = ({course,setHeight,popupRef}) => {
     className="content-cont">
         <div 
               onClick={()=>{
+               if(deleteMode){
+                setDeleteMode(false)
+               }
                if(adding){
                   setAdding(false)
                }
@@ -72,7 +77,7 @@ const Player = ({course,setHeight,popupRef}) => {
                             (course && course.topics)? course.topics.map((topic)=>{
                                 console.log(topic,'topic')
                                 return (
-                                    <CourseNav activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
+                                    <CourseNav setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
 
                                 }
@@ -90,11 +95,12 @@ const Player = ({course,setHeight,popupRef}) => {
 
 
 
-const CourseNav = ({containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
+const CourseNav = ({deleteMode, setDeleteMode ,containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
     const adderContRef = useRef(null)
     const [down,setDown]=useState(false) 
+    const [deleted,setDeleted]=useState([])
     let callback = entries =>{
         let [entry] = entries
         if(entry){
@@ -123,7 +129,7 @@ const CourseNav = ({containerRef,author,topic,adding,setAdding,activeVideo,setAc
         };
      }, [adderContRef,options])
 
-
+console.log(deleted,'adsd')
     return(
         <>
           <div ref={adderContRef} className="topic-cont">
@@ -133,22 +139,48 @@ const CourseNav = ({containerRef,author,topic,adding,setAdding,activeVideo,setAc
                 {
                     (decoded && decoded._id==author)?(
                         <div className="adding">
-                            <motion.img 
-                                whileTap={{scale:0.8}} 
+                            <div 
                                 onClick={()=>{
-                                setAdding(topic._id) 
+                                    console.log('clickssasd')
+                                    if(deleteMode){
+
+                                    }
+                                    else{
+                                        setAdding(topic._id) 
+                                    }
                                 }} 
-                                src={smallPlus} 
-                                alt="" 
-                            />
+                            
+                            className="imgs">
+                                <motion.div 
+                                    whileTap={{scale:0.8}} 
+                                    className="img">
+                                    <motion.img 
+                                        style={!deleteMode?{zIndex:2}:{zIndex:1}}
+                                        animate={deleteMode?{scale:0}:{scale:1}}
+                                        transition={!deleteMode?{delay:0.6}:{}}
+                                        src={smallPlus} 
+                                        alt="" 
+                                    />
+                                </motion.div>
+                                <motion.div 
+                                    whileTap={{scale:0.8}} 
+                                    onClick={()=>{
+                                    }} 
+                                  className="img">
+                                    <motion.img 
+                                        style={deleteMode?{zIndex:2}:{zIndex:1}}
+                                        animate={!deleteMode?{scale:0}:{scale:1}}
+                                        transition={deleteMode?{delay:0.6}:{}}
+                                        src={deletePic} 
+                                        alt="" 
+                                    />
+                                </motion.div>
+
+                            </div>
                             <motion.div 
                             style={!down?{bottom:0}:{top:0}}
                             initial={{transformOrigin:"bottom right",scale:0,rotate:-90}}
                             animate={
-                             
-
-
-
                                 adding==topic._id ?(
                                     {transformOrigin:`${down?"top":"bottom"} right`,rotate:down?0:0,scale:1}
                             ) :(
@@ -161,6 +193,10 @@ const CourseNav = ({containerRef,author,topic,adding,setAdding,activeVideo,setAc
                                 <Link to={`/${courseId}/add/topic`}>
                                     <div className="option">Add new topic</div>
                                 </Link>
+                                <div onClick={()=>{
+                                     setAdding(false)
+                                     setDeleteMode(true)
+                                }} className="option">Delete video</div>
                             </motion.div>
                         </div>
                     ):''}              
@@ -172,21 +208,46 @@ const CourseNav = ({containerRef,author,topic,adding,setAdding,activeVideo,setAc
                       <motion.div 
                         onClick={()=>{
                             console.log('clicks')
-                            setActiveVideo(video)
+                            if(!deleteMode){
+                                setActiveVideo(video)
+                            }
+                            else{
+                                if(!deleted.includes(video._id)){
+                                    setDeleted([...deleted,video._id])
+                                }
+                                else{
+                                    setDeleted(deleted.filter((item)=>{{
+                                        return item != video._id
+                                    }}))
+
+                                }
+                            }
                         }} 
-                        className="video-title"
-                        animate={activeVideo==video?{
+                        className="video-title flex"
+                        animate={activeVideo==video && !deleteMode?{
                             backgroundColor:'#2b2b2b'
                         }:{
                             backgroundColor:'#242424'
                         }}
-                        whileHover={activeVideo!=video?{
+                        whileHover={activeVideo!=video && !deleteMode?{
                             height: "3.2em",
                             backgroundColor:'#272727',
                         }:{}}
                         transition={{duration:0.2}}
                        >
+                        <div className="div">
                             {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                        </div>
+                        {
+                            deleteMode && (
+                            <div className="selector">
+                                <motion.div
+                                initial={{scale:0}}
+                                animate={deleted.length && deleted.includes(video._id)?{scale:1}:{scale:0}} 
+                                className="selected"></motion.div>
+                            </div>
+                          )
+                        }
                       </motion.div> 
 
                     )
