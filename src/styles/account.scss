@@ -149,11 +149,14 @@ body{
                 background: #303030;
                 color: #FFF;
                 font-family: Raleway;
-                font-size: 0.19em;
+                font-size: 0.26em;
                 font-weight: 400;
-                padding: 0.7em ;
-                width: 10em;
-                min-width: 6.2rem;
+                padding: 0.8em 0 ;
+                width: 11em;
+                @media (width<550px) {
+                    width: 9.7em;
+                }
+                min-width: 5rem;
                 min-height: 1.8rem;
                 display: flex;
                 justify-content: center;

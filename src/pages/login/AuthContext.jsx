@@ -37,7 +37,7 @@ export const AuthContextProvider = ({children}) => {
         const data = {
             refreshToken:token.refreshToken
         }
-        axios.post(import.meta.env.VITE_API_URL + '/auth/refresh',data)
+        axios.post(import.meta.env.VITE_API_URL + '/auth/refresh/',data)
           .then(response=>{
               console.log(response.data,'refresh')
               tokenize(response.data.accesstoken,response.data.refreshtoken)
@@ -45,11 +45,15 @@ export const AuthContextProvider = ({children}) => {
             })
           .catch(err=>{
              console.log(err,'error')
+              if(err.response.status == 400){
+                 logout()
+              }
           })
     }
     useEffect(()=>{
         if(token && token.refreshToken){
            refreshToken()
+           console.log('refreshing')
         }
     },[])
     return (

@@ -29,7 +29,7 @@ export const Nav = () => {
                 setDrawerOpen(true)
                 
             }} className='ham' src={hamburger} alt="" />
-            <Drawer
+            {decoded && <Drawer
               open={drawerOpen}
               variant="temporary"
               onClose={(event,reason)=>{
@@ -98,6 +98,7 @@ export const Nav = () => {
                </div>
 
             </Drawer>
+          }
         </div>
     )
 }

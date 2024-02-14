@@ -84,17 +84,14 @@ const EditProfile = () => {
     <div className="login-container edit">
     <Nav></Nav>
     {user && skills?(
-      <form onSubmit={(e)=>updateHandler(e)} className='signup'>
-          {
-               popupthere?(
-                 <div
-                   onClick={()=>{
-                      setPopupthere(false)   
-                   }} 
-                   className="defocus w-full h-full absolute top-0"></div>
-
-               ):''
+      <form
+        onClick={(e)=>{
+          e.stopPropagation()
+          if(popupthere){
+            setPopupthere(false)   
           }
+        }}  
+        onSubmit={(e)=>updateHandler(e)} className='signup'>
           <Image setRemovePfp={setRemovePfp} popupthere={popupthere} setPopupthere={setPopupthere} existing={user} file={imageFile} input={clickRef}></Image>
           <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
           <div className="data">

@@ -12,6 +12,7 @@ const Player = ({course,setHeight,popupRef}) => {
     const [deleteMode,setDeleteMode] = useState(false)
     const containerRef = useRef(null)
     const navigate = useNavigate()
+    const token = localStorage.getItem('accessToken');
     useLayoutEffect(() => {
         // console.log(popupRef.current.clientHeight)
         if(popupRef){
@@ -20,31 +21,55 @@ const Player = ({course,setHeight,popupRef}) => {
         }
     });
     
+
+    const subscribe = () => {
+        console.log('clic')
+        const data = {
+            courseId:course._id
+        }
+        const headers = {
+            headers:{
+              'Authorization':'Bearer ' + token,
+              'Content-Type':'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+              'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS'
+            }
+          }
+        const url =  import.meta.env.VITE_API_URL + '/user/subscribe' 
+        axios.post(url,data,headers)
+           .then((response)=>{
+              console.log(response.data,'ssubbss')
+           })
+           .catch((err)=>{
+              console.log(err.response.status)
+           })
+    }
        
     console.log(course,'course')
     console.log(activeVideo,'linkactive')
   return (
     <motion.div  
+    onClick={(e)=>{
+        e.stopPropagation()
+        console.log(e.target.className,'Tefwr')
+        if(e.target.className == 'content-cont'){
+            if(deleteMode){
+             setDeleteMode(false)
+            }
+            if(adding){
+               setAdding(false)
+            }
+            if(activeVideo){
+                setActiveVideo(null)
+            }
+            else if(popupRef){
+               navigate(`/course/${course._id}`)
+            }
+        }
+   
+       }}  
     className="content-cont">
-        <div 
-              onClick={()=>{
-               if(deleteMode){
-                setDeleteMode(false)
-               }
-               if(adding){
-                  setAdding(false)
-               }
-               if(activeVideo){
-                   setActiveVideo(null)
-               }
-               else if(popupRef){
-                navigate(`/course/${course._id}`)
-               }
-           
-               }}            
-          className="defocus-cont">
-          
-        </div>
         <div className="player-cont">
            {
                activeVideo?(
@@ -64,9 +89,20 @@ const Player = ({course,setHeight,popupRef}) => {
                 <h1 className="title">
                    {activeVideo?activeVideo.title:course.title}
                 </h1>
-            <h1 className="description">
+                <h1 className="description">
                    {activeVideo?activeVideo.description:course.description}
-            </h1>
+                </h1>
+                <motion.div
+                  onClick={()=>subscribe()} 
+                  className="subscription">
+                    <svg  viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0.5 5.5C0.5 2.73877 2.73877 0.5 5.5 0.5C8.26123 0.5 10.5 2.73877 10.5 5.5C10.5 8.26123 8.26123 10.5 5.5 10.5C2.73877 10.5 0.5 8.26123 0.5 5.5Z" stroke="#525252"/>
+                      <path d="M4.93801 7.74989L2.95801 5.76989L3.75338 4.97452L4.93801 6.15914L7.58738 3.50977L8.38276 4.30514L4.93801 7.74989Z" fill="#545454"/>
+                    </svg>
+                    <h1>
+                        Subscribe
+                    </h1>
+                </motion.div>
         </div>
         <div className="total-cont">
             <div ref={containerRef} className="topper-cont">

@@ -99,14 +99,16 @@ export const Account = () => {
                                         {
                                             (userData)?(
                                                 (decoded && decoded._id==userData.id)?(
-                                                    <div className="edit-btn-cont">
-                                                        <Link to={`/${decoded._id}/edit`}>
+                                                    <motion.div
+                                                            whileTap={{scale:0.9}} 
+                                                            className="edit-btn-cont">
                                                             <div className="edit-btn">
+                                                        <Link to={`/${decoded._id}/edit`}>
                                                                 Edit profile
-                                                            </div>
                                                         </Link>
+                                                            </div>
                                                        
-                                                    </div>
+                                                          </motion.div>
 
                                                 ):''
                                             ):(
@@ -224,8 +226,8 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
             </div>
             <div className="grid">
                 {userData?(
-                   userData.subscribedCourses?(
-                      <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
+                    userData.subscribedCourses &&  userData.subscribedCourses.length?(
+                      <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.subscribedCourses} thumbnails={userData.thumbnails}/>
                    ):(
                       <Empty userType={userData.userType=="student"?"teacher":"student"} />
                    )

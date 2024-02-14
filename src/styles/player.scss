@@ -4,7 +4,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
     border-radius: inherit;
+    .defocus-cont{
+        position: absolute;
+        top: 0;
+    }
     .player-cont{
         width: 100%;
         margin: 0;
@@ -49,6 +54,7 @@
         font-weight: 500;
         line-height: 1.3;
         margin-top: 0.5em;
+        margin-bottom: 0.66em;
     }
     .course-nav-scroll-cont::-webkit-scrollbar-track{
         background: #3A3A3A ; /* make scrollbar transparent*/
@@ -182,5 +188,24 @@
                 }
             }
         }
+    }
+}
+.subscription{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1rem;
+    svg{
+        font-size: 1em;
+        width: 0.66em;
+    }
+    h1{
+        line-height: 0.9;
+        font-size: 0.7em;
+        margin-left: 0.22rem;
+        font-weight: 400;
+        font-family: 'Cabin';
+        font-style: italic;
+        color: #8A8A8A;
     }
 }
