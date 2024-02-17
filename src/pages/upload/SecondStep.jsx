@@ -1,16 +1,40 @@
-import React , {useRef}  from 'react'
+import React , {useRef,useState,useEffect}  from 'react'
 import { motion } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
-
+import MotionCta from '../components/MotionCta'
 const SecondStep = ({setStep,onlyVideo}) => {
   const input = useRef(null)
+  const topicTitleRef = useRef(null)
+  const videoTitleRef = useRef(null)
+  const videoDescribeRef = useRef(null)
+  const [changesMade,setChangesMade] = useState(false)
+  const [videoThere,setVideoThere]=useState(false)
+  const check = (e) => {
+    console.log('sadsa')
+    if(topicTitleRef.current , videoTitleRef.current , videoDescribeRef.current){
+      if(
+        videoThere &&
+        topicTitleRef.current.value &&
+        videoTitleRef.current.value &&
+        videoDescribeRef.current.value 
+      ){
+         setChangesMade(true)
+      }
+      else{
+       setChangesMade(false)
+      }
+    }
+  }
+  useEffect(()=>{
+    check()
+  },[videoThere])
     return (
-      <div className="upload-parts" id='video'>
+      <div onChange={()=>check()}  className="upload-parts" id='video'>
         <div className="videos">
           {
             !onlyVideo?(
               <div className="entitle-cont courseNameCont">
-                <input name="topicTitle" type="text" className="regular-inputs courseName" id='entitle' placeholder='Name this part of the course' />
+                <input ref={topicTitleRef} name="topicTitle" type="text" className="regular-inputs courseName" id='entitle' placeholder='Name this part of the course' />
               </div>     
             ):''
           }
@@ -34,16 +58,20 @@ const SecondStep = ({setStep,onlyVideo}) => {
             </div>
           </motion.div>
           <div className="entitle-cont videoNameCont">
-              <input placeholder="Title for your video ..." id="entitle" type="text" name='title'       className='regular-inputs' />
+              <input ref={videoTitleRef}  placeholder="Title for your video ..." id="entitle" type="text" name='title'       className='regular-inputs' />
           </div>
           <div className="textarea-container" id="custom-textarea">
-              <textarea  name='description' placeholder="Write about your course ...."   id="" className=""rows="9"></textarea>
+              <textarea ref={videoDescribeRef}  name='description' placeholder="Write about your course ...."   id="" className=""rows="9"></textarea>
           </div>
           <div className="handy-btns">
-              <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>setStep(1)} className="secondary-btn">Discard</motion.div>
-              <motion.button type="submit"  whileTap={{ scale: 0.98 }} className="cta-btn">Continue</motion.button>
+              <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>setStep(1)} className="secondary-btn">Go back</motion.div>
+              <MotionCta submit={true} changesMade={changesMade} text={'Continue'}></MotionCta>
           </div>
-          <input ref={input} className="hidden" type="file" name="video" id="" />
+          <input onChange={(e)=>{
+            if(e.target.files[0]){
+                setVideoThere(true)
+            }
+          }} ref={input} className="hidden" type="file" name="video" id="" />
         </div>
       </div>
     )

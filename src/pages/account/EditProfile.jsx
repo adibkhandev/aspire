@@ -2,6 +2,7 @@ import React, { useState , useRef, useEffect ,useContext} from 'react'
 import { Context } from '../login/AuthContext';
 import { Signup } from './../login/Signup'
 import { BoxAddon } from '../components/BoxAddon';
+import MotionCta from '../components/MotionCta';
 import { Nav } from '../Nav'
 import {CustomAlert} from '../components/CustomAlert'
 import Image from '../components/FileImage';
@@ -78,8 +79,36 @@ const EditProfile = () => {
         navigate('/login')
       }
     },[])
+    const [changesMade,setChangesMade] = useState(false)
+    console.log('jj')
     const [popupthere,setPopupthere]=useState(false)
     const [removePfp,setRemovePfp]=useState(false)
+    const usernameRef = useRef(null)
+
+
+    ///
+
+
+    useEffect(()=>{
+       if(user && skills && usernameRef.current){
+        if (
+            user.skills.slice(-1)[0] == skills.slice(-1)[0] && 
+            skills.length == user.skills.length && 
+            !imageFile && 
+            !removePfp && 
+            !usernameRef.current.value
+        ){
+           setChangesMade(false)
+        }
+        else{
+            setChangesMade(true)
+        }
+      }
+    },[skills,imageFile,removePfp])
+
+
+
+    ////
   return (
     <div className="login-container edit">
     <Nav></Nav>
@@ -101,15 +130,23 @@ const EditProfile = () => {
           <BoxAddon skills={skills} setSkills={setSkills} setError={setError} num={5}></BoxAddon>
           <div className="lock-cont">
             <div className="icon-cont">
-              <img src={squareReverse} alt="" />
+              <img onClick={()=>{
+                 console.log('casa')
+                 usernameRef.current.focus()
+              }} src={squareReverse} alt="" />
             </div>
-            <input name='username' type="text" className="lock" id='name-input' placeholder={user?user.username:''} />
+            <input onChange={(e)=>{
+              if(e.target.value) setChangesMade(true)
+              else setChangesMade(false)
+            }} ref={usernameRef} name='username' type="text" className="lock" id='name-input' placeholder={user?user.username:''} />
           </div>
 
           </div>
           <div className="handy-btns">
-                <motion.div  whileTap={{ scale: 0.98 }}  className="secondary-btn">Discard</motion.div>
-                <motion.button type="submit"  whileTap={{ scale: 0.98 }} className="cta-btn">Save changes</motion.button>
+                <motion.div onClick={()=>{
+                    navigate('/')   
+                }}  whileTap={{ scale: 0.98 }}  className="secondary-btn">Discard</motion.div>
+                <MotionCta submit={true} changesMade={changesMade} ></MotionCta>
           </div>
           <div className="linking">
                 Wanna change
