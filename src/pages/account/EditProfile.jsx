@@ -138,7 +138,7 @@ const EditProfile = () => {
             <input onChange={(e)=>{
               if(e.target.value) setChangesMade(true)
               else setChangesMade(false)
-            }} ref={usernameRef} name='username' type="text" className="lock" id='name-input' placeholder={user?user.username:''} />
+            }} autoComplete='off' ref={usernameRef} name='username' type="text" className="lock" id='name-input' placeholder={user?user.username:''} />
           </div>
 
           </div>

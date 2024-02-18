@@ -1,9 +1,18 @@
-input:-webkit-autofill{
-    -webkit-text-fill-color: #666 !important;
-    text-align: center;
-}
-input:-webkit-autofill { 
-    -webkit-background-clip: text;
+// input:-webkit-autofill{
+//     -webkit-text-fill-color: #27272717 !important;
+// }
+// input:-webkit-autofill { 
+//     -webkit-background-clip: text;
+// }
+// input:-internal-autofill-selected {
+//     background-color: -internal-light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important;
+// }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow:0 0 0 50px #252525 inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: #666666 !important;
 }
 ::-webkit-scrollbar {
     width: 0px;
@@ -14,6 +23,9 @@ input:-webkit-autofill {
 }
 textarea {
     resize: none;
+}
+input{
+    caret-color: #666666 !important;
 }
 input:focus::placeholder , textarea:focus::placeholder{
     transform: scale(0.01);
