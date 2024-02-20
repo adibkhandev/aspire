@@ -135,7 +135,8 @@ const EditProfile = () => {
                  usernameRef.current.focus()
               }} src={squareReverse} alt="" />
             </div>
-            <input onChange={(e)=>{
+            <input 
+             onChange={(e)=>{
               if(e.target.value) setChangesMade(true)
               else setChangesMade(false)
             }} autoComplete='off' ref={usernameRef} name='username' type="text" className="lock" id='name-input' placeholder={user?user.username:''} />

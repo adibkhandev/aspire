@@ -6,10 +6,9 @@ import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
 import axios from 'axios'
-const Player = ({course,setHeight,popupRef}) => {
+const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitiated,setDeletePrompt}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
-    const [deleteMode,setDeleteMode] = useState(false)
     const containerRef = useRef(null)
     const navigate = useNavigate()
     const token = localStorage.getItem('accessToken');
@@ -26,7 +25,8 @@ const Player = ({course,setHeight,popupRef}) => {
             }
         }
     },[user,course])
-    console.log(user,'usreerere')
+    
+    // console.log(user,'usreerere')
     useLayoutEffect(() => {
         // console.log(popupRef.current.clientHeight)
         if(popupRef){
@@ -35,7 +35,13 @@ const Player = ({course,setHeight,popupRef}) => {
         }
     });
     
+   useEffect(()=>{
+        console.log('getting useEff')
+        if(deleteMode){
+            setDeleteMode(false)
+        }
 
+   },[course])
     const subscribe = (process) => {
         console.log(process,'process')
         const data = {
@@ -64,8 +70,8 @@ const Player = ({course,setHeight,popupRef}) => {
            })
     }
        
-    console.log(course,'course')
-    console.log(activeVideo,'linkactive')
+    // console.log(course,'course')
+    // console.log(activeVideo,'linkactive')
   return (
     <motion.div  
     onClick={(e)=>{
@@ -144,7 +150,7 @@ const Player = ({course,setHeight,popupRef}) => {
                             (course && course.topics)? course.topics.map((topic)=>{
                                 console.log(topic,'topic')
                                 return (
-                                    <CourseNav setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
+                                    <CourseNav deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
 
                                 }
@@ -162,13 +168,17 @@ const Player = ({course,setHeight,popupRef}) => {
 
 
 
-const CourseNav = ({deleteMode, setDeleteMode ,containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
+const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode ,containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
     const accessToken = localStorage.getItem('accessToken')
     const decoded = accessToken? jwtDecode(accessToken):null
     const adderContRef = useRef(null)
     const [down,setDown]=useState(false) 
     const [deleted,setDeleted]=useState([])
-
+    useEffect(()=>{
+        if(deleteMode){
+            setDeleted([])
+        }
+    },[deleteMode])
     const submitDeletion = () => {
         if(decoded && deleted.length){
             let headers = {
@@ -176,11 +186,10 @@ const CourseNav = ({deleteMode, setDeleteMode ,containerRef,author,topic,adding,
                     'Authorization':'Bearer ' + accessToken,
                     'Content-Type':'application/json',
                     'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-                    'Access-Control-Request-Method': 'POST'
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
                 }
             }
-            let url = `${import.meta.env.VITE_API_URL}/video/delete/${courseId}/${topic._id}/`
+            let url = `${import.meta.env.VITE_API_URL}/video/delete/${courseId}/${topic._id}`
             console.log(url,'urll')
             let data = {
                 videos:deleted
@@ -196,7 +205,11 @@ const CourseNav = ({deleteMode, setDeleteMode ,containerRef,author,topic,adding,
     }
 
 
-
+    useEffect(()=>{
+        if(deleteInitiated){
+            submitDeletion()
+        }
+    },[deleteInitiated])
 
 
 
@@ -242,7 +255,7 @@ console.log(deleted,'adsd')
                                 onClick={()=>{
                                     console.log('clickssasd')
                                     if(deleteMode){
-                                       submitDeletion()
+                                       setDeletePrompt(true)
                                     }
                                     else{
                                         setAdding(topic._id) 
@@ -339,11 +352,16 @@ console.log(deleted,'adsd')
                         </div>
                         {
                             deleteMode && (
-                            <div className="selector">
-                                <motion.div
-                                initial={{scale:0}}
-                                animate={deleted.length && deleted.includes(video._id)?{scale:1}:{scale:0}} 
-                                className="selected"></motion.div>
+                            <div className="selector-cont">
+                               <div className="selector">
+                                    <motion.svg
+                                    viewBox="0 0 10 10"
+                                    initial={{scale:0}}
+                                    animate={deleted.length && deleted.includes(video._id)?{scale:1}:{scale:0}} 
+                                    className="selected">
+                                        <circle className='circle' r="3" cx="5" cy="5" />
+                                    </motion.svg>
+                               </div>
                             </div>
                           )
                         }

@@ -8,10 +8,16 @@ import Popup from './Popup'
 import { Link } from "react-router-dom";
 import {Skeleton} from '@mui/material'
 import { jwtDecode } from "jwt-decode";
+import Delete from '../../components/Delete'
 export const Account = () => {
     let {username} = useParams()
     let [userData,setUserData] = useState(null)
     let [courseActive,setCourseAcitve] = useState(null)
+    //
+    let [deletePrompt,setDeletePrompt]=useState(false)
+    let [deleteInitiated,setDeleteInitiated]=useState(false)
+    const [deleteMode,setDeleteMode] = useState(false)
+    //
     let hasVideo = true
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
@@ -46,7 +52,8 @@ export const Account = () => {
     }
     return (
         <div className='home-container'>
-            <Popup setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
+            <Delete setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
+            <Popup deleteMode={deleteMode} setDeleteMode={setDeleteMode} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
             <motion.div
               className='home'
               variants={homeVariants}

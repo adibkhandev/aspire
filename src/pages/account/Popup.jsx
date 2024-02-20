@@ -3,13 +3,14 @@ import {motion} from 'framer-motion'
 import Player from '../../components/Player';
 import { jwtDecode } from "jwt-decode";
 
-const Popup = ({course,setCourse,popupOpen,setPopupOpen}) => {
+const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen,deleteInitiated,setDeletePrompt}) => {
   const [lastVal,setLastVal] = useState(0)
   const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
   const decoded = accessToken? jwtDecode(accessToken):null
   const [height, setHeight] = useState(0);
   const popupRef = useRef(null);
   
+
   
   console.log(popupOpen,'popstate')
   return (
@@ -45,7 +46,7 @@ const Popup = ({course,setCourse,popupOpen,setPopupOpen}) => {
     >
         {
             course?(
-               <Player popupOpen={popupOpen} course={course} popupRef={popupRef} setHeight={setHeight}/>
+               <Player deleteMode={deleteMode} setDeleteMode={setDeleteMode}  deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} popupOpen={popupOpen} course={course} popupRef={popupRef} setHeight={setHeight}/>
             ):''
         }
        
