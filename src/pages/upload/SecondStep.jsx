@@ -12,16 +12,33 @@ const SecondStep = ({setStep,onlyVideo}) => {
   const check = (e) => {
     console.log('sadsa')
     if(topicTitleRef.current , videoTitleRef.current , videoDescribeRef.current){
-      if(
-        videoThere &&
-        topicTitleRef.current.value &&
-        videoTitleRef.current.value &&
-        videoDescribeRef.current.value 
-      ){
-         setChangesMade(true)
+      if(onlyVideo){
+        if(
+          videoThere &&
+          videoTitleRef.current.value &&
+          videoDescribeRef.current.value
+  
+        ){
+           setChangesMade(true)
+        }
+        else{
+         setChangesMade(false)
+        }
+
       }
       else{
-       setChangesMade(false)
+        if(
+          videoThere &&
+          topicTitleRef.current.value &&
+          videoTitleRef.current.value &&
+          videoDescribeRef.current.value
+  
+        ){
+           setChangesMade(true)
+        }
+        else{
+         setChangesMade(false)
+        }
       }
     }
   }
