@@ -70,7 +70,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
            })
     }
        
-    // console.log(course,'course')
+    console.log(course,'course')
     // console.log(activeVideo,'linkactive')
   return (
     <motion.div  

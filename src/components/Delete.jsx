@@ -28,7 +28,9 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
         }
     } 
     useEffect(()=>{
-       animateDelete()
+        if(deletePrompt){
+            animateDelete()
+        }
     },[deletePrompt])
   return (
     <motion.div
@@ -42,6 +44,7 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
       className='delete-screen'>
         
           <motion.div
+            initial={{y:"100vh"}}
             animate={deletePrompt?{y:0}:{y:"100vh"}} 
             transition={deletePrompt?{delay:0.2}:{delay:0}}
             className="delete-dialog">

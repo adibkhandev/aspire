@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 import { easeIn, motion , useDragControls } from 'framer-motion'
 import { Nav } from '../Nav'
 import earth from './../../assets/images/earth.svg'
+import squarePlay from './../../assets/images/square-play.svg'
 import axios from 'axios'
 import Popup from './Popup'
 import { Link } from "react-router-dom";
@@ -326,12 +327,19 @@ const Videos = ({thumbnails,uploadedCourses,setCourseAcitve,setPopupOpen}) => {
           <div 
            className="videoListCont">
               {uploadedCourses.map((course,index)=>{
+                  console.log(course.subscribedCount,'counts')
                   return (
                     <div className="videoCont">
                         <img draggable="false" onClick={()=>{
                             setCourseAcitve(course)
                             setPopupOpen(true)
                          }} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />
+                         <div className="subs-cont">
+                            <div className="subs">
+                               <img src={squarePlay} alt="" />
+                               <h1>{course.subscribedCount}</h1>
+                            </div>
+                         </div>
                     </div>
                   )
               })}
