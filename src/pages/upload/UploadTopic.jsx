@@ -8,7 +8,7 @@ const UploadTopic = () => {
   let {courseId} = useParams()
   const token = localStorage.getItem('accessToken');
   let [error,setError]=useState(null)
-
+  const navigate = useNavigate()
   useEffect(()=>{
     if(!token){
      navigate('/login')
@@ -47,6 +47,7 @@ const UploadTopic = () => {
                   console.log(response)
                     if(response.status==201){
                         console.log(response.data,'data','unique')
+                        navigate('/')
                     }
                 })
                 .catch((err)=>{

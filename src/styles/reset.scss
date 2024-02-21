@@ -35,3 +35,7 @@ input:focus::placeholder , textarea:focus::placeholder{
 input , a , .cta-btn , .secondary-btn , .video-clicker , .pfp-clicker{
     cursor: pointer;
 }
+video::-webkit-media-controls-panel {
+    background-image: none !important;
+    filter: brightness(0.5);
+ }

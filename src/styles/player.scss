@@ -1,5 +1,5 @@
 .content-cont{
-    padding: 3.2em 2.8em;
+    padding: 2.7em 3em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,13 +11,17 @@
         top: 0;
     }
     .player-cont{
-        width: 100%;
+        width: 106%;
         margin: 0;
         border-radius: 20px 20px 3px 3px;
         overflow: hidden;
         aspect-ratio: 16/9;
         max-height: 36rem;
-        border: 2px #3d3d3d solid;
+        // border: 2px #3d3d3d solid;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+        // box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+        // box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+        // box-shadow: rgba(66, 66, 66, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
         @media (width>1080px) {
             max-height: 24rem;
         }
@@ -35,7 +39,7 @@
         
     }
     .texts{
-        width: 98%;
+        width: 102%;
     }
     .title{
         color: #6B6B6B;
@@ -69,8 +73,9 @@
         background: transparent;
     }
     .total-cont{
+        margin-top: 1.8em;
         height: 20em;
-        width: 100%;
+        width: 102%;
     }
     .topper-cont{
         height: 5em;
@@ -86,9 +91,13 @@
         overflow-y: y;
         scroll-behavior: smooth;
         scrollbar-gutter: stable;
-        width: calc(98% - 3px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
         margin-top: 1.35em;
-        margin-right: 3%;
+        // margin-right: 3%;
         margin-bottom: 3em;
         height: 9.899em;
         position: relative;
@@ -96,7 +105,6 @@
     .course-nav-cont{
         width: calc(100% + 3px);
         overflow-x: visible;
-        
         position: relative;
         .topic-cont , .video-title{
             // width: calc(100% + 3px);
