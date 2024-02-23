@@ -2,6 +2,7 @@ import React , {useState , useRef , useEffect , useLayoutEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import smallPlus from './../assets/images/small-plus.svg'
 import deletePic from './../assets/images/delete.svg'
+import whiteEdit from './../assets/images/white-edit.svg'
 import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
@@ -12,8 +13,10 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
     const containerRef = useRef(null)
     const navigate = useNavigate()
     const token = localStorage.getItem('accessToken');
+    const decoded = token? jwtDecode(token):null
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [subscribed,setSubscribed] = useState(true)
+    const [editing,setEditing]=useState(false)
     useEffect(()=>{
         console.log(user,'asdasdmeeeeeeeeeeeeee')
         if(user && course) {
@@ -87,6 +90,9 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
             if(activeVideo){
                 setActiveVideo(null)
             }
+            if(editing){
+                setEditing(false)
+            }
             else if(popupRef){
                navigate(`/course/${course._id}`)
             }
@@ -104,7 +110,37 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                      playing={false}
                      url={import.meta.env.VITE_API_URL + activeVideo.videoLink} />        
                     ):(
-                       <img draggable="false" src={import.meta.env.VITE_API_URL + course.coverPhotoLink} alt="" />
+                      <div className="coverCont">
+                        {
+                            decoded && course && course.uploadedBy==decoded._id?(
+                                 <div className='editor-cont'>
+                                    <div className="editor">
+                                        <img onClick={()=> setEditing(true)} className='white-edit' draggable="false" src={whiteEdit} alt="" />
+                                        <motion.div 
+                                            // style={{bottom:'0'}}
+                                            initial={{transformOrigin:"top right",scale:0,rotate:180}}
+                                            animate={
+                                                editing?(
+                                                    {transformOrigin:`top right`,rotate:0,scale:1}
+                                            ) :(
+                                                {transformOrigin:`top right`,scale:0,rotate:180}
+                                            )}
+                                            className="options"
+                                        >
+                                            <Link to={`/${course._id}/delete/course`}>
+                                                <div className="option" id='first'>Delete course</div>
+                                            </Link>
+                                            <Link to={`/${course._id}/edit/course`}>
+                                                <div className="option">Edit course</div>
+                                            </Link>
+                                        </motion.div>
+                                    </div>   
+                                 </div>                             
+                            ):'' 
+                        }
+                          <img className='coverImage' draggable="false" src={import.meta.env.VITE_API_URL + course.coverPhotoLink} alt="" />
+                                               
+                      </div>
                     )
             }
         </div>
@@ -117,14 +153,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                    {activeVideo?activeVideo.description:course.description}
                 </h1>
                 <motion.div
-                  onClick={()=>{
-                      if(subscribed){
-                          subscribe('un')
-                      }
-                      else{
-                        subscribe('in')
-                      }
-                  }} 
+                  
                   className="subscription">
                     <svg   viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <motion.path  
@@ -135,7 +164,16 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                       <motion.path  d="M4.93801 7.74989L2.95801 5.76989L3.75338 4.97452L4.93801 6.15914L7.58738 3.50977L8.38276 4.30514L4.93801 7.74989Z" 
                         fill={subscribed?"#D7D7D7":"#545454"}/>
                     </svg>
-                    <h1>
+                    <h1
+                      onClick={()=>{
+                        if(subscribed){
+                            subscribe('un')
+                        }
+                        else{
+                          subscribe('in')
+                        }
+                    }} 
+                    >
                         {subscribed?'Subscribed':'Subscribe'}
                     </h1>
                 </motion.div>
@@ -290,15 +328,16 @@ console.log(deleted,'adsd')
 
                             </div>
                             <motion.div 
-                            style={!down?{bottom:0}:{top:0}}
-                            initial={{transformOrigin:"bottom right",scale:0,rotate:-90}}
-                            animate={
-                                adding==topic._id ?(
-                                    {transformOrigin:`${down?"top":"bottom"} right`,rotate:down?0:0,scale:1}
-                            ) :(
-                                {transformOrigin:`${down?"top":"bottom"} right`,scale:0,rotate:down?90:-90}
-                            )}
-                            className="options">
+                                style={!down?{bottom:0}:{top:0}}
+                                initial={{transformOrigin:"bottom right",scale:0,rotate:-90}}
+                                animate={
+                                    adding==topic._id ?(
+                                        {transformOrigin:`${down?"top":"bottom"} right`,rotate:down?0:0,scale:1}
+                                ) :(
+                                    {transformOrigin:`${down?"top":"bottom"} right`,scale:0,rotate:down?90:-90}
+                                )}
+                                className="options"
+                            >
                                 <Link to={`/${courseId}/${topic._id}/add/video`}>
                                     <div className="option" id='first'>Add video to topic</div>
                                 </Link>

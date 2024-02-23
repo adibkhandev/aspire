@@ -9,39 +9,104 @@
         }
 
     }
-    .lock-cont{
-        position: relative;
-        .icon-cont{
-            position: absolute;
-            top: 0;
-            right: 0;
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
-        img{
-            margin-right: 0.8em;
-            height: 1em;
-        }
+}
+.lock-cont{
+    position: relative;
+    .icon-cont{
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
     }
-    .lock-cont{
-        font-size: clamp(0.6rem,3vw,0.9rem);
-        margin-top: 0.8em;
-    }
-    .lock{
-        border:2px #2c2c2c solid;
-        border-radius: 2px;
-        
-        max-width: 38rem;
-        width: calc(100% - 1.96em);
-        padding: 0.6em 0.8em;
-    }
-    .lock , .lock::placeholder{
-        color: #666666;
-        line-height: 1;
-         font-size: 1.1em;
-         font-family: Cabin;
-         font-weight: 400;
-
+    img{
+        margin-right: 0.8em;
+        height: 1em;
     }
 }
+.lock-cont{
+    font-size: clamp(0.6rem,3vw,0.9rem);
+    margin-top: 0.8em;
+}
+.lock{
+    border:2px #2c2c2c solid;
+    border-radius: 2px;
+    
+    max-width: 38rem;
+    width: calc(100% - 1.96em);
+    padding: 0.6em 0.8em;
+}
+.lock , .lock::placeholder{
+    color: #666666;
+    line-height: 1;
+     font-size: 1.1em;
+     font-family: Cabin;
+     font-weight: 400;
+
+}
+
+
+.edit-course-cont{
+    position: initial;
+    .nav-container{
+        position: initial !important;
+    }
+}
+.edit-topic-cont{
+    padding-top: 5rem;
+    padding-inline: 1.6rem;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .lock{
+        font-style: italic;
+        
+    }
+    .lock-cont{
+        font-size: clamp(0.8rem,3.4vw,1.2rem);
+    }
+    .video-container{
+        background-color: #2C2C2C;
+        padding-bottom: 0.8rem;
+        padding-inline: 0.8rem;
+        margin-top: 1rem;
+        border-radius: 4px;
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .video-num{
+                margin-right: 0.4em;
+                font-weight: bold;
+            }
+            .video-name{
+                font-weight: 400;
+            }
+            .details{
+                display: flex;
+                color:#878787;
+                line-height: 2.2;
+            }
+            img{
+                height: 0.8rem;
+            }
+        }
+        .cover{
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+            img{
+                position: absolute;
+                bottom: 0.5rem;
+                right: 0.4rem;
+                height: 1rem;
+            }
+        }
+    }
+}
+

@@ -5,14 +5,6 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
     const [updated,setUpdated] = useState(false)
     let [url,setUrl] = useState(null)
     const [detached,setDetached]=useState(true)
-    useEffect(()=>{
-       
-    },[file,existing])
-    useEffect(() => {
-        if(file && !detached){
-        }
-
-    }, [file,detached])
 
     useEffect(()=>{
         if(detached){
@@ -32,12 +24,13 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
                     reader.readAsDataURL(file)
                 }
                 if(existing){
+                    console.log(existing,'exists or not')
                     setDetached(false)
-                    setUrl(import.meta.env.VITE_API_URL + existing.pfp)
+                    setUrl(import.meta.env.VITE_API_URL + existing)
                 }
             }
         }
-    },[detached,file])
+    },[detached,file,existing])
     useEffect(()=>{
         console.log('update -' , file)
     },[file])

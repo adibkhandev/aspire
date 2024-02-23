@@ -121,7 +121,7 @@ const EditProfile = () => {
           }
         }}  
         onSubmit={(e)=>updateHandler(e)} className='signup'>
-          <Image setRemovePfp={setRemovePfp} popupthere={popupthere} setPopupthere={setPopupthere} existing={user} file={imageFile} input={clickRef}></Image>
+          <Image setRemovePfp={setRemovePfp} popupthere={popupthere} setPopupthere={setPopupthere} existing={user.pfp} file={imageFile} input={clickRef}></Image>
           <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
           <div className="data">
               <div className="title">

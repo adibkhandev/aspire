@@ -6,7 +6,7 @@ import FirstStep from './FirstStep'
 import SecondStep from './SecondStep'
 import { useNavigate } from 'react-router'
 import { CustomAlert } from './../components/CustomAlert'
-const UploadCourse = () => {
+const UploadCourse = (course) => {
   const navigate = useNavigate()
   const [error,setError] = useState(null)
   const [step,setStep]=useState(1)

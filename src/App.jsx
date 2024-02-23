@@ -15,6 +15,7 @@ import UploadVideo from './pages/upload/UploadVideo'
 import Course from './pages/Course'
 import Explore from './pages/explore/Explore'
 import EditProfile from './pages/account/EditProfile'
+import EditCourse from './pages/upload/EditCourse'
 const App = () => {
   
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Route path='/explore' element={<Explore/>}/>
           <Route path='/upload' element={<UploadCourse/>}/>
           <Route path='/:courseId/add/topic' element={<UploadTopic/>}/>
+          <Route path='/:courseId/edit/course' element={<EditCourse/>}/>
           <Route path='/:courseId/:topicId/add/video' element={<UploadVideo/>}/>
         </Routes>
       </AuthContextProvider>
