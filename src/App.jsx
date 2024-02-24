@@ -14,8 +14,9 @@ import UploadTopic from './pages/upload/UploadTopic'
 import UploadVideo from './pages/upload/UploadVideo'
 import Course from './pages/Course'
 import Explore from './pages/explore/Explore'
-import EditProfile from './pages/account/EditProfile'
-import EditCourse from './pages/upload/EditCourse'
+import EditProfile from './pages/edit/EditProfile'
+import EditCourse from './pages/edit/EditCourse'
+import EditVideo from './pages/edit/EditVideo'
 const App = () => {
   
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path='/:courseId/add/topic' element={<UploadTopic/>}/>
           <Route path='/:courseId/edit/course' element={<EditCourse/>}/>
           <Route path='/:courseId/:topicId/add/video' element={<UploadVideo/>}/>
+          <Route path='/:videoId/edit/video' element={<EditVideo/>}/>        
         </Routes>
       </AuthContextProvider>
      </GoogleOAuthProvider>

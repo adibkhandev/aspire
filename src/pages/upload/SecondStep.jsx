@@ -2,7 +2,7 @@ import React , {useRef,useState,useEffect}  from 'react'
 import { motion } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
 import MotionCta from '../components/MotionCta'
-const SecondStep = ({setStep,onlyVideo}) => {
+const SecondStep = ({setStep,onlyVideo,video}) => {
   const input = useRef(null)
   const topicTitleRef = useRef(null)
   const videoTitleRef = useRef(null)
@@ -43,8 +43,15 @@ const SecondStep = ({setStep,onlyVideo}) => {
     }
   }
   useEffect(()=>{
-    check()
+    if(!video){
+      check()
+    }
+    else{
+      setChangesMade(true)
+    }
+    
   },[videoThere])
+  console.log(video,'ashee')
     return (
       <div onChange={()=>check()}  className="upload-parts" id='video'>
         <div className="videos">
@@ -55,9 +62,6 @@ const SecondStep = ({setStep,onlyVideo}) => {
               </div>     
             ):''
           }
-         
-          
-
           <motion.div 
            whileTap={{ scale: 0.97 }}
            onClick={()=>{
@@ -75,13 +79,21 @@ const SecondStep = ({setStep,onlyVideo}) => {
             </div>
           </motion.div>
           <div className="entitle-cont videoNameCont">
-              <input ref={videoTitleRef}  placeholder="Title for your video ..." id="entitle" type="text" name='title'       className='regular-inputs' />
+              <input ref={videoTitleRef}  placeholder={video?video.title:"Title for your video ..."} id="entitle" type="text" name='title'       className='regular-inputs' />
           </div>
           <div className="textarea-container" id="custom-textarea">
               <textarea ref={videoDescribeRef}  name='description' placeholder="Write about your course ...."   id="" className=""rows="9"></textarea>
           </div>
           <div className="handy-btns">
-              <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>setStep(1)} className="secondary-btn">Go back</motion.div>
+              <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
+                 if(video){
+                    navigate(-1)
+                 } 
+                 else{
+                  setStep(1)
+                 }
+                 
+              }} className="secondary-btn">Go back</motion.div>
               <MotionCta submit={true} changesMade={changesMade} text={'Continue'}></MotionCta>
           </div>
           <input onChange={(e)=>{

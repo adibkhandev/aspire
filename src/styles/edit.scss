@@ -10,18 +10,47 @@
 
     }
 }
+// .edit-course-cont{
+//     .stepCont{
+//         z-index: 3;
+//     }
+// }
 .lock-cont{
     position: relative;
     .icon-cont{
         position: absolute;
         top: 0;
-        right: 0;
+        right: 1.2em;
         height: 100%;
         display: flex;
         align-items: center;
+        .pop{
+            position: relative;
+        }
+        .options{
+            position: absolute;
+            top: -9.2em;
+            right: 0;
+        }
+        .options{
+            background-color: rgba(141, 141, 141, 0.2);
+            backdrop-filter: blur(4px);
+            color: #BDBDBD;
+            font-size: 0.6rem;
+            
+            border-radius: 4px 4px 0 4px;
+            .option{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 12em;
+                height: 3.8em;
+                white-space: nowrap;
+            }
+        }
     }
     img{
-        margin-right: 0.8em;
+        // margin-right: 0.8em;
         height: 1em;
     }
 }

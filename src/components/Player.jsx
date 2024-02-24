@@ -75,6 +75,25 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
        
     console.log(course,'course')
     // console.log(activeVideo,'linkactive')
+    const deleteHandler = () => {
+                let headers = {
+                    headers:{
+                        'Authorization':'Bearer ' + token,
+                        'Content-Type':'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+                    }
+                }
+                let url = `${import.meta.env.VITE_API_URL}/video/delete/${course._id}/course/`
+               
+                axios.delete(url,headers)
+                   .then((response)=>{
+                       console.log(response.data)
+                   })
+                   .catch(err=>{
+                      console.log(err)
+                   })
+    }
   return (
     <motion.div  
     onClick={(e)=>{
@@ -127,9 +146,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                                             )}
                                             className="options"
                                         >
-                                            <Link to={`/${course._id}/delete/course`}>
-                                                <div className="option" id='first'>Delete course</div>
-                                            </Link>
+                                            <div onClick={()=> deleteHandler()} className="option" id='first'>Delete course</div>
                                             <Link to={`/${course._id}/edit/course`}>
                                                 <div className="option">Edit course</div>
                                             </Link>

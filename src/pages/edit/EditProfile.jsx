@@ -1,6 +1,6 @@
 import React, { useState , useRef, useEffect ,useContext} from 'react'
 import { Context } from '../login/AuthContext';
-import { Signup } from './../login/Signup'
+import { Signup } from '../login/Signup'
 import { BoxAddon } from '../components/BoxAddon';
 import MotionCta from '../components/MotionCta';
 import { Nav } from '../Nav'
