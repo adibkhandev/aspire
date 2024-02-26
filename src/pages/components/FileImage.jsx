@@ -5,43 +5,38 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
     const [updated,setUpdated] = useState(false)
     let [url,setUrl] = useState(null)
     const [detached,setDetached]=useState(true)
-
+    
     useEffect(()=>{
-        if(detached){
-            if(url){
-                setTimeout(()=>{
-                   setUrl(null)
-                },1000)
-                setPopupthere(false)
-            }
-            else{
-                if(file){
-                    setDetached(false)
-                    const reader = new FileReader()
-                    reader.onloadend = () =>{
-                        setUrl(reader.result)
-                    }
-                    reader.readAsDataURL(file)
-                }
-                if(existing){
-                    console.log(existing,'exists or not')
-                    setDetached(false)
-                    setUrl(import.meta.env.VITE_API_URL + existing)
-                }
-            }
+        if(url && detached){
+            console.log('flood')
+            setTimeout(()=>{
+               setUrl(null)
+            },1000)
+            if(setPopupthere) setPopupthere(false)
         }
-    },[detached,file,existing])
+    },[detached])
+    useEffect(()=>{
+     if(url) setDetached(false)
+    },[url])
+    useEffect(()=>{
+        if(file){
+            const reader = new FileReader()
+            reader.onloadend = () =>{
+                setUrl(reader.result)
+            }
+            reader.readAsDataURL(file)
+        }
+        if(existing){
+            setUrl(import.meta.env.VITE_API_URL + existing)
+        }
+        
+    },[file,existing])
     useEffect(()=>{
         console.log('update -' , file)
+        
     },[file])
-    // useEffect(()=>{
-    //     if(!url){
-    //         setDetached(false)
-    //     }
-    // },[url])
          return(
             <>
-            
             <motion.div 
              whileTap={popupthere?{}:{scale:0.8}} 
              onClick={()=>{
@@ -49,7 +44,13 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
 
                if(input){
                if(url){
-                   setPopupthere(true)
+                   if(setPopupthere){
+                     setPopupthere(true)
+                   } else{
+                       setDetached(true)
+                      input.current.click()
+                   }
+                   
                 }
                 if(!url && !popupthere){
                    input.current.click()
@@ -57,9 +58,6 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
               } 
              }}
                className="pfp-clicker">
-
-
- 
                     <motion.div
                       className="mask">
                         <motion.div 
@@ -93,13 +91,11 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
                              }} 
                              className="option">Remove upload</div>
                         </motion.div>
-             
-             
-             <motion.div
-               className="cam-cont">
-                <Cam></Cam>
-             </motion.div>
-            </motion.div> 
+                        <motion.div
+                        className="cam-cont">
+                            <Cam></Cam>
+                        </motion.div>
+                        </motion.div> 
             </>
             
            

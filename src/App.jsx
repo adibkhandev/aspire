@@ -12,11 +12,11 @@ import Demo from './pages/Demo'
 import UploadCourse from './pages/upload/UploadCourse'
 import UploadTopic from './pages/upload/UploadTopic'
 import UploadVideo from './pages/upload/UploadVideo'
-import Course from './pages/Course'
-import Explore from './pages/explore/Explore'
 import EditProfile from './pages/edit/EditProfile'
 import EditCourse from './pages/edit/EditCourse'
 import EditVideo from './pages/edit/EditVideo'
+import Course from './pages/Course'
+import Explore from './pages/explore/Explore'
 const App = () => {
   
   return (
@@ -36,7 +36,7 @@ const App = () => {
           <Route path='/:courseId/add/topic' element={<UploadTopic/>}/>
           <Route path='/:courseId/edit/course' element={<EditCourse/>}/>
           <Route path='/:courseId/:topicId/add/video' element={<UploadVideo/>}/>
-          <Route path='/:videoId/edit/video' element={<EditVideo/>}/>        
+          <Route path='/:courseId/:topicId/:videoId/edit/video' element={<EditVideo/>}/>        
         </Routes>
       </AuthContextProvider>
      </GoogleOAuthProvider>

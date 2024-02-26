@@ -84,7 +84,7 @@
     }
     .course-nav-scroll-cont{
         overflow-x: hidden;
-        overflow-y: y;
+        overflow-y: auto;
         scroll-behavior: smooth;
         scrollbar-gutter: stable;
         width: 100%;
@@ -95,7 +95,7 @@
         margin-top: 1.35em;
         // margin-right: 3%;
         margin-bottom: 3em;
-        height: 9.899em;
+        // height: 9.899em;
         position: relative;
     }
     .course-nav-cont{

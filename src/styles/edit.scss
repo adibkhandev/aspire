@@ -86,15 +86,22 @@
     padding-top: 5rem;
     padding-inline: 1.6rem;
     width: 100vw;
-    height: 100vh;
+    // height: 100vh;
     display: flex;
     flex-direction: column;
+    .handy-btns{
+        padding-bottom: 1.4rem;
+        width: 100%;
+        max-width: unset;
+    }
     .lock{
+        max-width: unset;
         font-style: italic;
         
     }
     .lock-cont{
         font-size: clamp(0.8rem,3.4vw,1.2rem);
+        max-width: unset;
     }
     .video-container{
         background-color: #2C2C2C;
@@ -124,11 +131,17 @@
         }
         .cover{
             width: 100%;
+            max-width: unset;
             aspect-ratio: 16 / 9;
             object-fit: cover;
             border-radius: 2px;
             overflow: hidden;
             position: relative;
+            video{
+                width: 100%;
+                aspect-ratio: 16/9;
+                object-fit: cover;
+            }
             img{
                 position: absolute;
                 bottom: 0.5rem;

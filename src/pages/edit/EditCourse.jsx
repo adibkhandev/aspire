@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import FirstStep from '../upload/FirstStep'
 import { CustomAlert } from '../components/CustomAlert'
+import MotionCta from '../components/MotionCta'
 import { Nav } from '../Nav'
 import { motion, useScroll } from 'framer-motion'
 import trippleDot from './../../assets/images/tripple-dot.svg'
@@ -46,7 +47,37 @@ const EditCourse = () => {
         else navigate('/')
     },[])
     
-    
+    const courseUpdateHandler = e => {
+      e.preventDefault()
+      if(e.target.courseTitle.value || e.target.courseDescription.value ||  e.target.courseImage.files.length){
+        let headers = {
+          headers:{
+              'Authorization':'Bearer ' + token,
+              'Content-Type':'multipart/form-data',
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+          }
+        }
+        console.log(selectedTopic,'selected')
+        let data = {
+          topicTitle:e.target.value
+        } 
+        let formData = new FormData()
+        if(e.target.courseTitle.value) formData.append('courseTitle',e.target.courseTitle.value)
+        if(e.target.courseDescription.value) formData.append('courseDescription',e.target.courseDescription.value)
+        if(e.target.courseImage.files[0]) formData.append('courseImage',e.target.courseImage.files[0])
+        let url = `${import.meta.env.VITE_API_URL}/video/update/${courseId}/course`
+      
+      axios.post(url,formData,headers)
+         .then((response)=>{
+             console.log(response.data)
+             navigate('/')
+         })
+         .catch(err=>{
+            console.log(err)
+         })
+       }
+    }
     const [selectedTopic,setSelectedTopic] = useState(null)
     const [skills,setSkills]=useState([])
     // console.log(skills,'skdsdksdsaldadasda',course.skills)  
@@ -56,11 +87,14 @@ const EditCourse = () => {
        <motion.form 
          className='stepCont' 
          style={selectedTopic?{zIndex:2}:{zIndex:-1}}
-         onSubmit={(e)=>uploadHandler(e)}
+         onSubmit={(e)=>{
+            console.log('submits')
+           courseUpdateHandler(e)
+         }}
          animate={step==2?{x:'-100vw'}:{x:0}}
         >
           <FirstStep existing={course?course.coverPhotoLink:null} course={course} skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/> 
-          <EditTopicVideos courseId={courseId} selectedTopic={selectedTopic} setSelectedTopic={setSelectedTopic} topics={course?course.topics:null} ></EditTopicVideos>
+          <EditTopicVideos courseId={courseId} selectedTopic={selectedTopic} setSelectedTopic={setSelectedTopic} setStep={setStep} topics={course?course.topics:null} ></EditTopicVideos>
        </motion.form>
        <CustomAlert error={error} setError={setError}/>
     </div>
@@ -69,7 +103,7 @@ const EditCourse = () => {
 
 
 
-const EditTopicVideos = ({topics,selectedTopic,setSelectedTopic,courseId}) => {
+const EditTopicVideos = ({topics,selectedTopic,setSelectedTopic,courseId,setStep}) => {
   console.log(topics,'easdd') 
   const token = localStorage.getItem('accessToken')
   const [deleted,setDeleted] = useState(false)
@@ -95,6 +129,35 @@ const EditTopicVideos = ({topics,selectedTopic,setSelectedTopic,courseId}) => {
           console.log(err)
        })
 }   
+
+const topicRenameHandler = (e,topicId) => {
+   if(e.target.value){
+    let headers = {
+      headers:{
+          'Authorization':'Bearer ' + token,
+          'Content-Type':'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+      }
+    }
+    console.log(selectedTopic,'selected')
+    let data = {
+      topicTitle:e.target.value
+    } 
+    let url = `${import.meta.env.VITE_API_URL}/video/update/${courseId}/${topicId}/topic`
+  
+  axios.post(url,data,headers)
+     .then((response)=>{
+         console.log(response.data)
+     })
+     .catch(err=>{
+        console.log(err)
+     })
+   }
+}
+
+
+
 const videoDeleteHandler = (id,topicId) => {
   let headers = {
     headers:{
@@ -133,7 +196,7 @@ axios.post(url,data,headers)
                     return(
                       <>
                       <div className="lock-cont">
-                          <input placeholder={topic.title} type="text" name='topicName' className="lock" id='name-input'/>
+                          <input onBlur={(e)=> topicRenameHandler(e,topic._id)} placeholder={topic.title} type="text" name='topicTitle' className="lock" id='name-input'/>
                           <div onClick={()=>{
                                setSelectedTopic(topic._id)
                           }} className="icon-cont">
@@ -173,7 +236,7 @@ axios.post(url,data,headers)
                                             {video.title}
                                       </div>  
                                   </div>    
-                                  <Link to={`/${video._id}/edit/video`}>
+                                  <Link to={`/${courseId}/${topic._id}/${video._id}/edit/video`}>
                                      <img src={whiteWrite} alt="" />
                                   </Link>
                                 </div>
@@ -190,6 +253,12 @@ axios.post(url,data,headers)
                     
                 })
               }
+              <div className="handy-btns">
+              <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
+                  setStep(1)
+              }} className="secondary-btn">Go back</motion.div>
+              <MotionCta submit={true} changesMade={true} text={'Continue'}></MotionCta>
+          </div>
         </div>
       </>
   )

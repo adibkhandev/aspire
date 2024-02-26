@@ -56,7 +56,12 @@ const FirstStep = ({existing,course,setError,setStep,setSkills,skills}) => {
           <input className="hidden" onChange={(e)=>setImageFile(e.target.files[0])} type="file" name="courseImage"  id="" ref={courseImageRef} />
         
           <div className="handy-btns">
-              <motion.div onClick={()=> navigate('/')}  whileTap={{ scale: 0.98 }} className="secondary-btn">Discard</motion.div>
+              <motion.button 
+                type={course?"submit":"button"}
+                whileTap={{ scale: 0.98 }} 
+                className="secondary-btn">
+                  Discard
+              </motion.button>
               <MotionCta changesMade={course?true:changesMade} text={'Continue'} onClick={nextStep}></MotionCta>
           </div>
         </div>
