@@ -72,7 +72,7 @@ const HorizontalSwiper = ({skill}) => {
 
 
 
-const CoursePack = ({info}) =>{
+export const CoursePack = ({info}) =>{
     console.log(info,'innnn')
         return(
             <div className="course-pack-cont">

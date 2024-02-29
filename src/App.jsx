@@ -17,6 +17,7 @@ import EditCourse from './pages/edit/EditCourse'
 import EditVideo from './pages/edit/EditVideo'
 import Course from './pages/Course'
 import Explore from './pages/explore/Explore'
+import Subscribed from './pages/account/Subscribed'
 const App = () => {
   
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/:username' element={<Account/>}></Route>
+          <Route path='/subscribed' element={<Subscribed/>}></Route>
           <Route path='/:userId/edit' element={<EditProfile/>}></Route>
           <Route path='/course/:courseId' element={<Course/>}></Route>
           <Route path='/login' element={<Login/>}/>

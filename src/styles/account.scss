@@ -431,3 +431,17 @@ body{
         }
     }
 }
+
+
+.subscribed-page{
+    margin-top: 4rem;
+    .cards{
+        padding: 1.2rem 1.4rem;
+        .card{
+            .cover-image{
+                aspect-ratio: 16/9;
+                object-fit: cover;
+            }
+        }
+    }
+}

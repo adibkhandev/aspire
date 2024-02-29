@@ -66,7 +66,7 @@ const EditVideo = () => {
               console.log(response)
                 if(response.status==201){
                     console.log(response.data)
-                    navigate('/')
+                    // navigate('/')
                 }
             })
             .catch((err)=>{

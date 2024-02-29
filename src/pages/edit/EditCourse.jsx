@@ -122,7 +122,7 @@ const EditTopicVideos = ({topics,selectedTopic,setSelectedTopic,courseId,setStep
    
     axios.delete(url,headers)
        .then((response)=>{
-           console.log(response.data)
+           console.log(response.data,'topic')
            setDeleted(false)
        })
        .catch(err=>{
@@ -215,7 +215,9 @@ axios.post(url,data,headers)
                               >
                                   <div onClick={()=>{
                                      deleteHandler()
-                                   }} className="option" id='first'>Delete topic</div>
+                                   }} className="option" id='first'>
+                                      Delete topic
+                                  </div>
                                   <Link to={`/${course._id}/edit/course`}>
                                       <div className="option">Edit topic</div>
                                   </Link>
@@ -225,6 +227,7 @@ axios.post(url,data,headers)
                           </div> 
                       </div>
                         {topic && topic.videos.map((video)=>{
+                          console.log(video,'map')
                             return(
                             <div className="video-container">
                                 <div className="header">
@@ -241,8 +244,8 @@ axios.post(url,data,headers)
                                   </Link>
                                 </div>
                                 <div className="cover">
-                                    <video src={import.meta.env.VITE_API_URL + video.videoLink}></video>
-                                    <img onClick={()=> videoDeleteHandler(video._id,topic._id)} src={whiteDelete} alt="" />
+                                    <img className='thumbnail' src={import.meta.env.VITE_API_URL + video.thumbnailLink}/>
+                                    <img className='delete' onClick={()=> videoDeleteHandler(video._id,topic._id)} src={whiteDelete} alt="" />
                                 </div>
                             </div>
                             )

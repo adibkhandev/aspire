@@ -45,10 +45,13 @@ export const Nav = () => {
 
                     </div>
                    <div className="options">
-                       <div className="option">
+                      <Link to={'/subscribed'}>
+                        <div className="option">
                           <img src={play} alt="" />
-                          <h1>Subscribed</h1>
-                       </div>
+                             <h1>Subscribed</h1>
+                          
+                        </div>
+                       </Link>
                        <div
                          className="option"
                          onClick={()=>{
