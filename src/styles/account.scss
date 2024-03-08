@@ -434,14 +434,67 @@ body{
 
 
 .subscribed-page{
-    margin-top: 4rem;
+    .nav-container{
+        position: initial;
+    }
     .cards{
         padding: 1.2rem 1.4rem;
+        padding: 1.2rem 1.4rem 0.2rem 1.4rem;
         .card{
-            .cover-image{
-                aspect-ratio: 16/9;
-                object-fit: cover;
+            width: 100%;
+            margin-bottom: 1em;
+            background-color: #2C2C2C;
+            .card-cont{
+                padding:0.4em 1em 0.6em 1em;
+                .desc-cont{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .title{
+                        color: #CCCCCC;
+                        font-family: 'Cabin';
+                        font-style: italic;
+                        font-size: 1.2em;
+                    }
+                    .subscription{
+                        font-size: 0.76em;
+                    }
+                }
+                .cover{
+                   width: 100%;
+                   aspect-ratio: 16/9;
+                   height: max-content;
+                   overflow: hidden;
+                   object-fit: cover;
+                   margin-block: 0.5em;
+                   
+                }
+                .end{
+                    display: flex;
+                    justify-content: space-between;
+                    .author-cont{
+                        display: flex;
+                        align-items: center;
+                        .pfp-cont{
+                            height: 1.4em;
+                            width: 1.4em;
+                            border-radius: 1000px;
+                            overflow: hidden;
+                            img{
+                                object-fit: cover;
+                            }
+                        }
+                        .author-name{
+                            margin-top: 0.2em;
+                            color: #A7A7A7;
+                            font-family: 'Cabin';
+                            font-weight: 400;
+                            margin-left: 0.4em;
+                        }
+                    }
+                }
             }
+            
         }
     }
 }

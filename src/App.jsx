@@ -27,7 +27,7 @@ const App = () => {
       <AuthContextProvider>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
-          <Route path='/:username' element={<Account/>}></Route>
+          <Route path='/profile/:username' element={<Account/>}></Route>
           <Route path='/subscribed' element={<Subscribed/>}></Route>
           <Route path='/:userId/edit' element={<EditProfile/>}></Route>
           <Route path='/course/:courseId' element={<Course/>}></Route>

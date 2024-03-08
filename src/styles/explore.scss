@@ -88,22 +88,22 @@
             line-height: 1.6;
             margin-top: 0.2em;
         }
-        .videoCount{
-            display: flex;
-            align-items: center;
-            margin-right: 0.4em;
-            .num{
-                font-size: 0.4em;
-                color: #515151;
-                font-family: "Exo 2";
-                font-style: normal;
-                font-weight: 400;
-                line-height: 1;
-                margin-right: 0.4em;
-            }
-            img{
-                height: 40%;
-            }
-        }
+    }
+}
+.videoCount{
+    display: flex;
+    align-items: center;
+    margin-right: 0.4em;
+    .num{
+        font-size: 0.4em;
+        color: #515151;
+        font-family: "Exo 2";
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        margin-right: 0.4em;
+    }
+    img{
+        height: 40%;
     }
 }

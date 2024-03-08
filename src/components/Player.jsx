@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import smallPlus from './../assets/images/small-plus.svg'
 import deletePic from './../assets/images/delete.svg'
 import whiteEdit from './../assets/images/white-edit.svg'
+import SubscribeCta from '../pages/components/SubscribeCta'
 import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
@@ -45,33 +46,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
         }
 
    },[course])
-    const subscribe = (process) => {
-        console.log(process,'process')
-        const data = {
-            courseId:course._id
-        }
-        const headers = {
-            headers:{
-                'Authorization':'Bearer ' + token,
-                'Content-Type':'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-              'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS'
-            }
-          }
-          const url =  import.meta.env.VITE_API_URL +  `/user/${process=='un'?'un':''}subscribe` 
-          axios.post(url,data,headers)
-          .then((response)=>{
-              console.log(response.data.user,'ssubbss')
-              setUser(response.data.user)
-              localStorage.setItem('userData',JSON.stringify(response.data.user))
-              if(process=='in') setSubscribed(true)
-              else setSubscribed(false)
-           })
-           .catch((err)=>{
-              console.log(err.response.status)
-           })
-    }
+   
        
     console.log(course,'course')
     // console.log(activeVideo,'linkactive')
@@ -89,11 +64,15 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                 axios.delete(url,headers)
                    .then((response)=>{
                        console.log(response.data)
-                   })
-                   .catch(err=>{
-                      console.log(err)
-                   })
-    }
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
+                }
+    
+                
+//vid
+    
   return (
     <motion.div  
     onClick={(e)=>{
@@ -122,12 +101,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
         <div className="player-cont">
            {
                activeVideo?(
-                   <ReactPlayer 
-                     className='player' 
-                     controls 
-                     width={'100%'} 
-                     playing={false}
-                     url={import.meta.env.VITE_API_URL + activeVideo.videoLink} />        
+                     <PlayVideo videoLinkBack={activeVideo.videoLink}></PlayVideo>      
                     ):(
                       <div className="coverCont">
                         {
@@ -169,31 +143,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                 <h1 className="description">
                    {activeVideo?activeVideo.description:course.description}
                 </h1>
-                <motion.div
-                  
-                  className="subscription">
-                    <svg   viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <motion.path  
-                        d="M0.5 5.5C0.5 2.73877 2.73877 0.5 5.5 0.5C8.26123 0.5 10.5 2.73877 10.5 5.5C10.5 8.26123 8.26123 10.5 5.5 10.5C2.73877 10.5 0.5 8.26123 0.5 5.5Z" 
-                        initial={{fill:'none',stroke:"#525252"}}
-                        animate={subscribed?{fill:"#0085FF",stroke:"#0085FF"}:{fill:'rgba(0,0,0,0)',stroke:"#525252"}}
-                        />
-                      <motion.path  d="M4.93801 7.74989L2.95801 5.76989L3.75338 4.97452L4.93801 6.15914L7.58738 3.50977L8.38276 4.30514L4.93801 7.74989Z" 
-                        fill={subscribed?"#D7D7D7":"#545454"}/>
-                    </svg>
-                    <h1
-                      onClick={()=>{
-                        if(subscribed){
-                            subscribe('un')
-                        }
-                        else{
-                          subscribe('in')
-                        }
-                    }} 
-                    >
-                        {subscribed?'Subscribed':'Subscribe'}
-                    </h1>
-                </motion.div>
+                <SubscribeCta courseId={course._id} subscribed={subscribed} setSubscribed={setSubscribed} ></SubscribeCta>
         </div>
         <div className="total-cont">
             <div ref={containerRef} className="topper-cont">
@@ -205,10 +155,9 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                             (course && course.topics)? course.topics.map((topic)=>{
                                 console.log(topic,'topic')
                                 return (
-                                    <CourseNav deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
+                                    <CourseNav  deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
-
-                                }
+                              }
                             ):''
                         }
                     </div>
@@ -219,6 +168,24 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
         </div>
     </motion.div>
   )
+}
+
+
+
+const PlayVideo = ({videoLinkBack}) => {
+    return(
+        <ReactPlayer 
+          className='player' 
+          controls 
+          preload="auto"
+          width={'100%'} 
+          onProgress={(loaded)=>{
+            console.log(loaded,'l')
+          }}
+          playing={false}
+          url={import.meta.env.VITE_API_URL + videoLinkBack}
+        />  
+    )
 }
 
 

@@ -12,7 +12,7 @@ export const Home = () => {
             const decoded = jwtDecode(token.accessToken)
             if(!decoded || !decodedRefresh) navigate('/login')
             else{
-               navigate(`/${decoded.username}`)
+               navigate(`/profile/${decoded.username}`)
             }
          }
          else{
