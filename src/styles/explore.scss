@@ -24,8 +24,6 @@
 }
 .swiper-slide{
     font-size: clamp(1rem,3vw,1.2rem);
-   
-    width: 15.5em;
     margin:0 0 0 1em !important;
 }
 .course-pack-cont{
@@ -40,7 +38,7 @@
         margin-bottom: 0.6em;
        
         .pfp{
-            width: 1.5em;
+            width: 1.34em;
             height: max-content;
             aspect-ratio: 1/1;
             border-radius: 2000px;
@@ -55,15 +53,16 @@
             color: #A7A7A7;
             font-family: Cabin;
             line-height: 1;
-            margin-left: 0.6em;
+            font-size: inherit;
+            margin-left: 0.6rem;
             .username{
-                font-size: 0.7em;
+                font-size: 0.6em;
                 font-style: normal;
                 font-weight: 700;
                 margin-bottom: 0.3em;
             }
             .view{
-                font-size: 0.6em;
+                font-size: 0.5em;
                 font-style: italic;
                 font-weight: 400;
             }
@@ -72,13 +71,14 @@
     .cover-image{
         width: 100%;
        
-        max-height: 30vh;
+        max-height: 23vh;
         border-radius: 4px;
         overflow: hidden;
     }
     .specs{
         display: flex;
         justify-content: space-between;
+        font-size: inherit;
         .name{
             color: #ADADAD;
             font-family: Cabin;
@@ -95,7 +95,7 @@
     align-items: center;
     margin-right: 0.4em;
     .num{
-        font-size: 0.4em;
+        font-size: 0.5em;
         color: #515151;
         font-family: "Exo 2";
         font-style: normal;
@@ -104,6 +104,6 @@
         margin-right: 0.4em;
     }
     img{
-        height: 40%;
+        height: 50%;
     }
 }

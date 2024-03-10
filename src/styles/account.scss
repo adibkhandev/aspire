@@ -434,18 +434,22 @@ body{
 
 
 .subscribed-page{
+    scroll-behavior: smooth;
     .nav-container{
         position: initial;
     }
     .cards{
-        padding: 1.2rem 1.4rem;
-        padding: 1.2rem 1.4rem 0.2rem 1.4rem;
+        font-size: clamp(0.78rem,2.9vw,1.2rem);
+        padding: 1.2em 1.4em;
+        padding: 1.2em 1.4em 0.2em 1.4em;
         .card{
             width: 100%;
             margin-bottom: 1em;
+            border-radius: 4px;
             background-color: #2C2C2C;
             .card-cont{
                 padding:0.4em 1em 0.6em 1em;
+
                 .desc-cont{
                     display: flex;
                     justify-content: space-between;
@@ -459,14 +463,25 @@ body{
                     .subscription{
                         font-size: 0.76em;
                     }
+                    .link{
+                        height: 0.9em;
+                        cursor: pointer;
+                    }
                 }
                 .cover{
+                    font-size: inherit;
                    width: 100%;
+                   border-radius: 2px;
                    aspect-ratio: 16/9;
                    height: max-content;
+                   max-height: 40rem;
                    overflow: hidden;
                    object-fit: cover;
                    margin-block: 0.5em;
+                   img{
+                     width: 100%;
+                     min-width: 100%;
+                   }
                    
                 }
                 .end{
@@ -492,6 +507,15 @@ body{
                             margin-left: 0.4em;
                         }
                     }
+                    .videoCount{
+                        .num{
+                            font-size: 0.8em !important;
+                        }
+                        img{
+                            height: 60%;
+                        }
+                    }
+                    
                 }
             }
             
