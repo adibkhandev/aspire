@@ -44,6 +44,9 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
         if(deleteMode){
             setDeleteMode(false)
         }
+        if(activeVideo){
+            setActiveVideo(null)
+        }
 
    },[course])
    

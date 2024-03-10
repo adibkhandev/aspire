@@ -57,7 +57,7 @@
                 display: flex;
                 align-items: center;
                 width: 100%;
-                font-size: clamp(0.8rem,3vw,1.1rem);
+                font-size: clamp(1rem,3vw,1.1rem);
                 @media (width>800px) {
                     font-size: clamp(1.1rem,1.7vw,2rem);
                 }
@@ -68,17 +68,23 @@
                     font-family: Raleway;
                     font-size: inherit;
                     font-size: 0.6em;
-                    font-style: normal;
+                    font-style: 1;
                     font-weight: 500;
-                    line-height: normal;
+                    line-height: 1;
                     margin-left: 4.4em;
+                    @media (width<700px) {
+                        margin: 3.5em;
+                    }
                     cursor: pointer;
                 }
                 img{
-                    max-height: 2rem;
-                    height: 40%;
+                    height: 1em;
+                    // max-height: 2rem;
                     position: absolute;
                     left: 0.5em;
+                    @media (width<700px) {
+                    left: 0;
+                    }
                     cursor: pointer;
                 }
             }
