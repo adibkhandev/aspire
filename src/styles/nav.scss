@@ -14,8 +14,11 @@
     border-bottom: 0.3px solid #3E3E3E;
     // z-index: 8 !important;
     .logo{
+        font-size: inherit;
+        font-size: clamp(0.8rem,calc(1.3vh + 1.4vw),1.4rem);
+        height: 0.8em;
         margin-top: 0.2em;
-        height: 27%;
+        z-index: 4;
     }
     .ham{
         height: 25%;
@@ -35,15 +38,16 @@
         max-width: 400px;
         .nav-cont{
             border-bottom: 0.3px solid #3E3E3E;
+            font-size: clamp(0.8rem,calc(1.3vh + 1.4vw),1.4rem);
+            height: 3.6em;
+            padding-left: 1.4em;
+            display: flex;
+            align-items: center;
             .logo-imitate{
-                font-size: clamp(0.8rem,calc(1.3vh + 1.4vw),1.4rem);
-                padding-left: 1.4em;
-                height: 3.55em!important;
-                display: flex;
-                align-items: center;
                 img{
+                    font-size: clamp(0.8rem,calc(1.3vh + 1.4vw),1.4rem);
+                    height: 0.8em;
                     margin-top: 0.2em;
-                    height: 27%;
                 }
             }
 

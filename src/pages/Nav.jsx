@@ -13,6 +13,7 @@ import hamburger from './../assets/images/hamburger.svg'
 import { Drawer } from '@mui/material';
 import { Link , useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import { motion } from 'framer-motion'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
@@ -22,7 +23,11 @@ export const Nav = () => {
       return (
         <div className='nav-container'>
            <Link to={'/'}>
-               <img className='logo' src={logo} alt="" />
+               <motion.img
+                 initial={{x:"-220%"}}
+                 animate={drawerOpen?{x:"-220%"}:{x:0}} 
+                 transition={drawerOpen?{}:{delay:0.4}}
+                 className='logo' src={logo} alt="" />
            </Link>
             <img onClick={()=>{
                 console.log('clcik')
@@ -31,6 +36,7 @@ export const Nav = () => {
             }} className='ham' src={hamburger} alt="" />
             {decoded && <Drawer
               open={drawerOpen}
+              transitionDuration={200}
               variant="temporary"
               onClose={(event,reason)=>{
                   setDrawerOpen(false)
@@ -40,7 +46,11 @@ export const Nav = () => {
                <div className="drawer-cont">
                     <div className="nav-cont">
                     <div className="logo-imitate">
-                        <img className="logo" src={logo} alt="" />
+                        <motion.img
+                          initial={{x:"-220%"}}
+                          animate={drawerOpen?{x:0}:{x:"-220%"}} 
+                          transition={drawerOpen?{delay:0.3}:{delay:0.2}} 
+                          className="logo" src={logo} alt="" />
                     </div>
 
                     </div>
