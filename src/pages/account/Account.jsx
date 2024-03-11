@@ -22,7 +22,7 @@ export const Account = () => {
     let hasVideo = true
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
-    console.log(decoded,'pay')
+////    console.log(decoded,'pay')
     const [popupOpen,setPopupOpen] = useState(false)
     useEffect(()=>{
         const url = import.meta.env.VITE_API_URL + '/user/' + username
@@ -34,11 +34,11 @@ export const Account = () => {
           }
               axios.get(url,headers)
                 .then((response)=>{
-                    console.log(response.data,'acount data')
+////                    console.log(response.data,'acount data')
                     setUserData(response.data)
                 })
                 .catch((err)=>{
-                    console.log(err)
+////                    console.log(err)
                 })
     },[])
     const homeVariants = {
@@ -322,12 +322,12 @@ const Empty = ({userType}) => {
 const Videos = ({thumbnails,uploadedCourses,setCourseAcitve,setPopupOpen}) => {
     const list = [0,1,2,4]
     let controls = useDragControls()
-    console.log(uploadedCourses,'ase naki?')
+////    console.log(uploadedCourses,'ase naki?')
     return(
           <div 
            className="videoListCont">
               {uploadedCourses.map((course,index)=>{
-                  console.log(course.subscribedCount,'counts')
+////                  console.log(course.subscribedCount,'counts')
                   return (
                     <div className="videoCont">
                         <img draggable="false" onClick={()=>{

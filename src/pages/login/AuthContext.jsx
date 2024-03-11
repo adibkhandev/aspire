@@ -4,16 +4,16 @@ import axios from 'axios'
 export const Context = createContext()
 export const AuthContextProvider = ({children}) => {
     const navigate = useNavigate() 
-    console.log(localStorage.getItem('accessToken'),'definition')
+//    console.log(localStorage.getItem('accessToken'),'definition')
     const [token,setToken] = useState({
         accessToken:localStorage.getItem('accessToken')?JSON.parse(localStorage.getItem('accessToken')) : null,
         refreshToken:localStorage.getItem('refreshToken')?JSON.parse(localStorage.getItem('refreshToken')) : null,
     })
     useEffect(()=>{
-         console.log(token,'updated')
+//         console.log(token,'updated')
     },[token])
     const tokenize = (access,refresh,userData) => {
-        console.log('tokenizing')
+//        console.log('tokenizing')
         setToken({
             accessToken:access,
             refreshToken:refresh,
@@ -33,18 +33,18 @@ export const AuthContextProvider = ({children}) => {
        navigate('/')
     } 
     const refreshToken = () => {
-        console.log('pay')
+//        console.log('pay')
         const data = {
             refreshToken:token.refreshToken
         }
         axios.post(import.meta.env.VITE_API_URL + '/auth/refresh/',data)
           .then(response=>{
-              console.log(response.data,'refresh')
-              tokenize(response.data.accesstoken,response.data.refreshtoken)
+//              console.log(response.data,'refresh')
+              tokenize(response.data.accesstoken,response.data.refreshtoken,response.data.userData)
           
             })
           .catch(err=>{
-             console.log(err,'error')
+//             console.log(err,'error')
               if(err.response.status == 400){
                  logout()
               }
@@ -53,7 +53,7 @@ export const AuthContextProvider = ({children}) => {
     useEffect(()=>{
         if(token && token.refreshToken){
            refreshToken()
-           console.log('refreshing')
+//           console.log('refreshing')
         }
     },[])
     return (

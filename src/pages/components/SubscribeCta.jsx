@@ -4,17 +4,34 @@ import { motion } from 'framer-motion';
 const SubscribeCta = ({subscribed,setSubscribed,courseId}) => {
     const token = localStorage.getItem('accessToken');
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
+    const subscribedTo = user ? (user.subscribedCourses.map(course=>{
+        return course._id
+    })):null
+    console.log(user)
     useEffect(()=>{
-        console.log(user,'asdasdmeeeeeeeeeeeeee')
-        if(user && courseId) {
-            if(user.subscribedCourses.includes(courseId)){
+      console.log(user,courseId,'asee')
+        if(subscribedTo[0] && courseId) {
+          console.log(subscribedTo,'tooo')
+          if(subscribedTo.includes(courseId)){
                 setSubscribed(true)
+                console.log('turning true')
             }
             else{
                 setSubscribed(false)
+                console.log('turning false')
             }
         }
-    },[user,courseId])
+    },[courseId,subscribedTo,user])
+
+
+//   useEffect(()=>{
+//       console.log(subscribed,'s')
+//   },[subscribed])
+
+// useEffect(()=>{
+//    console.log(courseId,'id',subscribedTo)
+// },[courseId])
+
     const subscribe = (process) => {
         console.log(process,'process')
         const data = {
@@ -25,8 +42,7 @@ const SubscribeCta = ({subscribed,setSubscribed,courseId}) => {
                 'Authorization':'Bearer ' + token,
                 'Content-Type':'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-              'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS'
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
             }
           }
           const url =  import.meta.env.VITE_API_URL +  `/user/${process=='un'?'un':''}subscribe` 

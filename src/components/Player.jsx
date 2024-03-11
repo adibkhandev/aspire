@@ -18,21 +18,21 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [subscribed,setSubscribed] = useState(true)
     const [editing,setEditing]=useState(false)
-    useEffect(()=>{
-        console.log(user,'asdasdmeeeeeeeeeeeeee')
-        if(user && course) {
-            if(user.subscribedCourses.includes(course._id)){
-                setSubscribed(true)
-            }
-            else{
-                setSubscribed(false)
-            }
-        }
-    },[user,course])
+//     useEffect(()=>{
+// //        console.log(user,'asdasdmeeeeeeeeeeeeee')
+//         if(user && course) {
+//             if(user.subscribedCourses.includes(course._id)){
+//                 setSubscribed(true)
+//             }
+//             else{
+//                 setSubscribed(false)
+//             }
+//         }
+//     },[user,course])
     
-    // console.log(user,'usreerere')
+//    // console.log(user,'usreerere')
     useLayoutEffect(() => {
-        // console.log(popupRef.current.clientHeight)
+//        // console.log(popupRef.current.clientHeight)
         if(popupRef){
             setHeight(popupRef.current.clientHeight);
 
@@ -40,7 +40,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
     });
     
    useEffect(()=>{
-        console.log('getting useEff')
+//        console.log('getting useEff')
         if(deleteMode){
             setDeleteMode(false)
         }
@@ -51,8 +51,8 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
    },[course])
    
        
-    console.log(course,'course')
-    // console.log(activeVideo,'linkactive')
+//    // console.log(course,'course')
+//    // console.log(activeVideo,'linkactive')
     const deleteHandler = () => {
                 let headers = {
                     headers:{
@@ -66,10 +66,10 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                
                 axios.delete(url,headers)
                    .then((response)=>{
-                       console.log(response.data)
+//                       console.log(response.data)
                     })
                     .catch(err=>{
-                        console.log(err)
+//                        console.log(err)
                     })
                 }
     
@@ -80,7 +80,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
     <motion.div  
     onClick={(e)=>{
         e.stopPropagation()
-        console.log(e.target.className,'Tefwr')
+//        console.log(e.target.className,'Tefwr')
         if(e.target.className == 'content-cont'){
             if(deleteMode){
              setDeleteMode(false)
@@ -156,7 +156,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                         
                         {
                             (course && course.topics)? course.topics.map((topic)=>{
-                                console.log(topic,'topic')
+//                                // console.log(topic,'topic')
                                 return (
                                     <CourseNav  deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
@@ -183,7 +183,7 @@ const PlayVideo = ({videoLinkBack}) => {
           preload="auto"
           width={'100%'} 
           onProgress={(loaded)=>{
-            console.log(loaded,'l')
+//            console.log(loaded,'l')
           }}
           playing={false}
           url={import.meta.env.VITE_API_URL + videoLinkBack}
@@ -215,16 +215,16 @@ const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode 
                 }
             }
             let url = `${import.meta.env.VITE_API_URL}/video/delete/${courseId}/${topic._id}`
-            console.log(url,'urll')
+//            console.log(url,'urll')
             let data = {
                 videos:deleted
             }
             axios.post(url,data,headers)
                .then((response)=>{
-                   console.log(response.data)
+//                   console.log(response.data)
                })
                .catch(err=>{
-                  console.log(err)
+//                  console.log(err)
                })
         }
     }
@@ -241,11 +241,11 @@ const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode 
     let callback = entries =>{
         let [entry] = entries
         if(entry){
-          console.log(entry.isIntersecting,'issss')
+//          console.log(entry.isIntersecting,'issss')
           setDown(entry.isIntersecting)
         }
         else{
-            console.log('no')
+//            console.log('no')
 
         }
     }
@@ -266,7 +266,7 @@ const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode 
         };
      }, [adderContRef,options])
 
-console.log(deleted,'adsd')
+//console.log(deleted,'adsd')
     return(
         <>
           <div ref={adderContRef} className="topic-cont">
@@ -278,7 +278,7 @@ console.log(deleted,'adsd')
                         <div className="adding">
                             <div 
                                 onClick={()=>{
-                                    console.log('clickssasd')
+//                                    console.log('clickssasd')
                                     if(deleteMode){
                                        setDeletePrompt(true)
                                     }
@@ -341,11 +341,11 @@ console.log(deleted,'adsd')
             </div>
             {
                 (topic && topic.videos)?topic.videos.map((video)=>{
-                    // console.log(video.videoLink,'link')
+//                    // console.log(video.videoLink,'link')
                     return(
                       <motion.div 
                         onClick={()=>{
-                            console.log('clicks')
+//                            console.log('clicks')
                             if(!deleteMode){
                                 setActiveVideo(video)
                             }

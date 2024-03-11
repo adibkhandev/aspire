@@ -12,7 +12,7 @@ const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen
   
 
   
-  console.log(popupOpen,'popstate')
+  // console.log(popupOpen,'popstate')
   return (
     <motion.div
       ref={popupRef}
