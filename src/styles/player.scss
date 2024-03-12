@@ -157,10 +157,12 @@
                 font-size: 0.9rem;
                 background-color: #303030;
                 border-radius: 4px;
+                cursor: pointer;
                 #first{
                     border-bottom: 1px solid #363636;
                 }
                 .option{
+                    cursor: pointer;
                     white-space: nowrap;
                     display: flex;
                     justify-content: center;
@@ -255,6 +257,9 @@
                     width: 12em;
                     height: 3.8em;
                     white-space: nowrap;
+                    h1{
+                        cursor: pointer;
+                    }
                 }
             }
         }

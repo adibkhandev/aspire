@@ -107,16 +107,16 @@ export const Account = () => {
                                         {
                                             (userData)?(
                                                 (decoded && decoded._id==userData.id)?(
+                                                    <Link to={`/${decoded._id}/edit`}>
                                                     <motion.div
                                                             whileTap={{scale:0.9}} 
                                                             className="edit-btn-cont">
                                                             <div className="edit-btn">
-                                                        <Link to={`/${decoded._id}/edit`}>
                                                                 Edit profile
-                                                        </Link>
                                                             </div>
                                                        
                                                           </motion.div>
+                                                    </Link>
 
                                                 ):''
                                             ):(

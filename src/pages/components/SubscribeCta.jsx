@@ -12,14 +12,16 @@ const SubscribeCta = ({subscribed,setSubscribed,courseId}) => {
       console.log(user,courseId,'asee')
         if(subscribedTo[0] && courseId) {
           console.log(subscribedTo,'tooo')
-          if(subscribedTo.includes(courseId)){
-                setSubscribed(true)
-                console.log('turning true')
-            }
-            else{
-                setSubscribed(false)
-                console.log('turning false')
-            }
+          if(subscribedTo){
+            if(subscribedTo.includes(courseId)){
+                  setSubscribed(true)
+                  console.log('turning true')
+              }
+              else{
+                  setSubscribed(false)
+                  console.log('turning false')
+              }
+          }
         }
     },[courseId,subscribedTo,user])
 

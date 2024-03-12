@@ -8,7 +8,7 @@ import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
 import axios from 'axios'
-const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitiated,setDeletePrompt}) => {
+const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitiated,setDeletePrompt}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
     const containerRef = useRef(null)
@@ -16,7 +16,7 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
     const token = localStorage.getItem('accessToken');
     const decoded = token? jwtDecode(token):null
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
-    const [subscribed,setSubscribed] = useState(true)
+    const [subscribed,setSubscribed] = useState(false)
     const [editing,setEditing]=useState(false)
 //     useEffect(()=>{
 // //        console.log(user,'asdasdmeeeeeeeeeeeeee')
@@ -67,6 +67,20 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                 axios.delete(url,headers)
                    .then((response)=>{
 //                       console.log(response.data)
+                         setEditing(false)
+                         if(setPopupOpen && setCourse){
+                             setTimeout(()=>{
+                                setPopupOpen(false)
+                             },500)
+                             setTimeout(()=>{
+                                window.location.reload()
+                            },1000)
+                         }
+                         else{
+                            navigate('/')
+                         }
+                        //  navigate('/')
+                         
                     })
                     .catch(err=>{
 //                        console.log(err)
@@ -123,7 +137,14 @@ const Player = ({course,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitia
                                             )}
                                             className="options"
                                         >
-                                            <div onClick={()=> deleteHandler()} className="option" id='first'>Delete course</div>
+                                            <div onClick={()=> {
+                                                deleteHandler()
+                                            }} className="option" id='first'>
+                                                <h1>
+                                                Delete course
+
+                                                </h1>
+                                            </div>
                                             <Link to={`/${course._id}/edit/course`}>
                                                 <div className="option">Edit course</div>
                                             </Link>
