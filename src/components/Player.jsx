@@ -16,7 +16,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
     const token = localStorage.getItem('accessToken');
     const decoded = token? jwtDecode(token):null
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
-    const [subscribed,setSubscribed] = useState(false)
+    const [subscribedState,setSubscribedState] = useState(false)
     const [editing,setEditing]=useState(false)
 //     useEffect(()=>{
 // //        console.log(user,'asdasdmeeeeeeeeeeeeee')
@@ -167,7 +167,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                 <h1 className="description">
                    {activeVideo?activeVideo.description:course.description}
                 </h1>
-                <SubscribeCta courseId={course._id} subscribed={subscribed} setSubscribed={setSubscribed} ></SubscribeCta>
+                <SubscribeCta courseId={course._id} subscribedState={subscribedState} setSubscribedState={setSubscribedState} ></SubscribeCta>
         </div>
         <div className="total-cont">
             <div ref={containerRef} className="topper-cont">

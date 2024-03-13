@@ -2,6 +2,7 @@ import React, { useEffect , useState } from 'react'
 import { CoursePack } from '../explore/HorizontalSwiper'
 import {Nav} from './../Nav'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
@@ -22,7 +23,7 @@ const Subscribed = () => {
             let url = `${import.meta.env.VITE_API_URL}/user/subscribed`
             axios.get(url,headers)
                .then(res=>{
-                   console.log(res.data)
+                   console.log(res.data,'responsibleee')
                    setSubscribed(res.data.subscribed)
                })
                .catch(err=>{
@@ -36,8 +37,8 @@ const Subscribed = () => {
       <Nav/>
       <div className="cards">
         {subscribed && subscribed.length?(
-           subscribed.map(subscribed=>{
-              return <Card subscribed={subscribed} />
+           subscribed.map(subscribe=>{
+              return <Card setSubscribed={setSubscribed} subscribe={subscribe} />
            })
         ):''}
       </div>
@@ -46,13 +47,14 @@ const Subscribed = () => {
 }
 
 
-const Card = ({subscribed}) => {
+const Card = ({subscribe,setSubscribed}) => {
     const [cardData,setCardData]=useState(null)
     let userData = localStorage.getItem('userData')
     const [subscribedState,setSubscribedState]=useState(true)
-    console.log(subscribed,'dat')
+    const [remove,setRemove] = useState(false)
+    console.log(subscribe,'dat')
     useEffect(()=>{
-            let url = `${import.meta.env.VITE_API_URL}/video/get/${subscribed}/compress`
+            let url = `${import.meta.env.VITE_API_URL}/video/get/${subscribe}/compress`
             axios.get(url)
                .then(res=>{
                    console.log(res.data.data,'card-data')
@@ -65,7 +67,9 @@ const Card = ({subscribed}) => {
                })
     },[])
     if(cardData) return(
-        <div className='card'>
+        <motion.div
+         animate={remove?{x:"-220%"}:{x:0}} 
+         className='card'>
            <div className="card-cont">
                <div className="desc-cont">
                     <div className="text">
@@ -75,7 +79,7 @@ const Card = ({subscribed}) => {
                             {cardData.courseName}
                           </Link>                       
                         </h1>
-                        <SubscribeCta courseId={cardData.courseId} subscribed={subscribedState} setSubscribed={setSubscribedState} ></SubscribeCta>
+                        <SubscribeCta setRemove={setRemove} courseId={cardData.courseId} setSubscribed={setSubscribed} subscribedState={subscribedState} setSubscribedState={setSubscribedState} ></SubscribeCta>
                     </div>
                     <Link to={`/course/${cardData.courseId}`} >
                       <img className='link' src={linkTo} alt="" />
@@ -104,7 +108,7 @@ const Card = ({subscribed}) => {
                     </div>
                </div>
            </div>
-        </div>
+        </motion.div>
     )
 } 
 
