@@ -68,6 +68,7 @@ const UploadCourse = (course) => {
             }
           }
           else{
+              console.log('setting')
               setError('Provide data to continue')
           }
 
@@ -75,17 +76,23 @@ const UploadCourse = (course) => {
     }
 }
   return (
-    <div className='home' id="upload-page">
-        <Nav></Nav>
-       <motion.form 
-         className='stepCont' 
-         onSubmit={(e)=>uploadHandler(e)}
-         animate={step==2?{x:'-100vw'}:{x:0}}
-        >
-          <FirstStep skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/>
-          <SecondStep uploadHandler={uploadHandler} setStep={setStep} setError={setError} />  
-       </motion.form>
-       <CustomAlert error={error} setError={setError}/>
+    <div className="upload flex flex-column items-end">
+      <div className='home' id="upload-page">
+          <Nav></Nav>
+        <motion.form 
+          className='stepCont' 
+          onSubmit={(e)=>uploadHandler(e)}
+          animate={step==2?{x:'-100vw'}:{x:0}}
+          >
+            <FirstStep skills={skills} setSkills={setSkills} setStep={setStep} error={error} setError={setError}/>
+            <SecondStep uploadHandler={uploadHandler} setStep={setStep} error={error} setError={setError} />  
+            
+        </motion.form>
+        
+      </div>
+      <div className="toast-cont">
+        <CustomAlert error={error} setError={setError}/>
+      </div>
     </div>
   )
 

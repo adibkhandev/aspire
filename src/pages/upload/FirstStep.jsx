@@ -3,8 +3,9 @@ import Image from "../components/FileImage"
 import { motion } from "framer-motion"
 import { BoxAddon } from "../components/BoxAddon"
 import MotionCta from "../components/MotionCta"
+import { CustomAlert } from "../components/CustomAlert"
 import { useNavigate } from "react-router"
-const FirstStep = ({existing,course,setError,setStep,setSkills,skills}) => {
+const FirstStep = ({existing,course,error,setError,setStep,setSkills,skills}) => {
     const courseImageRef = useRef()
     const [imageFile,setImageFile] = useState(null)
     const [changesMade,setChangesMade] = useState(false)

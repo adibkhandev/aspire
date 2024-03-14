@@ -3,13 +3,13 @@ import Alert from '@mui/material/Alert';
 import {motion , AnimatePresence} from 'framer-motion'
 export const CustomAlert = ({error,setError}) => {
     const MotionAlert = motion(Alert,{forwardMotionProps:true})
-    useEffect(()=>{
-        if(error){
-            setTimeout(()=>{
-                setError(null)
-            },1000)
-        }
-    },[error])
+    // useEffect(()=>{
+    //     if(error){
+    //         setTimeout(()=>{
+    //             setError(null)
+    //         },1000)
+    //     }
+    // },[error])
     return (
             <AnimatePresence>
                     {error && (

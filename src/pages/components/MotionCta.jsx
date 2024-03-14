@@ -1,12 +1,15 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-const MotionCta = ({changesMade,submit,onClick,text}) => {
+const MotionCta = ({changesMade,submit,onClick,text,setError}) => {
     
   return (
     <motion.button 
         onClick={()=>{
             if(onClick){
                   onClick()
+            }
+            if(!changesMade && setError){
+              setError('Complete all the steps to continue')
             }
         }}
         initial={{backgroundColor:'rgba(0,0,0,0)',border:'3px solid #2E2E2E'}}

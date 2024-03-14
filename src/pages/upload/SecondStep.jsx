@@ -2,7 +2,8 @@ import React , {useRef,useState,useEffect}  from 'react'
 import { motion } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
 import MotionCta from '../components/MotionCta'
-const SecondStep = ({setStep,onlyVideo,video}) => {
+import { CustomAlert } from '../components/CustomAlert'
+const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
   const input = useRef(null)
   const topicTitleRef = useRef(null)
   const videoTitleRef = useRef(null)
@@ -23,6 +24,7 @@ const SecondStep = ({setStep,onlyVideo,video}) => {
         }
         else{
          setChangesMade(false)
+         
         }
 
       }
@@ -94,7 +96,7 @@ const SecondStep = ({setStep,onlyVideo,video}) => {
                  }
                  
               }} className="secondary-btn">Go back</motion.div>
-              <MotionCta submit={true} changesMade={changesMade} text={'Continue'}></MotionCta>
+              <MotionCta setError={setError} submit={true} changesMade={changesMade} text={'Continue'}></MotionCta>
           </div>
           <input onChange={(e)=>{
             if(e.target.files[0]){
