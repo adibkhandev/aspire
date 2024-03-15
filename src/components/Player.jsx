@@ -18,21 +18,8 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [subscribedState,setSubscribedState] = useState(false)
     const [editing,setEditing]=useState(false)
-//     useEffect(()=>{
-// //        console.log(user,'asdasdmeeeeeeeeeeeeee')
-//         if(user && course) {
-//             if(user.subscribedCourses.includes(course._id)){
-//                 setSubscribed(true)
-//             }
-//             else{
-//                 setSubscribed(false)
-//             }
-//         }
-//     },[user,course])
-    
-//    // console.log(user,'usreerere')
+
     useLayoutEffect(() => {
-//        // console.log(popupRef.current.clientHeight)
         if(popupRef){
             setHeight(popupRef.current.clientHeight);
 
@@ -40,7 +27,6 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
     });
     
    useEffect(()=>{
-//        console.log('getting useEff')
         if(deleteMode){
             setDeleteMode(false)
         }
@@ -49,10 +35,6 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
         }
 
    },[course])
-   
-       
-//    // console.log(course,'course')
-//    // console.log(activeVideo,'linkactive')
     const deleteHandler = () => {
                 let headers = {
                     headers:{
@@ -83,7 +65,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                          
                     })
                     .catch(err=>{
-//                        console.log(err)
+                       console.log(err)
                     })
                 }
     
@@ -242,7 +224,13 @@ const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode 
             }
             axios.post(url,data,headers)
                .then((response)=>{
-//                   console.log(response.data)
+                  console.log(response)
+                  if(response.status==201){
+                     setDeleteMode(false)
+                     setDeletePrompt(false)
+                     
+                     
+                  }
                })
                .catch(err=>{
 //                  console.log(err)

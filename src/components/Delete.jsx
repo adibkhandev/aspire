@@ -28,9 +28,7 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
         }
     } 
     useEffect(()=>{
-        if(deletePrompt){
-            animateDelete()
-        }
+        animateDelete()
     },[deletePrompt])
   return (
     <motion.div
@@ -45,7 +43,7 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
         
           <motion.div
             initial={{y:"100vh"}}
-            animate={deletePrompt?{y:0}:{y:"100vh"}} 
+            animate={deletePrompt?{y:0,scale:1}:{y:"100vh",scale:0.4}} 
             transition={deletePrompt?{delay:0.2}:{delay:0}}
             className="delete-dialog">
                <div className="text">
@@ -54,6 +52,12 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
                <div className="options">
                    <div onClick={()=>{
                     setDeleteInitiated(true)
+                    setDeletePrompt(false)
+                    setDeleteMode(false)
+                    setTimeout(()=>{
+                        window.location.reload()
+                    },800)
+                    
                    }} className="confirm">
                         Confirm
                    </div>
