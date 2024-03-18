@@ -216,7 +216,7 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
 
             <div className="grid">
                 {userData?(
-                   userData.uploadedCourses.length?(
+                  userData.uploadedCourses && userData.uploadedCourses.length?(
                       <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
                    ):(
                       <Empty userType={userData.userType} />

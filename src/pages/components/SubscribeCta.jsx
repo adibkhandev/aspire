@@ -5,7 +5,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
     const token = localStorage.getItem('accessToken');
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [justNow,setJustNow]=useState(false)
-    console.log(user)
+    console.log(courseId,'ids')
     useEffect(()=>{
       const subscribedTo = user ? (user.subscribedCourses.map(course=>{
           return course._id
@@ -67,7 +67,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
       const url =  import.meta.env.VITE_API_URL +  `/user/unsubscribe` 
       axios.post(url,data,headers)
       .then((response)=>{
-          console.log(response.data.user,'ssubbss')
+          console.log(response.data.user,'unssubbss')
           setUser(response.data.user)
           localStorage.setItem('userData',JSON.stringify(response.data.user))
           setSubscribedState(false)
@@ -75,13 +75,12 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
 
             ///
             setRemove(true)
-            setTimeout(()=>{
-              setSubscribed(subscribed=>{
-                 subscribed.filter((subscribe=>{
-                     subscribe._id !== courseId 
-                 }))
-              })
-            },3000)
+            // setTimeout(()=>{
+            //   setSubscribed(subscribed=>{
+            //     // console.log(subscribed,'did',courseId)
+            //     return subscribed.filter((subscribe=>subscribe !== courseId ))
+            //   })
+            // },1000)
           }
        })
        .catch((err)=>{
