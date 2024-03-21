@@ -12,17 +12,29 @@
                 background-color: #C71620;
             }
             .warn-cont{
+                z-index: -2;
                 display: block;
                 margin-bottom: 1em;
+                position: relative;
+                height: 10em;
                .warn{
+                $side:1.4px;
+                position: absolute;
+                top: -20em;
+                width: calc(100% - (2*$side));
+                margin-left: $side;
+                height: 100%;
                 background-color: #C71620;
-                padding: 1.2em 2em 1.2em 1.4em;
+
+                // padding: 1.2em 2em 1.2em 1.4em;
                 border-radius: 4px;
                  .text{
+                    height: 100%;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     color: #FFFFFF;
+                    margin-inline: 1.4em;
                     .context{
                         font-family: 'Cabin';
                         font-style: italic;

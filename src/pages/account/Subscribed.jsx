@@ -2,7 +2,7 @@ import React, { useEffect , useState } from 'react'
 import { CoursePack } from '../explore/HorizontalSwiper'
 import {Nav} from './../Nav'
 import { Link } from 'react-router-dom'
-import { motion , AnimatePresence} from 'framer-motion'
+import { motion , AnimatePresence , useAnimate} from 'framer-motion'
 import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
@@ -55,8 +55,23 @@ const Card = ({subscribe,setSubscribed}) => {
     const [cardData,setCardData]=useState(null)
     let userData = localStorage.getItem('userData')
     const [subscribedState,setSubscribedState]=useState(true)
-    const [remove,setRemove] = useState(false)
+    const [remove,setRemove] = useState(false) 
     const [kill,setKill] = useState(false) 
+    //gen
+    let moverTime = 5
+    let shrinkTime = 1
+    let leaver = shrinkTime + moverTime
+    let wait = 0.2
+    //err
+    let spaceCreateTime = 0.3
+   let extraforAppear = 0.05
+   let entranceTime = spaceCreateTime + extraforAppear
+   let exitTime = entranceTime + moverTime + shrinkTime
+   let errorSpan = entranceTime + exitTime
+   let cardSpan = entranceTime + wait + moverTime + shrinkTime 
+   let totalTime = cardSpan + errorSpan 
+   //card
+    
     console.log(cardData,'dat')
     useEffect(()=>{
       let url = `${import.meta.env.VITE_API_URL}/video/get/${subscribe}/compress`
@@ -71,20 +86,36 @@ const Card = ({subscribe,setSubscribed}) => {
               console.log(err)
           })
     },[])
+    const [hidden,setHidden] = useState(false)
     useEffect(()=>{
          if(remove){
+            cardAnimation()
             setTimeout(()=>{
                setKill(true)
                setCardData(null)
-            },5000)
+            },(totalTime+0.4)*1000)
             console.log('removing')
          }
     },[remove])
+    const [scope,animate] = useAnimate()
+    const cardAnimation = async() => {
+       await animate(scope.current,{
+         x:'-140%'
+       },{
+         duration:1,
+         delay:2
+       })
+       await animate(scope.current,{
+         height:0
+       },{
+        duration:1,
+      })
+    }
+
     if(cardData) return(
       <div className="card-container">
         <motion.div
-         animate={remove?{x:'-140%',height:0}:{x:0}}
-         transition={{delay:2}}
+         ref={scope}
          className='card'>
            <div className="card-cont">
                <div className="desc-cont">
@@ -124,14 +155,10 @@ const Card = ({subscribe,setSubscribed}) => {
                </div>
            </div>
         </motion.div>
-        {/* <motion.div 
-          animate={remove?{x:'-140%',height:0}:{x:0}}
-          transition={{delay:4}}
-          className="covering"> */}
           <AnimatePresence>
             {remove && !kill && <DeletePopup/>}  
+            {/* <DeletePopup/> */}
           </AnimatePresence>
-        {/* </motion.div> */}
               
       </div>
     )
@@ -139,27 +166,57 @@ const Card = ({subscribe,setSubscribed}) => {
 
 
 const DeletePopup = () => {
-   const [popupRemoved,setPopupRemoved]=useState(false)
+   const [cardRemoved,setCardRemoved]=useState(false)
+   //gen
+   let moverTime = 5
+   let shrinkTime = 1
+   let leaver = shrinkTime + moverTime
+   //err  
+   let spaceCreateTime = 0.3
+   let extraforAppear = 0.05
+   let entranceTime = spaceCreateTime + extraforAppear
+   //card
+   let wait = 0.2
+   let cardSpan = entranceTime + wait + moverTime + shrinkTime  
+
+   
+   let totalTime = cardSpan + entranceTime 
+  //  let disapppearTime = 0.5
+  //  let startMovingTime = entranceTime+moverTime 
+  const [scope,animate] = useAnimate()
+  const undoAnimation = async() => {
+    await animate(scope.current,{
+      x:'-140%'
+    },{
+      duration:1,
+      delay:5
+    })
+    await animate(scope.current,{
+      height:0
+    },{
+     duration:0.7,
+   })
+ }
    useEffect(()=>{
-      setTimeout(()=>{
-         setPopupRemoved(true)
-      },2000)
+     undoAnimation()
    },[])
    return(
     <motion.div
-      initial={{scaleY:0,height:0,opacity:0}}
-      animate={
-        popupRemoved?{x:'-140%'}:{
+      initial={{scaleY:0,height:0}}
+      animate={{
           scaleY:1,
-          height:'auto',
+          height:'4em',
           opacity:1,
           x:0
-        }
-      } 
-      transition={popupRemoved?{delay:2}:{}}
-      exit={{scaleY:0,height:0,opacity:0,height:0}}
+      }} 
+      exit={{scaleY:0,height:0}}
+      ref={scope}
       className="warn-cont">
-      <div className="warn">
+      <motion.div
+        initial={{y:0}}
+        animate={{y:'20em'}}
+        transition={{delay:0,duration:1}} 
+        className="warn">
           <div className="text">
             <div className="context">
                 <img src={whiterDelete} alt="" />
@@ -169,7 +226,7 @@ const DeletePopup = () => {
                 Undo
             </h1>
           </div>
-      </div>
+      </motion.div>
     </motion.div>
    )
 }
