@@ -93,7 +93,7 @@ const Card = ({subscribe,setSubscribed}) => {
             setTimeout(()=>{
                setKill(true)
                setCardData(null)
-            },(totalTime+0.4)*1000)
+            },(totalTime+0.4)*10000)
             console.log('removing')
          }
     },[remove])
@@ -103,12 +103,15 @@ const Card = ({subscribe,setSubscribed}) => {
          x:'-140%'
        },{
          duration:1,
-         delay:2
+         delay:3
        })
        await animate(scope.current,{
-         height:0
+         height:0,
        },{
         duration:1,
+      })
+      await animate('.card',{
+         margin:0
       })
     }
 
@@ -189,33 +192,49 @@ const DeletePopup = () => {
       x:'-140%'
     },{
       duration:1,
-      delay:5
+      delay:6
     })
     await animate(scope.current,{
-      height:0
+      height:0,
+      marginBlock:0
     },{
      duration:0.7,
    })
  }
+
+ const openingUndoAnimation = async() => {
+  await animate(scope.current,{
+    height:'4em'
+  },{
+    duration:0.6
+  })
+ }
+
+ const unhideModal = async() => {
+  await animate('.warn',{
+    opacity:1
+  },{
+    delay:1
+  })
+  await animate('.warn',{
+    y:'200%'
+  },{
+    duration:0.5,
+  })
+ }
+
+
    useEffect(()=>{
      undoAnimation()
+     unhideModal()
+     openingUndoAnimation()
    },[])
    return(
     <motion.div
-      initial={{scaleY:0,height:0}}
-      animate={{
-          scaleY:1,
-          height:'4em',
-          opacity:1,
-          x:0
-      }} 
-      exit={{scaleY:0,height:0}}
+      exit={{height:0,marginBlock:0}}
       ref={scope}
       className="warn-cont">
       <motion.div
-        initial={{y:0}}
-        animate={{y:'20em'}}
-        transition={{delay:0,duration:1}} 
         className="warn">
           <div className="text">
             <div className="context">
