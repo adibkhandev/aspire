@@ -2,7 +2,7 @@ import React, { useEffect , useState } from 'react'
 import { CoursePack } from '../explore/HorizontalSwiper'
 import {Nav} from './../Nav'
 import { Link } from 'react-router-dom'
-import { motion , AnimatePresence , useAnimate} from 'framer-motion'
+import { motion , AnimatePresence , useAnimate, useAnimation} from 'framer-motion'
 import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
@@ -87,33 +87,46 @@ const Card = ({subscribe,setSubscribed}) => {
           })
     },[])
     const [hidden,setHidden] = useState(false)
+    const [scope,animate] = useAnimate()
+    const controls = useAnimation()
     useEffect(()=>{
+      console.log('changing to ' , remove)
          if(remove){
+            const cardAnimation = async() => {
+              await animate(scope.current,{
+                x:'-140%'
+              },{
+                duration:1,
+                delay:3
+              })
+              await animate(scope.current,{
+                height:0,
+              },{
+                duration:1,
+              })
+              
+              await animate('.card',{
+                margin:0
+              })
+            }
             cardAnimation()
-            setTimeout(()=>{
-               setKill(true)
-               setCardData(null)
-            },(totalTime+0.4)*10000)
-            console.log('removing')
+         }
+         else{
+          const reverseCardAnimation = async() => {
+            await animate(scope.current,{
+              height:'100%',
+            },{
+              duration:1,
+            })
+            await animate(scope.current,{
+              x:0
+            },{
+              duration:1,
+            })
+          }
+          reverseCardAnimation()
          }
     },[remove])
-    const [scope,animate] = useAnimate()
-    const cardAnimation = async() => {
-       await animate(scope.current,{
-         x:'-140%'
-       },{
-         duration:1,
-         delay:3
-       })
-       await animate(scope.current,{
-         height:0,
-       },{
-        duration:1,
-      })
-      await animate('.card',{
-         margin:0
-      })
-    }
 
     if(cardData) return(
       <div className="card-container">
@@ -159,8 +172,8 @@ const Card = ({subscribe,setSubscribed}) => {
            </div>
         </motion.div>
           <AnimatePresence>
-            {remove && !kill && <DeletePopup/>}  
-            {/* <DeletePopup/> */}
+            {remove && !kill && <DeletePopup remove={remove} setRemove={setRemove} setKill={setKill}/>}  
+            {/* <DeletePopup remove={true}/> */}
           </AnimatePresence>
               
       </div>
@@ -168,39 +181,22 @@ const Card = ({subscribe,setSubscribed}) => {
 } 
 
 
-const DeletePopup = () => {
-   const [cardRemoved,setCardRemoved]=useState(false)
-   //gen
-   let moverTime = 5
-   let shrinkTime = 1
-   let leaver = shrinkTime + moverTime
-   //err  
-   let spaceCreateTime = 0.3
-   let extraforAppear = 0.05
-   let entranceTime = spaceCreateTime + extraforAppear
-   //card
-   let wait = 0.2
-   let cardSpan = entranceTime + wait + moverTime + shrinkTime  
-
-   
-   let totalTime = cardSpan + entranceTime 
-  //  let disapppearTime = 0.5
-  //  let startMovingTime = entranceTime+moverTime 
+const DeletePopup = ({remove,setRemove,setKill}) => {
   const [scope,animate] = useAnimate()
-  const undoAnimation = async() => {
-    await animate(scope.current,{
-      x:'-140%'
-    },{
-      duration:1,
-      delay:6
-    })
-    await animate(scope.current,{
-      height:0,
-      marginBlock:0
-    },{
-     duration:0.7,
-   })
- }
+//   const undoAnimation = async() => {
+//     await animate(scope.current,{
+//       x:'-140%'
+//     },{
+//       duration:1,
+//       delay:6
+//     })
+//     await animate(scope.current,{
+//       height:0,
+//       marginBlock:0
+//     },{
+//      duration:0.7,
+//    })
+//  }
 
  const openingUndoAnimation = async() => {
   await animate(scope.current,{
@@ -209,9 +205,9 @@ const DeletePopup = () => {
     duration:0.6
   })
  }
-
+ 
  const unhideModal = async() => {
-  await animate('.warn',{
+   await animate('.warn',{
     opacity:1
   },{
     delay:1
@@ -221,29 +217,58 @@ const DeletePopup = () => {
   },{
     duration:0.5,
   })
- }
-
-
+  await animate(scope.current,{
+    zIndex:0
+  })
+}
+// const closingUndoAnimation = async() => {
+//  await animate(scope.current,{
+//    height:0
+//  },{
+//    duration:0.6,
+//    delay:4
+//  })
+//  setKill(true)
+// }
+//  const hideModal = async() => {
+//    await animate('.warn',{
+//      y:0
+//     },{
+//       duration:0.5,
+//       delay:3
+//     })
+//     await animate('.warn',{
+//       opacity:1
+//     },{
+//       delay:1
+//     })
+//  }
    useEffect(()=>{
-     undoAnimation()
-     unhideModal()
-     openingUndoAnimation()
-   },[])
+    if(remove){
+      // undoAnimation()
+      unhideModal()
+      openingUndoAnimation()
+    }
+   },[remove])
    return(
     <motion.div
       exit={{height:0,marginBlock:0}}
       ref={scope}
       className="warn-cont">
       <motion.div
+       onClick={()=>{
+        setRemove(false)
+        console.log('at least clicks')
+       }}
         className="warn">
           <div className="text">
             <div className="context">
                 <img src={whiterDelete} alt="" />
                 <h1>Video unsubscribed</h1> 
             </div>
-            <h1 className="undo">
+            <motion.h1 whileTap={{scale:0.2}} className="undo">
                 Undo
-            </h1>
+            </motion.h1>
           </div>
       </motion.div>
     </motion.div>
