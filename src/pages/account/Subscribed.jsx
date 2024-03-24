@@ -30,7 +30,6 @@ const Subscribed = () => {
                .catch(err=>{
                    console.log(err)
                })
-
         }
     },[])
     useEffect(()=>{
@@ -56,22 +55,8 @@ const Card = ({subscribe,setSubscribed}) => {
     let userData = localStorage.getItem('userData')
     const [subscribedState,setSubscribedState]=useState(true)
     const [remove,setRemove] = useState(false) 
+    const [undo,setUndo]=useState(false)
     const [kill,setKill] = useState(false) 
-    //gen
-    let moverTime = 5
-    let shrinkTime = 1
-    let leaver = shrinkTime + moverTime
-    let wait = 0.2
-    //err
-    let spaceCreateTime = 0.3
-   let extraforAppear = 0.05
-   let entranceTime = spaceCreateTime + extraforAppear
-   let exitTime = entranceTime + moverTime + shrinkTime
-   let errorSpan = entranceTime + exitTime
-   let cardSpan = entranceTime + wait + moverTime + shrinkTime 
-   let totalTime = cardSpan + errorSpan 
-   //card
-    
     console.log(cardData,'dat')
     useEffect(()=>{
       let url = `${import.meta.env.VITE_API_URL}/video/get/${subscribe}/compress`
@@ -116,12 +101,12 @@ const Card = ({subscribe,setSubscribed}) => {
             await animate(scope.current,{
               height:'100%',
             },{
-              duration:1,
+              duration:0.2,
             })
             await animate(scope.current,{
               x:0
             },{
-              duration:1,
+              duration:0.2,
             })
           }
           reverseCardAnimation()
@@ -172,7 +157,7 @@ const Card = ({subscribe,setSubscribed}) => {
            </div>
         </motion.div>
           <AnimatePresence>
-            {remove && !kill && <DeletePopup remove={remove} setRemove={setRemove} setKill={setKill}/>}  
+            {((remove && !kill) || undo) && <DeletePopup undo={undo} setUndo={setUndo} remove={remove} setRemove={setRemove} setKill={setKill}/>}  
             {/* <DeletePopup remove={true}/> */}
           </AnimatePresence>
               
@@ -181,46 +166,110 @@ const Card = ({subscribe,setSubscribed}) => {
 } 
 
 
-const DeletePopup = ({remove,setRemove,setKill}) => {
+const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
   const [scope,animate] = useAnimate()
-//   const undoAnimation = async() => {
-//     await animate(scope.current,{
-//       x:'-140%'
-//     },{
-//       duration:1,
-//       delay:6
-//     })
-//     await animate(scope.current,{
-//       height:0,
-//       marginBlock:0
-//     },{
-//      duration:0.7,
-//    })
-//  }
+  const [isLeaving,setIsLeaving] = useState(false)
+  useEffect(()=>{
+    const timeoutFunction = setTimeout(()=>{
+       setIsLeaving(true)    
+    },6000)
+    return()=>{
+       if(undo){
+          clearTimeout(timeoutFunction)
+       }
+    }
+  },[undo])
+  
+  useEffect(()=> {
+    console.log('undo out',undo)
+    //  setTimeout(()=>{
+      console.log('undo in',undo)
+        if(isLeaving){
+          const removeTo = async() => {
+            await animate(scope.current,{
+              x:'-140%'
+            },{
+              duration:1,
+              delay:6
+            })
+            await animate(scope.current,{
+              height:0,
+              marginBlock:0
+            },{
+              delay:1,
+             duration:0.7,
+           })
+          }
+          removeTo()
+        }
+        // else{
+        //   const backOn = async() => {
+        //     await animate(scope.current,{
+        //       height:'4em',
+        //       marginBlock:'1em'
+        //     },{
+        //      duration:0.7,
+        //    }) 
+        //    await animate(scope.current,{
+        //     x:0
+        //   },{
+        //     duration:1,
+        //   })
+        //   }
+        //   backOn()
+        // }
+    //  },6000)
+  },[undo])
 
- const openingUndoAnimation = async() => {
-  await animate(scope.current,{
-    height:'4em'
-  },{
-    duration:0.6
-  })
- }
- 
- const unhideModal = async() => {
-   await animate('.warn',{
-    opacity:1
-  },{
-    delay:1
-  })
-  await animate('.warn',{
-    y:'200%'
-  },{
-    duration:0.5,
-  })
-  await animate(scope.current,{
-    zIndex:0
-  })
-}
+
+
+  useEffect(()=>{
+    if(remove){
+      const spaceOpen = async() => {
+        await animate(scope.current,{
+          height:'4em'
+        },{
+          duration:0.6
+        })
+        await animate('.warn',{
+          opacity:1
+        },{
+          delay:1
+        })
+        await animate('.warn',{
+          y:'200%'
+        },{
+          duration:0.5,
+        })
+        await animate(scope.current,{
+          zIndex:0
+        })
+      }
+     spaceOpen()
+   }
+   else{
+      const reverse = async() => {
+        await animate(scope.current,{
+          height:'4em'
+        },{
+         duration:0.7,
+       })
+       await animate(scope.current,{
+         zIndex:-1
+       },{
+         delay:1
+       })
+       await animate('.warn',{
+         y:'-200%'
+       },{
+        duration:0.5,
+      })
+      }
+      reverse()
+   }
+},[remove])
+
+
 // const closingUndoAnimation = async() => {
 //  await animate(scope.current,{
 //    height:0
@@ -243,20 +292,20 @@ const DeletePopup = ({remove,setRemove,setKill}) => {
 //       delay:1
 //     })
 //  }
-   useEffect(()=>{
-    if(remove){
-      // undoAnimation()
-      unhideModal()
-      openingUndoAnimation()
-    }
-   },[remove])
+  //  useEffect(()=>{
+  //   if(remove){
+  //     // undoAnimation()
+  //     unhideModal()
+  //     openingUndoAnimation()
+  //   }
+  //  },[remove])
    return(
     <motion.div
-      exit={{height:0,marginBlock:0}}
       ref={scope}
       className="warn-cont">
       <motion.div
        onClick={()=>{
+        setUndo(true)
         setRemove(false)
         console.log('at least clicks')
        }}
