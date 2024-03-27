@@ -7,7 +7,7 @@ import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
 import whiterDelete from './../../assets/images/whiter-delete.svg'
-import SubscribeCta from '../components/SubscribeCta'
+import {DelayedSubscribeCta} from '../components/SubscribeCta'
 const Subscribed = () => {
     let token = localStorage.getItem('accessToken')
     let [subscribed,setSubscribed] = useState([])
@@ -64,7 +64,6 @@ const Card = ({subscribe,setSubscribed}) => {
           .then(res=>{
               console.log(res.data.data,'card-data')
               setCardData(res.data.data)
-
           //    setCardData(res)
           })
           .catch(err=>{
@@ -126,7 +125,7 @@ const Card = ({subscribe,setSubscribed}) => {
                             {cardData.courseName}
                           </Link>                       
                         </h1>
-                        <SubscribeCta setRemove={setRemove} courseId={cardData.courseId} setSubscribed={setSubscribed} subscribedState={subscribedState} setSubscribedState={setSubscribedState}></SubscribeCta>
+                        <DelayedSubscribeCta undo={undo} setRemove={setRemove} courseId={cardData.courseId} setSubscribed={setSubscribed} subscribedState={subscribedState} setSubscribedState={setSubscribedState}></DelayedSubscribeCta>
                     </div>
                     <Link to={`/course/${cardData.courseId}`} >
                       <img className='link' src={linkTo} alt="" />
@@ -171,26 +170,29 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
   const [isLeaving,setIsLeaving] = useState(false)
   useEffect(()=>{
     const timeoutFunction = setTimeout(()=>{
+      console.log('fired')
        setIsLeaving(true)    
-    },6000)
+    },4500)
+    if(undo){
+      clearTimeout(timeoutFunction)
+    }
     return()=>{
-       if(undo){
-          clearTimeout(timeoutFunction)
-       }
+      clearTimeout(timeoutFunction)
     }
   },[undo])
   
   useEffect(()=> {
-    console.log('undo out',undo)
-    //  setTimeout(()=>{
-      console.log('undo in',undo)
+    // console.log('undo out',undo)
+    // //  setTimeout(()=>{
+    //   console.log('undo in',undo)
+    console.log('leaving>',isLeaving)
         if(isLeaving){
           const removeTo = async() => {
             await animate(scope.current,{
               x:'-140%'
             },{
               duration:1,
-              delay:6
+              delay:1
             })
             await animate(scope.current,{
               height:0,
@@ -202,24 +204,7 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
           }
           removeTo()
         }
-        // else{
-        //   const backOn = async() => {
-        //     await animate(scope.current,{
-        //       height:'4em',
-        //       marginBlock:'1em'
-        //     },{
-        //      duration:0.7,
-        //    }) 
-        //    await animate(scope.current,{
-        //     x:0
-        //   },{
-        //     duration:1,
-        //   })
-        //   }
-        //   backOn()
-        // }
-    //  },6000)
-  },[undo])
+  },[isLeaving])
 
 
 
@@ -268,37 +253,6 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
       reverse()
    }
 },[remove])
-
-
-// const closingUndoAnimation = async() => {
-//  await animate(scope.current,{
-//    height:0
-//  },{
-//    duration:0.6,
-//    delay:4
-//  })
-//  setKill(true)
-// }
-//  const hideModal = async() => {
-//    await animate('.warn',{
-//      y:0
-//     },{
-//       duration:0.5,
-//       delay:3
-//     })
-//     await animate('.warn',{
-//       opacity:1
-//     },{
-//       delay:1
-//     })
-//  }
-  //  useEffect(()=>{
-  //   if(remove){
-  //     // undoAnimation()
-  //     unhideModal()
-  //     openingUndoAnimation()
-  //   }
-  //  },[remove])
    return(
     <motion.div
       ref={scope}
@@ -307,6 +261,7 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
        onClick={()=>{
         setUndo(true)
         setRemove(false)
+        // setIsLeaving(false)
         console.log('at least clicks')
        }}
         className="warn">
