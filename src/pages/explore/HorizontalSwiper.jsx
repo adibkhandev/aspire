@@ -13,16 +13,15 @@ const HorizontalSwiper = ({skill}) => {
         headers:{
           'Content-Type':'application/json',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-          'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS'
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         }
       }
     const url = import.meta.env.VITE_API_URL + '/video/get/explore'
     useEffect(()=>{
         axios.post(url,data,headers)
         .then((response)=>{
-            console.log(response.data.data)
-            setCourses(response.data.data)
+            console.log(response.data)
+            setCourses(response.data.data.skillCourses)
         })
         .catch((err)=>{
             console.log(err)
