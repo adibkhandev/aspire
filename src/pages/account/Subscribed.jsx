@@ -234,11 +234,11 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
    }
    else{
       const reverse = async() => {
-        await animate(scope.current,{
-          height:'4em'
-        },{
-         duration:0.7,
-       })
+      //   await animate(scope.current,{
+      //     height:'4em'
+      //   },{
+      //    duration:0.7,
+      //  })
        await animate(scope.current,{
          zIndex:-1
        },{
@@ -249,6 +249,18 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
        },{
         duration:0.5,
       })
+      await animate('.warn',{
+        opacity:0
+      })
+      await animate(scope.current,{
+        height:0
+      })
+    //   await animate(scope.current,{
+    //     height:0
+    //  })
+    //   await animate(scope.current,{
+    //      opacity:0
+    //   })
       }
       reverse()
    }

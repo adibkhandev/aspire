@@ -166,6 +166,8 @@ useEffect(()=>{
 useEffect(()=> {
    if(undo){
      clearTimeout(timerRef.current)
+     setSubscribedState(true)
+     setRemove(false)
    }
 },[undo])
 // const delayedSubscribe = (undo) => {
