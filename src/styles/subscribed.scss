@@ -8,6 +8,7 @@
         padding: 1.2em 1.4em;
         padding: 1.2em 1.4em 0.2em 1.4em;
         .card-container{
+            // height: 270px;
             .covering{
                 background-color: #C71620;
             }
@@ -18,9 +19,9 @@
                 position: relative;
                 // overflow-y: hidden;
                 margin-block: 0.8em;
-               .warn{
-                $side:1.4px;
-                position: absolute;
+                .warn{
+                    $side:1.4px;
+                    position: absolute;
                 opacity: 0;
                 top: -200%;
                 width: calc(100% - (2*$side));

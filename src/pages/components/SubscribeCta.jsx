@@ -119,7 +119,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
 
 
 
-export const DelayedSubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemove,undo,courseId}) => {
+export const DelayedSubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemove,undo,setUndo,courseId}) => {
   const token = localStorage.getItem('accessToken');
   const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
   const [justNow,setJustNow]=useState(false)
@@ -158,16 +158,18 @@ useEffect(()=>{
 const timerRef = useRef(null)
     
 useEffect(()=>{
+  console.log(isUnsubscribed,'is unsubscribing')
     if(isUnsubscribed){
+      console.log('turning tho')
        timerRef.current = setTimeout(unsubscribe,8000)
+       console.log('setting timeout')
     }
     return()=> clearTimeout(timerRef.current)
 },[isUnsubscribed])
 useEffect(()=> {
    if(undo){
      clearTimeout(timerRef.current)
-     setSubscribedState(true)
-     setRemove(false)
+     setIsUnsubscribed(false)
    }
 },[undo])
 // const delayedSubscribe = (undo) => {
@@ -193,18 +195,18 @@ return (
         <motion.path  
           d="M0.5 5.5C0.5 2.73877 2.73877 0.5 5.5 0.5C8.26123 0.5 10.5 2.73877 10.5 5.5C10.5 8.26123 8.26123 10.5 5.5 10.5C2.73877 10.5 0.5 8.26123 0.5 5.5Z" 
           initial={{fill:'none',stroke:"#525252"}}
-          animate={subscribedState?{fill:"#0085FF",stroke:"#0085FF"}:{fill:'rgba(0,0,0,0)',stroke:"#525252"}}
+          animate={!isUnsubscribed?{fill:"#0085FF",stroke:"#0085FF"}:{fill:'rgba(0,0,0,0)',stroke:"#525252"}}
           />
         <motion.path  d="M4.93801 7.74989L2.95801 5.76989L3.75338 4.97452L4.93801 6.15914L7.58738 3.50977L8.38276 4.30514L4.93801 7.74989Z" 
-          fill={subscribedState?"#D7D7D7":"#545454"}/>
+          fill={!isUnsubscribed?"#D7D7D7":"#545454"}/>
       </svg>
       <h1
         onClick={()=>{
-          if(subscribedState){
+            console.log('on')
+            setUndo(false)
             setIsUnsubscribed(true)
             setSubscribedState(false)
             setRemove(true)
-          }
       }} 
       >
           {subscribedState?'Subscribed':'Subscribe'}

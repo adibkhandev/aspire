@@ -84,10 +84,12 @@ const Card = ({subscribe,setSubscribed}) => {
                 delay:3
               })
               await animate(scope.current,{
-                height:0,
+                height:0
               },{
                 duration:1,
               })
+              
+              console.log('turned to disappear')
               
               await animate('.card',{
                 margin:0
@@ -96,9 +98,10 @@ const Card = ({subscribe,setSubscribed}) => {
             cardAnimation()
          }
          else{
+           console.log('anime called')
           const reverseCardAnimation = async() => {
             await animate(scope.current,{
-              height:'100%',
+              height:'100%'
             },{
               duration:0.2,
             })
@@ -113,7 +116,8 @@ const Card = ({subscribe,setSubscribed}) => {
     },[remove])
 
     if(cardData) return(
-      <div className="card-container">
+      <motion.div
+       className="card-container">
         <motion.div
          ref={scope}
          className='card'>
@@ -125,7 +129,7 @@ const Card = ({subscribe,setSubscribed}) => {
                             {cardData.courseName}
                           </Link>                       
                         </h1>
-                        <DelayedSubscribeCta undo={undo} setRemove={setRemove} courseId={cardData.courseId} setSubscribed={setSubscribed} subscribedState={subscribedState} setSubscribedState={setSubscribedState}></DelayedSubscribeCta>
+                        <DelayedSubscribeCta undo={undo} setUndo={setUndo} setRemove={setRemove} courseId={cardData.courseId} setSubscribed={setSubscribed} subscribedState={subscribedState} setSubscribedState={setSubscribedState}></DelayedSubscribeCta>
                     </div>
                     <Link to={`/course/${cardData.courseId}`} >
                       <img className='link' src={linkTo} alt="" />
@@ -147,20 +151,20 @@ const Card = ({subscribe,setSubscribed}) => {
                     </div>
                   </Link>
                     <div className="videoCount">
-                            <div className="num">
-                            {cardData.videos}
-                            </div>
-                            <img src={smallPlay} alt="" />
+                        <div className="num">
+                        {cardData.videos}
+                        </div>
+                        <img src={smallPlay} alt="" />
                     </div>
                </div>
            </div>
         </motion.div>
           <AnimatePresence>
-            {((remove && !kill) || undo) && <DeletePopup undo={undo} setUndo={setUndo} remove={remove} setRemove={setRemove} setKill={setKill}/>}  
+            {((remove) || undo) && <DeletePopup undo={undo} setUndo={setUndo} remove={remove} setRemove={setRemove} setKill={setKill}/>}  
             {/* <DeletePopup remove={true}/> */}
           </AnimatePresence>
               
-      </div>
+      </motion.div>
     )
 } 
 
@@ -169,6 +173,7 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
   const [scope,animate] = useAnimate()
   const [isLeaving,setIsLeaving] = useState(false)
   useEffect(()=>{
+    console.log(undo,'unnnn')
     const timeoutFunction = setTimeout(()=>{
       console.log('fired')
        setIsLeaving(true)    
@@ -176,10 +181,21 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
     if(undo){
       clearTimeout(timeoutFunction)
     }
+    // else{
+    //   setRemove(true)
+    // }
     return()=>{
       clearTimeout(timeoutFunction)
     }
   },[undo])
+
+
+  // useEffect(()=> {
+  //   const 
+  //   if(remove){
+       
+  //   }
+  // },[remove])
   
   useEffect(()=> {
     // console.log('undo out',undo)
@@ -255,14 +271,24 @@ const DeletePopup = ({remove,setRemove,setKill,undo,setUndo}) => {
       await animate(scope.current,{
         height:0
       })
-    //   await animate(scope.current,{
-    //     height:0
-    //  })
-    //   await animate(scope.current,{
-    //      opacity:0
-    //   })
-      }
-      reverse()
+      console.log('coming rth')
+      // setTimeout(()=>{
+      //      window.location.reload()
+      // },1000)
+      // if(undo){
+      //   setUndo(false)
+      // }  
+      
+      
+      //   await animate(scope.current,{
+        //     height:0
+        //  })
+        //   await animate(scope.current,{
+          //      opacity:0
+          //   })
+        }
+        reverse()
+        // setUndo(false)
    }
 },[remove])
    return(
