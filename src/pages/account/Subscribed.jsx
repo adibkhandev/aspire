@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from 'react'
+import React, { useEffect , useRef, useState } from 'react'
 import { CoursePack } from '../explore/HorizontalSwiper'
 import {Nav} from './../Nav'
 import { Link } from 'react-router-dom'
@@ -72,40 +72,32 @@ const Card = ({subscribe,setSubscribed}) => {
     },[])
     const [hidden,setHidden] = useState(false)
     const [scope,animate] = useAnimate()
+    const cardRef = useRef()
     const controls = useAnimation()
     useEffect(()=>{
       console.log('changing to ' , remove)
-         if(remove){
+         if(remove && !undo){
             const cardAnimation = async() => {
-              await animate(scope.current,{
+              await animate('.card',{
                 x:'-140%'
               },{
                 duration:1,
                 delay:3
               })
-              await animate(scope.current,{
-                height:0
-              },{
-                duration:1,
-              })
-              
-              console.log('turned to disappear')
-              
-              await animate('.card',{
-                margin:0
-              })
+              setHidden(true)
             }
             cardAnimation()
          }
          else{
            console.log('anime called')
           const reverseCardAnimation = async() => {
-            await animate(scope.current,{
-              height:'100%'
-            },{
-              duration:0.2,
-            })
-            await animate(scope.current,{
+            console.log(cardRef.current.clientHeight,'height')
+            // await animate('.decoy',{
+            //   height:`${cardRef.current.clientHeight}px`
+            // },{
+            //   duration:0.2,
+            // })
+            await animate('.card',{
               x:0
             },{
               duration:0.2,
@@ -113,13 +105,63 @@ const Card = ({subscribe,setSubscribed}) => {
           }
           reverseCardAnimation()
          }
-    },[remove])
+    },[remove,undo])
+    useEffect(()=>{
+       if(hidden && !undo){
+          const cardLeaves = async() => {
+            await animate('.decoy',{
+              height:'0px'
+            },{
+              duration:1,
+            })
+            console.log('turned to disappear')
+            
+            await animate('.card',{
+              margin:0
+            })
+          }
+          cardLeaves()
+       }
+       if(undo){
+        const reviveSize = async()=> {
+          await animate('.decoy',{
+            height:`${cardRef.current.clientHeight}px`
+          },{
+            duration:0.2,
+          })
+        }
+         reviveSize()
+         setHidden(false)
+       }
+    },[hidden,undo])
 
+  // useEffect(()=>{
+  //     if(undo){
+  //       const reverseCardAnimation = async() => {
+  //         console.log(cardRef.current.clientHeight,'height')
+  //         await animate(scope.current,{
+  //           height:`${cardRef.current.clientHeight}px`
+  //         },{
+  //           duration:0.2,
+  //         })
+  //         await animate('.card',{
+  //           x:0
+  //         },{
+  //           duration:0.2,
+  //         })
+  //       }
+  //       reverseCardAnimation()
+  //     }
+  // },[undo])
     if(cardData) return(
       <motion.div
+       ref={scope}
        className="card-container">
+       <motion.div 
+        className="decoy">
         <motion.div
-         ref={scope}
+        //  ref={scope}
+        ref={cardRef}
          className='card'>
            <div className="card-cont">
                <div className="desc-cont">
@@ -159,6 +201,8 @@ const Card = ({subscribe,setSubscribed}) => {
                </div>
            </div>
         </motion.div>
+
+       </motion.div>
           <AnimatePresence>
             {((remove) || undo) && <DeletePopup undo={undo} setUndo={setUndo} remove={remove} setRemove={setRemove} setKill={setKill}/>}  
             {/* <DeletePopup remove={true}/> */}
