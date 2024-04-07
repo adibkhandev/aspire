@@ -5,27 +5,25 @@ import { BoxAddon } from "../components/BoxAddon"
 import MotionCta from "../components/MotionCta"
 import { CustomAlert } from "../components/CustomAlert"
 import { useNavigate } from "react-router"
-const FirstStep = ({existing,course,error,setError,setStep,setSkills,skills}) => {
+export const EditFirstStep = ({existing,course,error,setError,setStep,setSkills,skills}) => {
     const courseImageRef = useRef()
     const [imageFile,setImageFile] = useState(null)
     const [changesMade,setChangesMade] = useState(false)
     const titleRef = useRef(null)
     const describeRef = useRef(null)
     const navigate = useNavigate()
+    const skillString = course ? JSON.stringify(course.skills) : ''
     const nextStep = () => {
-      if(changesMade || course){
-        setStep(2)
-      }
-      else{
-        setError('Complete all the steps to continue')
-      }
+      setStep(2)
     }
+    
     const check = () => {
-      console.log('sadsa')
+      console.log('codata')
+      const currentSkillString = JSON.stringify(skills)
       if(
-         skills && skills.length &&
-         imageFile &&
-         titleRef.current.value &&
+         currentSkillString!==skillString ||
+         imageFile ||
+         titleRef.current.value ||
          describeRef.current.value
        ){
          setChangesMade(true)
@@ -35,6 +33,7 @@ const FirstStep = ({existing,course,error,setError,setStep,setSkills,skills}) =>
       }
     }
     useEffect(()=>{
+        if(!skills) return
       check()
     },[skills,imageFile])
     return (
@@ -52,31 +51,23 @@ const FirstStep = ({existing,course,error,setError,setStep,setSkills,skills}) =>
                     Skills
                 </div>
                 <BoxAddon skills={skills}  setSkills={setSkills} setError={setError} ></BoxAddon>
-
+  
           </div>
           <input className="hidden" onChange={(e)=>setImageFile(e.target.files[0])} type="file" name="courseImage"  id="" ref={courseImageRef} />
         
           <div className="handy-btns">
-              <motion.button 
-                type={course?"submit":"button"}
+              {/* <motion.button 
+                
                 whileTap={{ scale: 0.98 }} 
                 className="secondary-btn">
-                  Discard
-              </motion.button>
-              <MotionCta changesMade={course?true:changesMade} text={'Continue'} onClick={nextStep}></MotionCta>
+                  Save and exit
+              </motion.button> */}
+              <MotionCta submit={changesMade} error={error} setError={setError} changesMade={changesMade} text={'Save and exit'}></MotionCta>
+              <MotionCta changesMade={true} text={'Continue editing'} onClick={nextStep}></MotionCta>
           </div>
         </div>
       </div>
     )
-}
+  }
 
-
-
-
-
-
-
-
-
-
-export default FirstStep
+  export default EditFirstStep

@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 const MotionCta = ({changesMade,submit,onClick,text,setError}) => {
-    
+    console.log(changesMade,'change')
   return (
     <motion.button 
         onClick={()=>{

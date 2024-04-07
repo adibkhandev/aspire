@@ -2,7 +2,7 @@ import { jwtDecode } from 'jwt-decode'
 import React, { useEffect , useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import FirstStep from '../upload/FirstStep'
+import EditFirstStep from './EditFirstStep'
 import { CustomAlert } from '../components/CustomAlert'
 import MotionCta from '../components/MotionCta'
 import { Nav } from '../Nav'
@@ -12,6 +12,7 @@ import whiteDelete from './../../assets/images/white-delete.svg'
 import whiteWrite from  './../../assets/images/white-write.svg'
 import axios from 'axios'
 const EditCourse = () => {
+    const [skills,setSkills]=useState([])
     const {courseId} = useParams()
     const token = localStorage.getItem('accessToken')
     const user = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null
@@ -49,7 +50,7 @@ const EditCourse = () => {
     
     const courseUpdateHandler = e => {
       e.preventDefault()
-      if(e.target.courseTitle.value || e.target.courseDescription.value ||  e.target.courseImage.files.length){
+      if(e.target.courseTitle.value || e.target.courseDescription.value ||  e.target.courseImage.files.length || skills.length!==course.skills.length){
         let headers = {
           headers:{
               'Authorization':'Bearer ' + token,
@@ -65,7 +66,12 @@ const EditCourse = () => {
         let formData = new FormData()
         if(e.target.courseTitle.value) formData.append('courseTitle',e.target.courseTitle.value)
         if(e.target.courseDescription.value) formData.append('courseDescription',e.target.courseDescription.value)
-        if(e.target.courseImage.files[0]) formData.append('courseImage',e.target.courseImage.files[0])
+        if(e.target.courseImage.files[0]) {
+          console.log('has file')
+          formData.append('courseImage',e.target.courseImage.files[0])
+        }
+        console.log(e.target.courseImage.files)
+        if(skills) formData.append('skills',JSON.stringify(skills)) 
         let url = `${import.meta.env.VITE_API_URL}/video/update/${courseId}/course`
       
       axios.post(url,formData,headers)
@@ -77,9 +83,13 @@ const EditCourse = () => {
             console.log(err)
          })
        }
+      else{
+        console.log('triggered')
+        setError('Complete all the fields to continue')
+      }
     }
     const [selectedTopic,setSelectedTopic] = useState(null)
-    const [skills,setSkills]=useState([])
+
     // console.log(skills,'skdsdksdsaldadasda',course.skills)  
     return (
     <div className='edit-course-cont'>
@@ -93,10 +103,12 @@ const EditCourse = () => {
          }}
          animate={step==2?{x:'-100vw'}:{x:0}}
         >
-          <FirstStep existing={course?course.coverPhotoLink:null} course={course} skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/> 
+          <EditFirstStep existing={course?course.coverPhotoLink:null} course={course} skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/> 
           <EditTopicVideos courseId={courseId} selectedTopic={selectedTopic} setSelectedTopic={setSelectedTopic} setStep={setStep} topics={course?course.topics:null} ></EditTopicVideos>
        </motion.form>
-       <CustomAlert error={error} setError={setError}/>
+       <div className="toast-cont">
+        <CustomAlert error={error} setError={setError}/>
+      </div>
     </div>
   )
 }

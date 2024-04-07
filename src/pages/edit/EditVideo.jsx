@@ -5,8 +5,10 @@ import { motion } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
 import { Nav } from '../Nav'
 import { useNavigate, useParams } from 'react-router'
+import { CustomAlert } from '../components/CustomAlert'
 import axios from 'axios'
 const EditVideo = () => {
+  const [error,setError]=useState(null)
   const {videoId,topicId,courseId} = useParams()
   const [video,setVideo] = useState(null)
   const token = localStorage.getItem('accessToken')
@@ -33,6 +35,7 @@ const EditVideo = () => {
 
   },[])
   const updateHandler = (e) => {
+    console.log('clicks')
     e.preventDefault()
     console.log(e.target.title.value,e.target.description.value,e.target.video.files[0])
     if(e.target){
@@ -75,24 +78,35 @@ const EditVideo = () => {
             })  
          }
        }
+       else{
+        console.log('event')
+        setError('Fill data to proceed')
+       }
     }
   }
   console.log(video,'vidddd')
   return (
     <div>
       <Nav></Nav>
-      <form onSubmit={(e)=>updateHandler(e)}>
-        <EditVideoForm video={video}></EditVideoForm>
+      <form onSubmit={(e)=>{
+        console.log('submits')
+        updateHandler(e)
+      }}>
+        <EditVideoForm error={error} setError={setError} video={video}></EditVideoForm>
       </form>
+      <div className="toast-cont">
+        <CustomAlert error={error} setError={setError}/>
+      </div>
     </div>
   )
 }
-const EditVideoForm = ({video}) => {
+const EditVideoForm = ({video,error,setError}) => {
   const input = useRef(null)
   const videoTitleRef = useRef(null)
   const videoDescribeRef = useRef(null)
   const [changesMade,setChangesMade] = useState(false)
   const [videoThere,setVideoThere]=useState(false)
+  
   const check = (e) => {
     console.log('sadsa')
     if( videoTitleRef.current , videoDescribeRef.current){
@@ -145,7 +159,7 @@ const EditVideoForm = ({video}) => {
               <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
                     navigate(-1)
               }} className="secondary-btn">Go back</motion.div>
-              <MotionCta submit={true} changesMade={changesMade} text={'Continue'}></MotionCta>
+              <MotionCta submit={true} changesMade={changesMade} setError={setError} text={'Continue'}></MotionCta>
           </div>
           <input onChange={(e)=>{
             if(e.target.files[0]){
