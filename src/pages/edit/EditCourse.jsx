@@ -8,6 +8,7 @@ import { CustomAlert } from '../components/CustomAlert'
 import MotionCta from '../components/MotionCta'
 import { Nav } from '../Nav'
 import { motion, useScroll } from 'framer-motion'
+import Delete from '../../components/Delete'
 import axios from 'axios'
 const EditCourse = () => {
     const [skills,setSkills]=useState([])
@@ -15,7 +16,8 @@ const EditCourse = () => {
     const token = localStorage.getItem('accessToken')
     const user = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null
     const decoded = token? jwtDecode(token):null
-    
+    const [deletePrompt,setDeletePrompt] = useState(false)
+    const [deleteInitiated,setDeleteInitiated] = useState(false)
     const [step,setStep]=useState(1)
     const [error , setError] = useState(null)
     console.log(courseId,decoded,'police',user)
@@ -86,15 +88,23 @@ const EditCourse = () => {
         setError('Complete all the fields to continue')
       }
     }
-    const [selectedTopic,setSelectedTopic] = useState(null)
+    const [popupOpen,setPopupOpen] = useState(false)
 
     // console.log(skills,'skdsdksdsaldadasda',course.skills)  
     return (
-    <div className='edit-course-cont'>
+    <div
+     onClick={(e)=>{
+      e.stopPropagation()
+      if(setPopupOpen){
+        setPopupOpen(false)
+      } 
+     }} 
+     className='edit-course-cont'>
+        <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
         <Nav></Nav>
        <motion.form 
          className='stepCont' 
-         style={selectedTopic?{zIndex:2}:{zIndex:-1}}
+         style={popupOpen?{zIndex:2}:{zIndex:-1}}
          onSubmit={(e)=>{
             console.log('submits')
             e.preventDefault()
@@ -104,7 +114,7 @@ const EditCourse = () => {
          animate={step==2?{x:'-100vw'}:{x:0}}
         >
           <EditFirstStep existing={course?course.coverPhotoLink:null} course={course} skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/> 
-          <EditTopicVideos topicTitleChanged={topicTitleChanged} setTopicTitleChanged={setTopicTitleChanged} courseId={courseId} selectedTopic={selectedTopic} setSelectedTopic={setSelectedTopic} setStep={setStep} topics={course?course.topics:null} ></EditTopicVideos>
+          <EditTopicVideos setPopupOpen={setPopupOpen} deletePrompt={deletePrompt} setDeletePrompt={setDeletePrompt} deleteInitiated={deleteInitiated} setDeleteInitiated={setDeleteInitiated}  topicTitleChanged={topicTitleChanged} setTopicTitleChanged={setTopicTitleChanged} courseId={courseId}  setStep={setStep} topics={course?course.topics:null} ></EditTopicVideos>
        </motion.form>
        <div className="toast-cont">
         <CustomAlert error={error} setError={setError}/>

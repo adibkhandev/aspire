@@ -9,11 +9,10 @@ import axios from 'axios'
 import {useNavigate} from 'react-router'
 import { Link } from "react-router-dom"
 import MotionCta from './../components/MotionCta'
-  const EditTopicVideos = ({setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep}) => {
+  const EditTopicVideos = ({deletePrompt,setDeletePrompt,deleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep}) => {
     const token = localStorage.getItem('accessToken')
     const [outClick,setOutClick] = useState(true)
-    const [deletePrompt,setDeletePrompt] = useState(false)
-    const [deleteInitiated,setDeleteInitiated] = useState(false)
+   
     const [topicDeleteId,setTopicDeleteId] = useState(null)
     const navigate = useNavigate()
     useEffect(()=>{
@@ -50,10 +49,10 @@ import MotionCta from './../components/MotionCta'
                setOutClick(true)
                console.log(outClick,'out')
             }}} className="edit-topic-cont">
-                   <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
+                   {/* <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete> */}
                 //map
                
-                  { topics && topics.map((topic)=><Topic setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
+                  { topics && topics.map((topic)=><Topic setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
 
                 //
                <div className="handy-btns">
@@ -70,7 +69,7 @@ import MotionCta from './../components/MotionCta'
 
 
 
-  const Topic = ({topic,courseId,outClick,setOutClick,setDeletePrompt,setTopicDeleteId}) => {
+  const Topic = ({topic,courseId,outClick,setOutClick,setPopupOpen,setDeletePrompt,setTopicDeleteId}) => {
    
     const [editingPopupThere,setEditingPopupThere] = useState(false)
   const topicRenameHandler = (e,topicId) => {
@@ -145,6 +144,7 @@ import MotionCta from './../components/MotionCta'
             <div onClick={()=>{
                 // setSelectedTopic(topic._id)
                 setEditingPopupThere(true)
+                setPopupOpen(true)
             }} className="icon-cont">
                 <img src={trippleDot} alt="" />
                 <div className="pop">
