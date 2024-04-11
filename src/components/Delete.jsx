@@ -1,5 +1,6 @@
 import React, { useEffect ,useRef} from 'react'
 import { motion ,animate} from 'framer-motion'
+
 const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt}) => {
     const homeVariants = {
         non:{
@@ -37,7 +38,7 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
     onClick={(e)=>{
         e.stopPropagation()
         setDeletePrompt(false)
-        setDeleteMode(false)
+        if(setDeleteMode) setDeleteMode(false)
     }}
       className='delete-screen'>
         
@@ -53,10 +54,15 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
                    <div onClick={()=>{
                     setDeleteInitiated(true)
                     setDeletePrompt(false)
-                    setDeleteMode(false)
-                    setTimeout(()=>{
-                        window.location.reload()
-                    },800)
+                    if(setDeleteMode){
+                     setDeleteMode(false)
+                     setTimeout(()=>{
+                         window.location.reload()
+                     },800)
+                    }  
+                    // else{
+                    //     navigate('/')
+                    // }  
                     
                    }} className="confirm">
                         Confirm
