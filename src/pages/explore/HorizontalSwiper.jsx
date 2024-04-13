@@ -21,6 +21,7 @@ export const HorizontalSwiper = ({skill}) => {
         end:2
      })
     const url = import.meta.env.VITE_API_URL + `/video/explore/${skill}?start=${endpoints.start}&end=${endpoints.end}`
+    
     useEffect(()=>{
         axios.get(url,headers)
         .then((response)=>{
@@ -75,27 +76,34 @@ export const HorizontalSwiper = ({skill}) => {
 
 
 
-export const SpecificHorizontalSwiper = ({attribute}) => {
+export const SpecificHorizontalSwiper = ({attribute,token}) => {
     const [courses,setCourses] = useState()
     // const data = {
     //     skill:skill
     // }
-    const headers = {
+    const headers = attribute=="Suggested"?{
         headers:{
+          'Authorization':'Bearer ' + token,
           'Content-Type':'application/json',
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         }
+      }:{
+        headers:{
+            'Content-Type':'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+        }
       }
     const [endpoints,setEndPoints] = useState({
         start:0,
-        end:2
+        end:5
     })
     const url = import.meta.env.VITE_API_URL + `/video/explore/course/${attribute}?start=${endpoints.start}&end=${endpoints.end}`
     useEffect(()=>{
         axios.get(url,headers)
         .then((response)=>{
-            console.log(response.data.data,'repoii')
+            if(attribute==='Suggested') console.log(response.data.data,'repoii')
             setCourses(response.data.data)
         })
         .catch((err)=>{
@@ -179,5 +187,3 @@ export const CoursePack = ({info}) =>{
         )
 
 }
-
-// export default HorizontalSwiper

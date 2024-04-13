@@ -2,16 +2,18 @@ import React from 'react'
 import { Nav } from '../Nav'
 import {SpecificHorizontalSwiper , HorizontalSwiper} from './HorizontalSwiper'
 const Explore = () => {
+  const token = localStorage.getItem('accessToken')
   const user = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')):null
   console.log(user,'user')
   return (
     <div className='explore-page-container'>
       <Nav></Nav>
+      {token && <SpecificHorizontalSwiper token={token} attribute={'Suggested'} ></SpecificHorizontalSwiper>}
       {
         user && user.skills?(
-            user.skills.map((skill)=>{
-               return <HorizontalSwiper skill={skill}></HorizontalSwiper>
-            })
+          user.skills.map((skill)=>{
+            return <HorizontalSwiper skill={skill}></HorizontalSwiper>
+          })
         ):''
       }
       <SpecificHorizontalSwiper attribute={'Popular'} ></SpecificHorizontalSwiper>
