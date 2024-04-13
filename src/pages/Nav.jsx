@@ -17,6 +17,7 @@ import { motion } from 'framer-motion'
 export const Nav = () => {
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
+    const user = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null
     const decoded = token ? jwtDecode(token) : null
     const navigate = useNavigate()
     const {logout} = useContext(Context)
@@ -71,10 +72,12 @@ export const Nav = () => {
                           <img src={acc} alt="" />
                           <h1>Account</h1>
                        </div>
-                       <div className="option">
-                          <img src={reverse} alt="" />
-                          <h1>Play recent</h1>
-                       </div>
+                       <Link to={`/course/${user.lastViewed}`} >
+                        <div className="option">
+                            <img src={reverse} alt="" />
+                            <h1>Play recent</h1>
+                        </div>
+                       </Link>
                        <Link to={`/${decoded._id}/edit`}>
                        <div className="option">
                           <img src={crop} alt="" />

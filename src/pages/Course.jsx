@@ -22,8 +22,9 @@ useEffect(()=>{
      }
             axios.get(url,headers)
             .then((response)=>{
-                console.log(response.data.populatedCourse,'course data')
+                console.log(response.data,'course data')
                 setCourse(response.data.populatedCourse)
+                localStorage.setItem('userData',JSON.stringify(response.data.user))
             })
             .catch((err)=>{
                 console.log(err)

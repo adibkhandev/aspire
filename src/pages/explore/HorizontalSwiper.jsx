@@ -4,7 +4,7 @@ import 'swiper/css';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import smallPlay from './../../assets/images/small-play.svg'
-const HorizontalSwiper = ({skill}) => {
+export const HorizontalSwiper = ({skill}) => {
     const [courses,setCourses] = useState()
     const data = {
         skill:skill
@@ -16,12 +16,16 @@ const HorizontalSwiper = ({skill}) => {
           'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         }
       }
-    const url = import.meta.env.VITE_API_URL + '/video/get/explore'
+      const [endpoints,setEndPoints] = useState({
+        start:0,
+        end:2
+     })
+    const url = import.meta.env.VITE_API_URL + `/video/explore/${skill}?start=${endpoints.start}&end=${endpoints.end}`
     useEffect(()=>{
-        axios.post(url,data,headers)
+        axios.get(url,headers)
         .then((response)=>{
-            console.log(response.data)
-            setCourses(response.data.data.skillCourses)
+            console.log(response.data.data)
+            setCourses(response.data.data)
         })
         .catch((err)=>{
             console.log(err)
@@ -32,6 +36,77 @@ const HorizontalSwiper = ({skill}) => {
        <div className='slider'> 
             <div className="niche">
                {skill}
+            </div>
+            <Swiper
+               slidesPerView={2}
+               slidesPerGroup={1}
+               breakpoints={{
+                   1312:{
+                       slidesPerView:4
+                   },
+                   992:{
+                       slidesPerView:3
+                   },
+                   688:{
+                       slidesPerView:2
+                   },
+   
+               }}
+               loop={true}
+               onSlideChange={() => console.log('slide change')}
+               onSwiper={(swiper) => console.log(swiper)}
+            >
+               {
+                   courses?courses.map((course)=>{
+                       return(
+                           <SwiperSlide>
+                              <CoursePack info={course}></CoursePack>
+                           </SwiperSlide>
+                       )
+                   }):''
+               }
+           
+            </Swiper>
+       </div>
+     )
+
+   }
+}
+
+
+
+export const SpecificHorizontalSwiper = ({attribute}) => {
+    const [courses,setCourses] = useState()
+    // const data = {
+    //     skill:skill
+    // }
+    const headers = {
+        headers:{
+          'Content-Type':'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+        }
+      }
+    const [endpoints,setEndPoints] = useState({
+        start:0,
+        end:2
+    })
+    const url = import.meta.env.VITE_API_URL + `/video/explore/course/${attribute}?start=${endpoints.start}&end=${endpoints.end}`
+    useEffect(()=>{
+        axios.get(url,headers)
+        .then((response)=>{
+            console.log(response.data.data,'repoii')
+            setCourses(response.data.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[])
+    if(courses && courses.length){
+       return (
+       <div className='slider'> 
+            <div className="niche">
+               {attribute}
             </div>
             <Swiper
                slidesPerView={2}
@@ -105,4 +180,4 @@ export const CoursePack = ({info}) =>{
 
 }
 
-export default HorizontalSwiper
+// export default HorizontalSwiper
