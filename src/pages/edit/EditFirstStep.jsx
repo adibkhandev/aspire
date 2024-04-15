@@ -5,7 +5,7 @@ import { BoxAddon } from "../components/BoxAddon"
 import MotionCta from "../components/MotionCta"
 import { CustomAlert } from "../components/CustomAlert"
 import { useNavigate } from "react-router"
-export const EditFirstStep = ({existing,course,error,setError,setStep,setSkills,skills}) => {
+export const EditFirstStep = ({setTopicTitleChanged,existing,course,error,setError,setStep,setSkills,skills}) => {
     const courseImageRef = useRef()
     const [imageFile,setImageFile] = useState(null)
     const [changesMade,setChangesMade] = useState(false)

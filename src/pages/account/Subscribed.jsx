@@ -6,7 +6,7 @@ import { motion , AnimatePresence , useAnimate, useAnimation} from 'framer-motio
 import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
-import whiterDelete from './../../assets/images/whiter-delete.svg'
+
 import {DelayedSubscribeCta} from '../components/SubscribeCta'
 import DeletePopup from './../../components/DeletePopup'
 const Subscribed = () => {

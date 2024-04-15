@@ -100,16 +100,27 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
         end:5
     })
     const url = import.meta.env.VITE_API_URL + `/video/explore/course/${attribute}?start=${endpoints.start}&end=${endpoints.end}`
+    const [loadingDone,setLoadingDone]=useState(false)
     useEffect(()=>{
         axios.get(url,headers)
         .then((response)=>{
             if(attribute==='Suggested') console.log(response.data.data,'repoii')
-            setCourses(response.data.data)
+            if (courses && courses.length) {
+                console.log(response.data.data,'report',endpoints)
+                if(response.data && !response.data.data.length){
+                    setLoadingDone(true)
+                }
+                setCourses([...courses,...response.data.data])
+            }
+            else setCourses(response.data.data)
         })
         .catch((err)=>{
             console.log(err)
         })
-    },[])
+    },[endpoints])
+    useEffect(()=>{
+       console.log(courses,'cc')
+    },[courses])
     if(courses && courses.length){
        return (
        <div className='slider'> 
@@ -131,10 +142,31 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
                    },
    
                }}
-               loop={true}
-               onSlideChange={() => console.log('slide change')}
-               onSwiper={(swiper) => console.log(swiper)}
+               loop={loadingDone}
+               speed={400}
+            //    onSlideChange={() => }
+            //    onSwiper={(swiper) => }
+            //    onSliderMove={(swiper,event)=>{
+            //        console.log(event,'ev')
+            //    }}
+            //    onSliderFirstMove={()=>{
+            //       console.log('first move')
+            //    }}
+               onProgress={(swiper,progress)=>{
+                  if(progress>0.5 && !loadingDone){
+                     setEndPoints({
+                        start:endpoints.start+5,
+                        end:endpoints.end+5
+                     })
+                  }
+                  console.log(progress,'prog')}
+               }
+               onReachEnd={()=>{
+                   console.log('this is the end')
+                //    setCourses([...courses,...courses])
+               }}
             >
+                <div className="cont">
                {
                    courses?courses.map((course)=>{
                        return(
@@ -144,7 +176,9 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
                        )
                    }):''
                }
-           
+               <div className="h-12 w-12 bg-sky-950"></div>
+
+                </div>
             </Swiper>
        </div>
      )
