@@ -62,8 +62,8 @@ const UploadCourse = (course) => {
                    }
               })
               .catch((err)=>{
-                console.log(err);
-                setError(err.response.data.message)
+                console.log(err.response.data);
+                setError(err.response.data)
               })
             }
           }
