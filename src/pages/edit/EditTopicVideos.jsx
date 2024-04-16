@@ -9,7 +9,7 @@ import axios from 'axios'
 import {useNavigate} from 'react-router'
 import { Link } from "react-router-dom"
 import MotionCta from './../components/MotionCta'
-  const EditTopicVideos = ({deletePrompt,setDeletePrompt,deleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep}) => {
+  const EditTopicVideos = ({deletePrompt,setDeletePrompt,deleteInitiated,setDeleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep,setError}) => {
     const token = localStorage.getItem('accessToken')
     const [outClick,setOutClick] = useState(true)
    
@@ -39,6 +39,9 @@ import MotionCta from './../components/MotionCta'
          })
          .catch(err=>{
             console.log(err)
+            console.log('trying')
+            setDeletePrompt(false)
+            setError(err.response.data.message)
          })
   } 
     
@@ -49,7 +52,7 @@ import MotionCta from './../components/MotionCta'
                setOutClick(true)
                console.log(outClick,'out')
             }}} className="edit-topic-cont">
-                   {/* <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete> */}
+                  {deletePrompt && <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>}
                 //map
                
                   { topics && topics.map((topic)=><Topic setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}

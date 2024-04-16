@@ -100,7 +100,7 @@ const EditCourse = () => {
       } 
      }} 
      className='edit-course-cont'>
-        <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
+       { deletePrompt && <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated}></Delete>}
         <Nav></Nav>
        <motion.form 
          className='stepCont' 
@@ -114,7 +114,7 @@ const EditCourse = () => {
          animate={step==2?{x:'-100vw'}:{x:0}}
         >
           <EditFirstStep existing={course?course.coverPhotoLink:null} course={course} skills={skills} setSkills={setSkills} setStep={setStep} setError={setError}/> 
-          <EditTopicVideos setPopupOpen={setPopupOpen} deletePrompt={deletePrompt} setDeletePrompt={setDeletePrompt} deleteInitiated={deleteInitiated} setDeleteInitiated={setDeleteInitiated}  topicTitleChanged={topicTitleChanged} setTopicTitleChanged={setTopicTitleChanged} courseId={courseId}  setStep={setStep} topics={course?course.topics:null} ></EditTopicVideos>
+          <EditTopicVideos setPopupOpen={setPopupOpen} deletePrompt={deletePrompt} setDeletePrompt={setDeletePrompt} deleteInitiated={deleteInitiated} setDeleteInitiated={setDeleteInitiated}  topicTitleChanged={topicTitleChanged} setTopicTitleChanged={setTopicTitleChanged} courseId={courseId}  setStep={setStep} topics={course?course.topics:null} setError={setError}></EditTopicVideos>
        </motion.form>
        <div className="toast-cont">
         <CustomAlert error={error} setError={setError}/>

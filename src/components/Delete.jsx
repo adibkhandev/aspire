@@ -67,7 +67,7 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
                    }} className="confirm">
                         Confirm
                    </div>
-                   <div className="cancel">
+                   <div onClick={()=>setDeletePrompt(false)} className="cancel">
                         Cancel
                    </div>
                </div>

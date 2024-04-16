@@ -1,4 +1,4 @@
-import React, { useEffect , useRef, useState } from 'react'
+import React, { useEffect , useRef, useState ,useLayoutEffect } from 'react'
 import { CoursePack } from '../explore/HorizontalSwiper'
 import {Nav} from './../Nav'
 import { Link } from 'react-router-dom'
@@ -6,12 +6,14 @@ import { motion , AnimatePresence , useAnimate, useAnimation} from 'framer-motio
 import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
-
+import { Empty } from './Account'
 import {DelayedSubscribeCta} from '../components/SubscribeCta'
 import DeletePopup from './../../components/DeletePopup'
 const Subscribed = () => {
     let token = localStorage.getItem('accessToken')
     let [subscribed,setSubscribed] = useState([])
+    const [empty,setEmpty]=useState(true)
+    const cardsRef = useRef()
     useEffect(()=>{
         if(token){
             let headers = {
@@ -34,24 +36,44 @@ const Subscribed = () => {
         }
     },[])
     useEffect(()=>{
-       console.log(subscribed,'subuu')
-    },[subscribed])
+       console.log(empty,'emmmmmmmm')
+    },[empty])
+    // useEffect(()=>{
+    //   const timeout = setTimeout(()=>{
+    //     console.log(cardsRef.current.clientHeight,'h')
+    //     if(cardsRef.current.clientHeight<100){
+    //     console.log('calls')
+    //         setEmpty(true)   
+    //     }
+    //     else{
+    //       console.log('fails')
+    //     }
+    //   },4000)
+    //   return()=>{
+    //     clearTimeout(timeout)
+    //   }
+    // },[cardsRef.current])
     return (
     <div className='subscribed-page'>
       <Nav/>
-      <div className="cards">
-        {subscribed && subscribed.length?(
-           subscribed.map(subscribe=>{
-              return <Card setSubscribed={setSubscribed} subscribe={subscribe} />
-           })
-        ):''}
+      <div ref={cardsRef} className="cards">
+        {subscribed?(
+             subscribed.length && !empty?(
+              subscribed.map(subscribe=>{
+                return <Card setEmpty={setEmpty} setSubscribed={setSubscribed} subscribe={subscribe} />
+             })
+             ):(
+               <Empty userType={'student'} ></Empty>
+             )
+          ):''
+        }
       </div>
     </div>
   )
 }
 
 
-const Card = ({subscribe,setSubscribed}) => {
+const Card = ({subscribe,setSubscribed,setEmpty}) => {
     const [cardData,setCardData]=useState(null)
     let userData = localStorage.getItem('userData')
     const [subscribedState,setSubscribedState]=useState(true)
@@ -65,6 +87,7 @@ const Card = ({subscribe,setSubscribed}) => {
           .then(res=>{
               console.log(res.data.data,'card-data')
               setCardData(res.data.data)
+              setEmpty(false)
           //    setCardData(res)
           })
           .catch(err=>{

@@ -258,7 +258,7 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
 
 
 
-const Empty = ({userType}) => {
+export const Empty = ({userType}) => {
     
     return(
         <div className="empty-container">
@@ -285,15 +285,17 @@ const Empty = ({userType}) => {
                 <div className="notify-subheading">
                     {
                         userType=='student'?(
-                            <h1 className="sub">
-                                <span className='bold'>
-                                    Enroll in
-                                </span>
-                                your first 
-                                <span className='italic'>
-                                    course                                
-                                </span>
-                            </h1> 
+                            <Link to="/explore">
+                                <h1 className="sub">
+                                    <span className='bold'>
+                                        Enroll in
+                                    </span>
+                                    your first 
+                                    <span className='italic'>
+                                        course                                
+                                    </span>
+                                </h1> 
+                            </Link>
                                                             
                         ):(
                             <Link to="/upload">

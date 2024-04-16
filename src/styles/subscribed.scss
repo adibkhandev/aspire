@@ -7,6 +7,10 @@
         font-size: clamp(0.78rem,2.9vw,1.2rem);
         padding: 1.2em 1.4em;
         padding: 1.2em 1.4em 0.2em 1.4em;
+        .empty-container{
+            padding-right: 4em;
+            padding-bottom: 6em;
+        }
         .card-container{
             // height: 270px;
             height: fit-content;
