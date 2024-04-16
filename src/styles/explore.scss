@@ -70,10 +70,15 @@
     }
     .cover-image{
         width: 100%;
-       
+        height: 8em;
         max-height: 23vh;
         border-radius: 4px;
         overflow: hidden;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
     .specs{
         display: flex;
@@ -106,4 +111,8 @@
     img{
         height: 50%;
     }
+}
+
+.shadow-explore{
+    padding: 0 !important;
 }

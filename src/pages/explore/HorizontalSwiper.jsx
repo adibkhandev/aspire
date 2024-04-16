@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState , useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import smallPlay from './../../assets/images/small-play.svg'
+import {Skeleton} from '@mui/material'
 export const HorizontalSwiper = ({skill}) => {
     const [courses,setCourses] = useState()
     const data = {
@@ -101,12 +102,14 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
     })
     const url = import.meta.env.VITE_API_URL + `/video/explore/course/${attribute}?start=${endpoints.start}&end=${endpoints.end}`
     const [loadingDone,setLoadingDone]=useState(false)
+    const [isLoading,setIsLoading] = useState(false)
     useEffect(()=>{
         axios.get(url,headers)
         .then((response)=>{
             if(attribute==='Suggested') console.log(response.data.data,'repoii')
             if (courses && courses.length) {
                 console.log(response.data.data,'report',endpoints)
+                setIsLoading(false)
                 if(response.data && !response.data.data.length){
                     setLoadingDone(true)
                 }
@@ -118,9 +121,17 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
             console.log(err)
         })
     },[endpoints])
+    const courseRef = useRef(null)
+    const [cardHeight,setCardHeight] = useState(null)
     useEffect(()=>{
        console.log(courses,'cc')
     },[courses])
+    // useEffect(()=>{
+    //     if(courseRef.current){
+    //        console.log(courseRef.current,'heii')
+    //     setCardHeight(courseRef.current.clientHeight)
+    //    }
+    // },[courseRef.current])
     if(courses && courses.length){
        return (
        <div className='slider'> 
@@ -142,10 +153,12 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
                    },
    
                }}
-               loop={loadingDone}
+               loop={loadingDone && !isLoading}
                speed={400}
             //    onSlideChange={() => }
-            //    onSwiper={(swiper) => }
+               onSwiper={(swiper) => {
+                   setCardHeight(swiper.height)
+               }}
             //    onSliderMove={(swiper,event)=>{
             //        console.log(event,'ev')
             //    }}
@@ -154,6 +167,7 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
             //    }}
                onProgress={(swiper,progress)=>{
                   if(progress>0.5 && !loadingDone){
+                     setIsLoading(true)
                      setEndPoints({
                         start:endpoints.start+5,
                         end:endpoints.end+5
@@ -166,17 +180,24 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
                 //    setCourses([...courses,...courses])
                }}
             >
-                <div className="cont">
+                <div  className="cont">
                {
                    courses?courses.map((course)=>{
                        return(
                            <SwiperSlide>
-                              <CoursePack info={course}></CoursePack>
+                              <CoursePack ref={courseRef}  info={course}></CoursePack>
                            </SwiperSlide>
                        )
                    }):''
                }
-               <div className="h-12 w-12 bg-sky-950"></div>
+                {isLoading?(
+                    <SwiperSlide>
+                        <Skeleton
+                        sx={{ bgcolor: '#2B2B2B' ,height:cardHeight + 'px'}}
+                        className='course-pack-cont shadow-explore' variant='circlar' animation="wave"/>
+                    </SwiperSlide>
+                ):''}
+               
 
                 </div>
             </Swiper>
