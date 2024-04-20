@@ -227,7 +227,6 @@ export const ComponentPopup = ({remove,setRemove,subscribe,data,setSubscribed,se
   const [hidden,setHidden] = useState(false)
   const [scope,animate] = useAnimate()
   const cardRef = useRef()
-  const controls = useAnimation()
   useEffect(()=>{
     console.log('changing to ' , remove)
        if(remove && !undo){
