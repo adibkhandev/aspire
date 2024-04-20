@@ -142,12 +142,14 @@
                 height: 100%;
                 aspect-ratio: 16/9;
                 object-fit: cover;
+                opacity: 0.72;
             }
             .delete{
                 position: absolute;
                 bottom: 0.5rem;
                 right: 0.4rem;
                 height: 1rem;
+                cursor: pointer;
             }
         }
     }

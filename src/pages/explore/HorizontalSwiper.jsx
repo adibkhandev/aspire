@@ -77,11 +77,12 @@ export const HorizontalSwiper = ({skill}) => {
 
 
 
-export const SpecificHorizontalSwiper = ({attribute,token}) => {
+export const SpecificHorizontalSwiper = ({attribute,token,skill}) => {
     const [courses,setCourses] = useState()
     // const data = {
     //     skill:skill
     // }
+    console.log(skill,'sk')
     const headers = attribute=="Suggested"?{
         headers:{
           'Authorization':'Bearer ' + token,
@@ -100,15 +101,16 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
         start:0,
         end:5
     })
-    const url = import.meta.env.VITE_API_URL + `/video/explore/course/${attribute}?start=${endpoints.start}&end=${endpoints.end}`
+    const url = skill?(
+       import.meta.env.VITE_API_URL + `/video/explore/${skill}?start=${endpoints.start}&end=${endpoints.end}`
+    ): import.meta.env.VITE_API_URL + `/video/explore/course/${attribute}?start=${endpoints.start}&end=${endpoints.end}`
+    // const url = import.meta.env.VITE_API_URL + `/video/explore/${skill}?start=${endpoints.start}&end=${endpoints.end}`
     const [loadingDone,setLoadingDone]=useState(false)
     const [isLoading,setIsLoading] = useState(false)
     useEffect(()=>{
         axios.get(url,headers)
         .then((response)=>{
-            if(attribute==='Suggested') console.log(response.data.data,'repoii')
             if (courses && courses.length) {
-                console.log(response.data.data,'report',endpoints)
                 setIsLoading(false)
                 if(response.data && !response.data.data.length){
                     setLoadingDone(true)
@@ -136,7 +138,7 @@ export const SpecificHorizontalSwiper = ({attribute,token}) => {
        return (
        <div className='slider'> 
             <div className="niche">
-               {attribute}
+               {attribute || skill}
             </div>
             <Swiper
                slidesPerView={2}

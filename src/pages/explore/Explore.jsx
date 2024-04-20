@@ -12,7 +12,7 @@ const Explore = () => {
       {
         user && user.skills?(
           user.skills.map((skill)=>{
-            return <HorizontalSwiper skill={skill}></HorizontalSwiper>
+            return <SpecificHorizontalSwiper skill={skill}></SpecificHorizontalSwiper>
           })
         ):''
       }
