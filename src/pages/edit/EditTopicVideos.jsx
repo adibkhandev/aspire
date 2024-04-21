@@ -3,8 +3,7 @@ import {motion , useAnimate , AnimatePresence} from 'framer-motion'
 import trippleDot from './../../assets/images/tripple-dot.svg'
 import whiteWrite from  './../../assets/images/white-write.svg'
 import whiteDelete from './../../assets/images/white-delete.svg'
-import DeletePopup from './../../components/DeletePopup'
-import { ComponentPopup } from "../account/Subscribed"
+import { ComponentPopup } from "../../components/UndoPopup"
 import Delete from "../../components/Delete"
 import axios from 'axios'
 import {useNavigate} from 'react-router'

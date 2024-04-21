@@ -2,7 +2,7 @@ import { useState , useEffect } from "react"
 import { motion , useAnimate } from "framer-motion"
 import whiteDelete from './../assets/images/white-delete.svg'
 import whiterDelete from './../assets/images/whiter-delete.svg'
-const DeletePopup = ({remove,setRemove,undo,setUndo}) => {
+const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos}) => {
     const [scope,animate] = useAnimate()
     const [isLeaving,setIsLeaving] = useState(false)
     useEffect(()=>{
@@ -34,8 +34,10 @@ const DeletePopup = ({remove,setRemove,undo,setUndo}) => {
                 delay:1,
                duration:0.7,
              })
+             if(setValidVideos)setValidVideos(validVideos-1)
             }
             removeTo()
+            
           }
     },[isLeaving])
   
