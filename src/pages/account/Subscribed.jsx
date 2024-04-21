@@ -12,7 +12,7 @@ import DeletePopup from './../../components/DeletePopup'
 const Subscribed = () => {
     let token = localStorage.getItem('accessToken')
     let [subscribed,setSubscribed] = useState([])
-    const [validVideos,setValidVideos]= useState(0)
+    const [validVideos,setValidVideos]= useState(null)
     const [empty,setEmpty]=useState(true)
     const cardsRef = useRef()
     useEffect(()=>{
@@ -33,6 +33,7 @@ const Subscribed = () => {
                .then(res=>{
                    console.log(res.data,'responsibleee')
                    setSubscribed(res.data.subscribed)
+                   setValidVideos(0)
                })
                .catch(err=>{
                    console.log(err)
@@ -69,7 +70,7 @@ const Subscribed = () => {
                
           ):''
         }
-        {validVideos<1 && <Empty userType={'student'} ></Empty>}
+        {!validVideos && validVideos<1 ? <Empty userType={'student'} ></Empty>:''}
       </div>
     </div>
   )
