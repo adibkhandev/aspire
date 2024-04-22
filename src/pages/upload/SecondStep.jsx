@@ -1,6 +1,8 @@
 import React , {useRef,useState,useEffect}  from 'react'
-import { motion } from 'framer-motion'
+import { motion , AnimatePresence } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
+import replace from './../../assets/images/replace.svg'
+import videoDelete from './../../assets/images/video-delete.svg'
 import MotionCta from '../components/MotionCta'
 import { CustomAlert } from '../components/CustomAlert'
 const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
@@ -50,9 +52,24 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
     }
     else{
       setChangesMade(true)
-    }
-    
+    }  
   },[videoThere])
+  const [file,setFile] = useState(null)
+  const [focused,setFocused] = useState(false)
+  const [videoUrl,setVideoUrl] = useState(null)
+  useEffect(()=>{
+    if(file){
+      const reader = new FileReader()
+      reader.onloadend = () =>{
+        setTimeout(()=>{
+          setVideoUrl(reader.result)
+        },300)
+      }
+      reader.readAsDataURL(file)
+    }
+  },[file])
+
+
   console.log(video,'ashee')
     return (
       <div onChange={()=>check()}  className="upload-parts" id='video'>
@@ -65,21 +82,47 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
             ):''
           }
           <motion.div 
-           whileTap={{ scale: 0.97 }}
-           onClick={()=>{
-            console.log(input.current)
+            whileTap={{ scale: 0.97 }}
+             onClick={()=>{
+               console.log(input.current)
                if(input){
                  input.current.click()
                } 
-           }}
+             }}
            className="video-clicker">
+           {videoUrl && <motion.video 
+                          initial={{scale:0,borderRadius:0}} 
+                          transition={{type:'spring'}}
+                          animate={{scale:1,borderRadius:'3px'}} 
+                          src={`${videoUrl}#t=2`} className='video-thumbnail' alt="" />}
+            {/* // */}
             <div className="video-clicker-contents">
-              <img src={bigPlus} alt="" className="plus" />
+                {
+                  !videoUrl ? (
+                    
+                    <motion.img 
+                      src={bigPlus}
+                      animate={videoThere?{scale:0,rotate:'180deg'}:{scale:1}}
+                      alt="" className="plus" />
+
+                  ):(
+                     <motion.img transition={{delay:2,type:'spring'}} initial={{scale:0}} animate={{scale:1,rotate:'-180deg'}} src={replace} alt="" className="plus" /> 
+                  )
+                }
               <div className="desc">
                  Click to <span>select</span> video
               </div>
             </div>
+            
+
+           {/* // */}
+
+
           </motion.div>
+
+
+
+
           <div className="entitle-cont videoNameCont">
               <input ref={videoTitleRef}  placeholder={video?video.title:"Title for your video ..."} id="entitle" type="text" name='title'       className='regular-inputs' />
           </div>
@@ -101,7 +144,10 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
           <input onChange={(e)=>{
             if(e.target.files[0]){
                 setVideoThere(true)
+                setFile(e.target.files[0])
             }
+          }} onFocus={()=>{
+             console.log('kiraa')
           }} ref={input} className="hidden" type="file" name="video" id="" />
         </div>
       </div>
