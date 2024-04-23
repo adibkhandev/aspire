@@ -1,5 +1,5 @@
 import React , {useRef,useState,useEffect}  from 'react'
-import { motion , AnimatePresence } from 'framer-motion'
+import { motion , AnimatePresence, delay } from 'framer-motion'
 import bigPlus from './../../assets/images/big-plus.svg'
 import replace from './../../assets/images/replace.svg'
 import videoDelete from './../../assets/images/video-delete.svg'
@@ -63,7 +63,7 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
       reader.onloadend = () =>{
         setTimeout(()=>{
           setVideoUrl(reader.result)
-        },300)
+        },1900)
       }
       reader.readAsDataURL(file)
     }
@@ -90,23 +90,35 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
                } 
              }}
            className="video-clicker">
-           {videoUrl && <motion.video 
-                          initial={{scale:0,borderRadius:0}} 
-                          transition={{type:'spring'}}
-                          animate={{scale:1,borderRadius:'3px'}} 
-                          src={`${videoUrl}#t=2`} className='video-thumbnail' alt="" />}
+           {videoUrl &&   
+              <div className="contentToPop">
+                <motion.div
+                  transition={{duration:0.3,type:'linear'}}
+                  initial={{scale:0,borderRadius:1000+'px'}}
+                  animate={{scale:1,borderRadius:0}} 
+                  className="cover"> 
+                        <motion.video 
+                            initial={{scale:0,borderRadius:0}} 
+                            transition={{type:'spring'}}
+                            animate={{scale:1,borderRadius:'3px'}} 
+                            src={`${videoUrl}#t=2`} className='video-thumbnail' alt="" />
+                </motion.div>
+              </div>
+            }
             {/* // */}
             <div className="video-clicker-contents">
                 {
-                  !videoUrl ? (
-                    
-                    <motion.img 
-                      src={bigPlus}
-                      animate={videoThere?{scale:0,rotate:'180deg'}:{scale:1}}
-                      alt="" className="plus" />
+                  !videoUrl  ? (
+                      <motion.img 
+                        src={bigPlus}
+                        transition={{delay:0.4}}
+                        animate={videoThere?{scale:0,rotate:'180deg'}:{scale:1}}
+                        alt="" className="plus" />
 
-                  ):(
-                     <motion.img transition={{delay:2,type:'spring'}} initial={{scale:0}} animate={{scale:1,rotate:'-180deg'}} src={replace} alt="" className="plus" /> 
+                  ):videoUrl && (
+                 
+                      <motion.img transition={{delay:0.8,type:'spring'}} initial={{scale:0}} animate={{scale:1,rotate:'-180deg'}} src={replace} alt="" className="plus" /> 
+                   
                   )
                 }
               <div className="desc">
