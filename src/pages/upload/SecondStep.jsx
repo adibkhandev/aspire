@@ -5,6 +5,7 @@ import replace from './../../assets/images/replace.svg'
 import videoDelete from './../../assets/images/video-delete.svg'
 import MotionCta from '../components/MotionCta'
 import { CustomAlert } from '../components/CustomAlert'
+import Reverse from '../components/svg/Reverse'
 const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
   const input = useRef(null)
   const topicTitleRef = useRef(null)
@@ -105,7 +106,6 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
                 </motion.div>
               </div>
             }
-            {/* // */}
             <div className="video-clicker-contents">
                 {
                   !videoUrl  ? (
@@ -117,17 +117,15 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
 
                   ):videoUrl && (
                  
-                      <motion.img transition={{delay:0.8,type:'spring'}} initial={{scale:0}} animate={{scale:1,rotate:'-180deg'}} src={replace} alt="" className="plus" /> 
+                      
+                      <Reverse/>
                    
                   )
                 }
-              <div className="desc">
-                 Click to <span>select</span> video
-              </div>
+              <motion.h1 initial={{color:`#595959`}} animate={videoUrl?{color:"#FFFFFF",opacity:0.35}:{color:`#595959`}} className="desc">
+                 Click to <span>place</span> video
+              </motion.h1>
             </div>
-            
-
-           {/* // */}
 
 
           </motion.div>
