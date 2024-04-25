@@ -1,17 +1,22 @@
 .nav-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100vw;
     font-size: 1.4rem;
     font-size: calc(1vh + 1.1vw);
     font-size: 0.8rem;
     font-size: clamp(0.8rem,calc(1.3vh + 1.4vw),1.4rem);
-    height: 3.6em;
-    padding: 0 1.4em 0 1.5em;
-    position: absolute;
+    width: 100vw;
+    position: sticky;
     top: 0;
-    border-bottom: 0.3px solid #3E3E3E;
+    .bar{
+        height: 3.6em;
+        padding: 0 1.4em 0 1.5em;
+        border-bottom: 0.3px solid #3E3E3E;
+        background-color: #252525;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: inherit;
+    }
     // z-index: 8 !important;
     .logo{
         font-size: inherit;

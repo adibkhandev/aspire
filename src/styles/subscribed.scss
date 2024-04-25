@@ -1,7 +1,7 @@
 .subscribed-page{
     scroll-behavior: smooth;
     .nav-container{
-        position: initial;
+        // position: initial;
     }
     .cards{
         font-size: clamp(0.78rem,2.9vw,1.2rem);
@@ -51,7 +51,10 @@
                    margin-block: 0.5em;
                    img{
                      width: 100%;
+                     height: 100%;
+                     object-fit: cover;
                      min-width: 100%;
+                     min-height: 100%;
                    }
                    
                 }
@@ -67,6 +70,8 @@
                             border-radius: 1000px;
                             overflow: hidden;
                             img{
+                                width: 100%;
+                                height: 100%;
                                 object-fit: cover;
                             }
                         }

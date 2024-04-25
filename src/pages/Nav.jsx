@@ -1,3 +1,4 @@
+import React , {useState,useEffect,useContext,useMemo,useRef} from 'react'
 import compass from './../assets/images/compass.svg'
 import crop from './../assets/images/crop.svg'
 import info from './../assets/images/info.svg'
@@ -6,15 +7,27 @@ import play from './../assets/images/play.svg'
 import reverse from './../assets/images/reverse.svg'
 import upload from './../assets/images/upload.svg'
 import acc from './../assets/images/acc.svg'
-import React , {useState,useContext} from 'react'
 import { Context } from './login/AuthContext'
 import logo from './../assets/images/aspire-logo.svg'
 import hamburger from './../assets/images/hamburger.svg'
 import { Drawer } from '@mui/material';
 import { Link , useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
-import { motion } from 'framer-motion'
+import { motion , useMotionValueEvent, useScroll , useTransform} from 'framer-motion'
 export const Nav = () => {
+  var lastscrollY = useRef(0)
+  const [direction,setDirection] = useState(null)
+  const {scrollY,scrollYProgress} = useScroll();
+    useMotionValueEvent(scrollY,"change",(latest)=>{
+      console.log(latest,'kattess',lastscrollY.current)
+      if(latest>lastscrollY.current) setDirection("down")
+      if(latest<lastscrollY.current) setDirection("up")
+      lastscrollY.current = latest
+    })
+    useEffect(()=>{
+       console.log(direction,'f')
+    },[direction])
+    console.log('declaring state',direction)
     const [drawerOpen,setDrawerOpen] = useState(false)
     const token = localStorage.getItem('accessToken')
     const user = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null
@@ -22,7 +35,12 @@ export const Nav = () => {
     const navigate = useNavigate()
     const {logout} = useContext(Context)
       return (
-        <div className='nav-container'>
+        <motion.div
+          initial={{top:0}}
+          animate={direction=="up"?{top:0}:direction=="down"?{top:"-100%"}:{top:0}} 
+          className='nav-container'>
+          {/* Bar */}
+          <motion.div className="bar">
            <Link to={'/'}>
                <motion.img
                  initial={{x:"-220%"}}
@@ -30,11 +48,20 @@ export const Nav = () => {
                  transition={drawerOpen?{}:{delay:0.4}}
                  className='logo' src={logo} alt="" />
            </Link>
+
+
+
             <img onClick={()=>{
                 console.log('clcik')
                 setDrawerOpen(true)
                 
             }} className='ham' src={hamburger} alt="" />
+
+          </motion.div>
+
+
+
+            {/* Drawer */}
             {decoded && <Drawer
               open={drawerOpen}
               transitionDuration={200}
@@ -115,6 +142,6 @@ export const Nav = () => {
 
             </Drawer>
           }
-        </div>
+        </motion.div>
     )
 }

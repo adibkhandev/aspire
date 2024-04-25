@@ -116,10 +116,7 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
                         alt="" className="plus" />
 
                   ):videoUrl && (
-                 
-                      
                       <Reverse/>
-                   
                   )
                 }
               <motion.h1 initial={{color:`#595959`}} animate={videoUrl?{color:"#FFFFFF",opacity:0.35}:{color:`#595959`}} className="desc">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { easeIn, motion , useDragControls } from 'framer-motion'
-import { Nav } from '../Nav'
+import {Nav} from './../Nav'
 import earth from './../../assets/images/earth.svg'
 import squarePlay from './../../assets/images/square-play.svg'
 import axios from 'axios'
@@ -61,7 +61,7 @@ export const Account = () => {
               animate={!popupOpen?"non":"blur"}
               transition={{delay:0.08}}
             >
-                <Nav></Nav>
+                <Nav/>
                 <div onClick={()=>{
                     if(popupOpen){
                         setPopupOpen(false)
