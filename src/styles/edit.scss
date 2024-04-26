@@ -1,4 +1,24 @@
 .edit{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    .form-parent{
+        position: absolute;
+        top: 0;
+        // left: 10vw;
+        // background-color: blue;
+        width: 200vw;
+        height: 100vh;
+        display: flex;
+    }
+    position: relative;
+    .nav-container{
+        position: absolute;
+        left: 0;
+        z-index: 3;
+
+    }
     @media (width>750px) {
         align-items: center !important;
     }
@@ -15,6 +35,24 @@
 //         z-index: 3;
 //     }
 // }
+
+.change{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .inputs{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+    }
+    .linking{
+        width: auto;
+    }
+}
+
 .lock-cont{
     position: relative;
     .icon-cont{
