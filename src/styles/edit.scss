@@ -23,6 +23,12 @@
         align-items: center !important;
     }
     .signup{
+        height: 100vh !important;
+        justify-content: center;
+        padding-bottom: 4em;
+        .pfp-clicker{
+            margin-top: 0;
+        }
         @media (width>750px) {
             height: auto;
             margin-bottom: 16vh;
@@ -132,6 +138,9 @@
         width: 100%;
         max-width: unset;
     }
+    .warn-cont{
+        font-size: 0.9rem;
+    }
     .lock{
         max-width: unset;
         font-style: italic;
@@ -145,7 +154,7 @@
         background-color: #2C2C2C;
         padding-bottom: 0.8rem;
         padding-inline: 0.8rem;
-        margin-top: 1rem;
+        // margin-top: 1rem;
         border-radius: 4px;
         .header{
             display: flex;

@@ -1,7 +1,7 @@
 import React, { useEffect , useRef, useState } from 'react'
 import { motion , AnimatePresence , useAnimate } from 'framer-motion'
 import DeletePopup from './DeletePopup'
-export const ComponentPopup = ({remove,setRemove,subscribe,data,setSubscribed,setEmpty,cta,children}) => {
+export const ComponentPopup = ({remove,setRemove,subscribe,data,setSubscribed,setEmpty,releaseFunction,children}) => {
     const [undo,setUndo]=useState(false)
     const [cardData,setCardData]=useState(null)
     let userData = localStorage.getItem('userData')
@@ -71,11 +71,13 @@ export const ComponentPopup = ({remove,setRemove,subscribe,data,setSubscribed,se
    useEffect(()=>{
        if(remove){
          console.log('turning tho')
-          timerRef.current = setTimeout(cta(data.video,data.topic),8000)
+          timerRef.current = setTimeout(()=>{
+            releaseFunction(true)
+          },8000)
           console.log('setting timeout')
        }
        return()=> clearTimeout(timerRef.current)
-   },[remove,cta])
+   },[remove,releaseFunction])
    useEffect(()=> {
       if(undo){
         clearTimeout(timerRef.current)

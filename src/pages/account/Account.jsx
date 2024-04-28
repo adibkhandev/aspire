@@ -163,7 +163,7 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
             x:"-100vw"
         }
     }
-    return(
+   if(userData) return(
 <div className="video-data">
 
 
@@ -214,7 +214,7 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
           className="playlists"
         >
 
-            <div className="grid">
+            <div style={{order:userData.userType=='student'?2:1}} className="grid">
                 {userData?(
                   userData.uploadedCourses && userData.uploadedCourses.length?(
                       <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
@@ -232,7 +232,7 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
                     </div>
                 )}
             </div>
-            <div className="grid">
+            <div style={{order:userData.userType=='student'?1:2}} className="grid">
                 {userData?(
                     userData.subscribedCourses &&  userData.subscribedCourses.length?(
                       <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.subscribedCourses} thumbnails={userData.thumbnails}/>

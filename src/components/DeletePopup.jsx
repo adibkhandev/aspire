@@ -83,7 +83,8 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
           opacity:0
         })
         await animate(scope.current,{
-          height:0
+          height:0,
+          margin:0
         })
           console.log('coming rth')
         }

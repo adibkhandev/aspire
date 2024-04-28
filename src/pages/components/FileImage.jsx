@@ -61,11 +61,11 @@ const Image = ({file,input,existing,popupthere,setPopupthere,setRemovePfp}) => {
                     <motion.div
                       className="mask">
                         <motion.div 
-                        className={`pfpUploadContainer`}
-                        initial={{ scale: 0}}
-                        animate={!detached ?{ scale: 1 }:{scale:0}}
-                        transition={{ ease: "linear", duration: 6 ,type:'spring', mass: 0.8 ,stiffness:80 }}
-                    >
+                            className={`pfpUploadContainer`}
+                            initial={{ scale: 0}}
+                            animate={!detached ?{ scale: 1 }:{scale:0}}
+                            transition={{ ease: "linear", duration: 6 ,type:'spring', mass: 0.8 ,stiffness:80 }}
+                        >
                             <img className='pfpUpload' src={url} alt=""/>
                         </motion.div>
                     </motion.div>

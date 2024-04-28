@@ -54,7 +54,7 @@ import MotionCta from './../components/MotionCta'
             }}} className="edit-topic-cont">
                   {deletePrompt && <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>}
                
-                  { topics && topics.map((topic)=><Topic setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
+                  {topics && topics.map((topic)=><Topic setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
 
                <div className="handy-btns">
                 <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
@@ -165,6 +165,8 @@ import MotionCta from './../components/MotionCta'
 
 const EditVideo = ({video,courseId,topicId}) => {
     const [remove,setRemove] = useState(false)
+    const [removed,setRemoved] = useState(false)
+    const [deleteVideo,setDeleteVideo] = useState(false)
     const videoDeleteHandler = (id,topicId) => {
         const token = localStorage.getItem('accessToken')
         let headers = {
@@ -180,20 +182,26 @@ const EditVideo = ({video,courseId,topicId}) => {
          videos:[id]
       } 
       let url = `${import.meta.env.VITE_API_URL}/video/delete/${courseId}/${topicId}/`
-      
       axios.post(url,data,headers)
-         .then((response)=>{
-             console.log(response.data)
-            //  setDeleted(false)
-         })
-         .catch(err=>{
+      .then((response)=>{
+          console.log(response.data)
+          setRemoved(true)
+          //  setDeleted(false)
+        })
+        .catch(err=>{
             console.log(err)
-         })
-      }
+        })
+    }
+    useEffect(()=>{
+      console.log('deleted?',deleteVideo)
+        if(deleteVideo){
+           videoDeleteHandler(video._id,topicId)
+        }
+    },[deleteVideo])
       return(
         <>
-           <ComponentPopup data={{video:video._id,topic:topicId}} cta={videoDeleteHandler} remove={remove} setRemove={setRemove}>
-            <div className="video-container">
+           <ComponentPopup data={{video:video._id,topic:topicId}} releaseFunction={setDeleteVideo} remove={remove} setRemove={setRemove}>
+            <motion.div initial={{marginTop:`1rem`}} animate={!removed?{marginTop:`1rem`}:{marginTop:0}} className="video-container">
                 <div className="header">
                     <div className="details">
                         <div className="video-num">
@@ -211,7 +219,7 @@ const EditVideo = ({video,courseId,topicId}) => {
                     <img className='thumbnail' src={import.meta.env.VITE_API_URL + video.thumbnailLink}/>
                     <img className='delete' onClick={()=> setRemove(true)} src={whiteDelete} alt="" />
                 </div>
-            </div>
+            </motion.div>
            </ComponentPopup>
         </>
       )

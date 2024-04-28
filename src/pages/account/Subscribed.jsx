@@ -2,7 +2,7 @@ import React, { useEffect , useRef, useState ,useLayoutEffect } from 'react'
 import { CoursePack } from '../explore/HorizontalSwiper'
 import {Nav} from './../Nav'
 import { Link } from 'react-router-dom'
-import { motion , AnimatePresence , useAnimate, useAnimation} from 'framer-motion'
+import { motion , AnimatePresence , useAnimate, useAnimation , useInView} from 'framer-motion'
 import axios from 'axios'
 import linkTo from './../../assets/images/link-to.svg'
 import smallPlay from './../../assets/images/small-play.svg'
@@ -14,10 +14,12 @@ const Subscribed = () => {
     let [subscribed,setSubscribed] = useState([])
     const [validVideos,setValidVideos]= useState(null)
     const [empty,setEmpty]=useState(true)
-    const cardsRef = useRef()
+    const cardsRef = useRef(null)
+    
     useEffect(()=>{
        console.log(validVideos,'valid?')
     },[validVideos])
+    
     useEffect(()=>{
         if(token){
             let headers = {
@@ -31,9 +33,9 @@ const Subscribed = () => {
             let url = `${import.meta.env.VITE_API_URL}/user/subscribed`
             axios.get(url,headers)
                .then(res=>{
-                   console.log(res.data,'responsibleee')
+                   console.log(res.data.subscribed,'responsibleee')
                    setSubscribed(res.data.subscribed)
-                   setValidVideos(0)
+                   setValidVideos(res.data.subscribed.length)
                })
                .catch(err=>{
                    console.log(err)
@@ -83,7 +85,10 @@ const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideos}) => 
     const [subscribedState,setSubscribedState]=useState(true)
     const [remove,setRemove] = useState(false) 
     const [undo,setUndo]=useState(false)
-    const [kill,setKill] = useState(false) 
+    const [kill,setKill] = useState(false)
+    
+    const cardRef = useRef(null)
+    const isInView = useInView(cardRef)
     console.log(subscribe,'dat')
     useEffect(()=>{
       let url = `${import.meta.env.VITE_API_URL}/video/get/${subscribe}/compress`
@@ -91,15 +96,18 @@ const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideos}) => 
           .then(res=>{
               console.log(res,'card-data')
               setCardData(res.data.data)
-              if(res.data.data) setValidVideos(validVideos+1)
+              // if(res.data.data) setValidVideos(()=>validVideos+1)
           })
           .catch(err=>{
               console.log(err,'err')
+              if(res.data.data) setValidVideos(()=>validVideos-1)
           })
     },[])
+    useEffect(()=>{
+      console.log(isInView,'ass?')
+   },[isInView])
     const [hidden,setHidden] = useState(false)
     const [scope,animate] = useAnimate()
-    const cardRef = useRef()
     const controls = useAnimation()
     useEffect(()=>{
       console.log('changing to ' , remove)

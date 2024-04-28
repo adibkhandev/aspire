@@ -166,8 +166,9 @@ const EditProfile = () => {
     </motion.div>
 
 
-
-       <CustomAlert error={error} setError={setError}/>
+      <div className="toast-cont">
+        <CustomAlert error={error} setError={setError}/>
+      </div>
     </div>
   )
 }
