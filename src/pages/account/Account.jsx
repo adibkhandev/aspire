@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState , useRef} from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { easeIn, motion , useDragControls } from 'framer-motion'
-import {Nav} from './../Nav'
+import { easeIn, motion , useDragControls , useMotionValueEvent , useScroll} from 'framer-motion'
+import { Nav} from './../Nav'
 import earth from './../../assets/images/earth.svg'
 import squarePlay from './../../assets/images/square-play.svg'
 import axios from 'axios'
@@ -51,7 +51,38 @@ export const Account = () => {
             scale:1.01
         }
     }
+
+
+    //
+    var lastscrollY = useRef(0)
+    const [direction,setDirection] = useState(null)
+    // const accountRef = useRef(null)
+    const {scrollY,scrollYProgress} = useScroll();
+      useMotionValueEvent(scrollY,"change",(latest)=>{
+        console.log(latest,'kattess',lastscrollY.current)
+        if(latest>lastscrollY.current && direction!="down") setDirection("down")
+        if(latest<lastscrollY.current && direction!="up") setDirection("up")
+        lastscrollY.current = latest
+      })
+    // useEffect(() => {
+    //     let checker = (e) => {
+    //          console.log(window.scrollY,'scr',e)
+    //          if(window.scrollY>lastscrollY.current) setDirection("down")
+    //          if(window.scrollY<lastscrollY.current) setDirection("up")
+    //          lastscrollY.current = window.scrollY
+    //     }
+    //     window.addEventListener('scroll',checker);
+    //     return ()=>{
+    //         window.removeEventListener('scroll',checker);
+    //     }	
+    //  })
+      useEffect(()=>{
+         console.log(direction,'f')
+      },[direction])
+      //
     return (
+        <div className="main-container">
+       
         <div className='home-container'>
             <Delete setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
             <Popup deleteMode={deleteMode} setDeleteMode={setDeleteMode} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
@@ -60,14 +91,15 @@ export const Account = () => {
               variants={homeVariants}
               animate={!popupOpen?"non":"blur"}
               transition={{delay:0.08}}
-            >
-                <Nav/>
+              >
+                  <Nav></Nav>
                 <div onClick={()=>{
                     if(popupOpen){
                         setPopupOpen(false)
                     }
                     
                 }} className="account-container">
+                     {/* <Nav/> */}
                     <div className="details-container">
                         <div className="details">
 
@@ -146,6 +178,7 @@ export const Account = () => {
                     <Grids setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
                 </div>
                 </motion.div>
+        </div>
         </div>
     )
 }

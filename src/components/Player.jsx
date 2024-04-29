@@ -18,7 +18,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [subscribedState,setSubscribedState] = useState(false)
     const [editing,setEditing]=useState(false)
-
+    const [deleteCourse,setDeleteCourse] = useState(false)
     useLayoutEffect(() => {
         if(popupRef){
             setHeight(popupRef.current.clientHeight);
@@ -26,6 +26,9 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
         }
     });
     
+   useEffect(()=>{
+       if(deleteCourse && deleteInitiated) deleteHandler()
+   },[deleteInitiated])
    useEffect(()=>{
         if(deleteMode){
             setDeleteMode(false)
@@ -120,7 +123,8 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                                             className="options"
                                         >
                                             <div onClick={()=> {
-                                                deleteHandler()
+                                                setDeletePrompt(true)
+                                                setDeleteCourse(true)
                                             }} className="option" id='first'>
                                                 <h1>
                                                 Delete course
@@ -161,7 +165,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                             (course && course.topics)? course.topics.map((topic)=>{
 //                                // console.log(topic,'topic')
                                 return (
-                                    <CourseNav  deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
+                                    <CourseNav deleteCourse={deleteCourse} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
                               }
                             ):''
@@ -196,7 +200,7 @@ const PlayVideo = ({videoLinkBack}) => {
 
 
 
-const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode ,containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
+const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode ,containerRef,author,topic,adding,setAdding,activeVideo,setActiveVideo,courseId}) => {
     const accessToken = localStorage.getItem('accessToken')
     const decoded = accessToken? jwtDecode(accessToken):null
     const adderContRef = useRef(null)
@@ -238,11 +242,10 @@ const CourseNav = ({deleteMode, deleteInitiated ,setDeletePrompt ,setDeleteMode 
         }
     }
 
-
+    
     useEffect(()=>{
-        if(deleteInitiated){
-            submitDeletion()
-        }
+        if(deleteInitiated && !deleteCourse) return
+        submitDeletion()
     },[deleteInitiated])
 
 

@@ -1,6 +1,28 @@
 body{
     margin: 0;
 }
+.main-container{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    .nav-container{
+        position: initial !important;
+
+        // position: absolute;
+        // background-color: #0078E8 !important;
+        // margin-top: 2rem !important;
+        // position: sticky;
+        // top: 0;
+        background-color: inherit;
+        z-index: 1 !important;
+        // @media (width>1500px) {
+        //     .ham{
+        //         margin-right: calc(2rem - 1vw);
+        //     }
+        // }
+    }
+}
 .home-container{
     width: 100vw;
     height: 100vh;
@@ -18,17 +40,6 @@ body{
     position: relative;
     // filter: brightness(50%) blur(1px);
     // transform: scale(1.01);
-    .nav-container{
-        position: initial;
-        top: 0;
-        background-color: inherit;
-        z-index: 3;
-        // @media (width>1500px) {
-        //     .ham{
-        //         margin-right: calc(2rem - 1vw);
-        //     }
-        // }
-    }
 }
 .account-container{
     width: 100%;
