@@ -7,11 +7,12 @@
     display:flex;
     justify-content: center;
     align-items:flex-end;
+    .nav-container{
+       position: absolute !important;
+       z-index: 4 !important;
+    }
 }
 .home{
- .nav-container{
-    z-index: 4 !important;
- }
 }
     
 

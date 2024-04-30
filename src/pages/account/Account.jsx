@@ -14,16 +14,24 @@ export const Account = () => {
     let {username} = useParams()
     let [userData,setUserData] = useState(null)
     let [courseActive,setCourseAcitve] = useState(null)
-    //
     let [deletePrompt,setDeletePrompt]=useState(false)
     let [deleteInitiated,setDeleteInitiated]=useState(false)
     const [deleteMode,setDeleteMode] = useState(false)
-    //
-    let hasVideo = true
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
-////    console.log(decoded,'pay')
     const [popupOpen,setPopupOpen] = useState(false)
+
+    const lastscrollY = useRef(0)
+  const [direction,setDirection] = useState(null)
+  const {scrollY} = useScroll();
+  console.log(scrollY,'sc')
+    useMotionValueEvent(scrollY,"change",(latest)=>{
+      console.log(latest,'pattess',lastscrollY.current)
+      if(latest>lastscrollY.current) setDirection("down")
+      if(latest<lastscrollY.current) setDirection("up")
+      lastscrollY.current = latest
+    })
+
     useEffect(()=>{
         const url = import.meta.env.VITE_API_URL + '/user/' + username
         const headers = {
@@ -51,58 +59,22 @@ export const Account = () => {
             scale:1.01
         }
     }
-
-
-    //
-    var lastscrollY = useRef(0)
-    const [direction,setDirection] = useState(null)
-    // const accountRef = useRef(null)
-    const {scrollY,scrollYProgress} = useScroll();
-      useMotionValueEvent(scrollY,"change",(latest)=>{
-        console.log(latest,'kattess',lastscrollY.current)
-        if(latest>lastscrollY.current && direction!="down") setDirection("down")
-        if(latest<lastscrollY.current && direction!="up") setDirection("up")
-        lastscrollY.current = latest
-      })
-    // useEffect(() => {
-    //     let checker = (e) => {
-    //          console.log(window.scrollY,'scr',e)
-    //          if(window.scrollY>lastscrollY.current) setDirection("down")
-    //          if(window.scrollY<lastscrollY.current) setDirection("up")
-    //          lastscrollY.current = window.scrollY
-    //     }
-    //     window.addEventListener('scroll',checker);
-    //     return ()=>{
-    //         window.removeEventListener('scroll',checker);
-    //     }	
-    //  })
-      useEffect(()=>{
-         console.log(direction,'f')
-      },[direction])
-      //
+    const scrollerRef = useRef(null)
     return (
-        <div className="main-container">
-       
         <div className='home-container'>
-            <Delete setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
+            <Nav direction={direction}></Nav>
+            <Delete deleteMode={deleteMode} setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
             <Popup deleteMode={deleteMode} setDeleteMode={setDeleteMode} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
             <motion.div
+              ref={scrollerRef}
               className='home'
               variants={homeVariants}
               animate={!popupOpen?"non":"blur"}
               transition={{delay:0.08}}
               >
-                  <Nav></Nav>
-                <div onClick={()=>{
-                    if(popupOpen){
-                        setPopupOpen(false)
-                    }
-                    
-                }} className="account-container">
-                     {/* <Nav/> */}
+                <div className="account-container" onClick={()=>{if(popupOpen){setPopupOpen(false)}}} >
                     <div className="details-container">
                         <div className="details">
-
                             <div className="pfp-cont">
                                 {
                                     userData?(
@@ -155,7 +127,6 @@ export const Account = () => {
                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
                                             )
                                         }
-                                       
                                         </>
                                          
                                     ):(
@@ -166,21 +137,16 @@ export const Account = () => {
                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
                                             </div>
                                         </>
-                                        
                                     )
                                 }
-                                
-
                             </div>
                         </div>
                     </div>
-                    
-                    <Grids setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
-                </div>
-                </motion.div>
-        </div>
-        </div>
-    )
+                <Grids setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} userData={userData} ></Grids>
+            </div>
+        </motion.div>
+    </div>
+  )
 }
 
 
@@ -198,9 +164,6 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
     }
    if(userData) return(
 <div className="video-data">
-
-
-    {/* //nav */}
     <div className="video-nav">
         <div onClick={()=>setNavState(0)} className="nav-elements">
             <motion.h1 
@@ -232,13 +195,6 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
          transition={{ease:'linear' , duration:0.4}}
         ></motion.div>
     </div>
-    
-
-    {/* // */}
-
-
-
-
     <div className="video-grids">
         <motion.div 
           animate={navState==0?"first":"second"}

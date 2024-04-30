@@ -1,7 +1,7 @@
 import React, { useEffect ,useRef} from 'react'
 import { motion ,animate} from 'framer-motion'
 
-const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt}) => {
+const Delete = ({deleteMode,setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt}) => {
     const homeVariants = {
         non:{
         },
@@ -31,7 +31,7 @@ const Delete = ({setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt})
     useEffect(()=>{
         animateDelete()
     },[deletePrompt])
-  return (
+ if(deleteMode) return (
     <motion.div
     transition={{delay:0.08}}
     ref={scope} 

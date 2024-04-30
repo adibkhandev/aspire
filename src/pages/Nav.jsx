@@ -14,18 +14,20 @@ import { Drawer } from '@mui/material';
 import { Link , useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { motion , useMotionValueEvent, useScroll , useTransform} from 'framer-motion'
-export const Nav = () => {
+export const Nav = ({direction}) => {
   const lastscrollY = useRef(0)
-  const [direction,setDirection] = useState(null)
-  const {scrollY} = useScroll();
-    useMotionValueEvent(scrollY,"change",(latest)=>{
-      console.log(latest,'kattess',lastscrollY.current)
-      if(latest>lastscrollY.current) setDirection("down")
-      if(latest<lastscrollY.current) setDirection("up")
-      lastscrollY.current = latest
-    })
+  // const [direction,setDirection] = useState(null)
+  // const {scrollY} = useScroll();
+  // console.log(scrollY,'sc')
+    // useMotionValueEvent(scrollY,"change",(latest)=>{
+    //   console.log(latest,'kattess',lastscrollY.current)
+    //   if(latest>lastscrollY.current) setDirection("down")
+    //   if(latest<lastscrollY.current) setDirection("up")
+    //   lastscrollY.current = latest
+    // })
     useEffect(()=>{
        console.log(direction,'f')
+       console.log(lastscrollY)
     },[direction])
     console.log('declaring state',direction)
     const [drawerOpen,setDrawerOpen] = useState(false)
@@ -58,8 +60,6 @@ export const Nav = () => {
             }} className='ham' src={hamburger} alt="" />
 
           </motion.div>
-
-
 
             {/* Drawer */}
             {decoded && <Drawer

@@ -1,49 +1,28 @@
 body{
     margin: 0;
 }
-.main-container{
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
+.home-container{
     .nav-container{
-        position: initial !important;
-
-        // position: absolute;
-        // background-color: #0078E8 !important;
-        // margin-top: 2rem !important;
-        // position: sticky;
-        // top: 0;
-        background-color: inherit;
-        z-index: 1 !important;
-        // @media (width>1500px) {
-        //     .ham{
-        //         margin-right: calc(2rem - 1vw);
-        //     }
-        // }
+        z-index: 2;
+        // position: initial;
     }
 }
-.home-container{
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-}
-.home{
-    height: 100svh;
-    width: 100vw;
-    width: 100svw;
-    max-width:100%; 
-    contain: paint;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    position: relative;
-    // filter: brightness(50%) blur(1px);
-    // transform: scale(1.01);
-}
+// // scroller
+// .home{
+//     width: 100vw;
+//     height: 100vh;
+//     max-width:100%; 
+//     contain: paint;
+//     position: relative;
+//     filter: brightness(50%) blur(1px);
+//     transform: scale(1.01);
+// }
 .account-container{
+    scroll-behavior: smooth;
     width: 100%;
+    overflow-y: scroll;
     min-height: 100vh;
+    position: relative;
     
 }
 .details-container{
@@ -179,7 +158,7 @@ body{
 
 .video-data{
     width: 100%;
-    height: calc(62.5vh - 3.2em);
+    // height: calc(62.5vh - 3.2em);
     font-size: 1rem;
     .video-grids{
         width: 100%;

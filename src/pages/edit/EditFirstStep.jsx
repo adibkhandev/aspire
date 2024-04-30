@@ -20,16 +20,19 @@ export const EditFirstStep = ({setTopicTitleChanged,existing,course,error,setErr
     const check = () => {
       console.log('codata')
       const currentSkillString = JSON.stringify(skills)
-      if(
-         currentSkillString!==skillString ||
-         imageFile ||
-         titleRef.current.value ||
-         describeRef.current.value
-       ){
-         setChangesMade(true)
-      }
-      else{
-       setChangesMade(false)
+      if(course){
+        if(
+           currentSkillString!==skillString ||
+           imageFile ||
+           titleRef.current.value ||
+           describeRef.current.value
+         ){
+           setChangesMade(true)
+        }
+        else{
+         setChangesMade(false)
+        }
+
       }
     }
     useEffect(()=>{
