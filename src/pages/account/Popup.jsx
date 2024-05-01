@@ -9,25 +9,29 @@ const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen
   const decoded = accessToken? jwtDecode(accessToken):null
   const [height, setHeight] = useState(0);
   const popupRef = useRef(null);
-  
-
-  
   // console.log(popupOpen,'popstate')
   return (
     //container--make
+    <motion.div 
+     animate={popupOpen?{top:0}:{top:'100vh'}}
+     className="popup-holder" onClick={(e)=>{
+      e.stopPropagation()
+      console.log('clickssss')
+      setPopupOpen(false)
+    }}>
     <motion.div
       ref={popupRef}
-      initial={{top:'180vh'}}
+      initial={{bottom:'-180vh'}}
       animate={popupOpen?
         {
-          top:`calc(100vh - ${height-150}px)`,
+          bottom:0,
           transition:{
              type:'spring' ,
              duration:1
           }
         }:
         {
-          top:'180vh'
+          bottom:'-180vh'
         }
       }
       className='popup-container'
@@ -51,6 +55,7 @@ const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen
             ):''
         }
        
+    </motion.div>
     </motion.div>
   )
 }

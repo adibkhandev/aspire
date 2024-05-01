@@ -54,7 +54,7 @@ import MotionCta from './../components/MotionCta'
             }}} className="edit-topic-cont">
                   {deletePrompt && <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>}
                
-                  {topics && topics.map((topic)=><Topic setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
+                  {topics && topics.map((topic)=><Topic setError={setError} setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
 
                <div className="handy-btns">
                 <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
@@ -70,7 +70,7 @@ import MotionCta from './../components/MotionCta'
 
 
 
-  const Topic = ({topic,courseId,outClick,setOutClick,setPopupOpen,setDeletePrompt,setTopicDeleteId}) => {
+  const Topic = ({topic,courseId,outClick,setOutClick,setError,setPopupOpen,setDeletePrompt,setTopicDeleteId}) => {
    
     const [editingPopupThere,setEditingPopupThere] = useState(false)
   const topicRenameHandler = (e,topicId) => {
@@ -101,7 +101,10 @@ import MotionCta from './../components/MotionCta'
   }
   
   
-  
+  const [lastVideo,setLastVideo] = useState()
+  useEffect(()=>{
+     if(topic.videos && topic.videos.length<2) setLastVideo(true)
+  },[])
  
   useEffect(()=>{
     if(outClick){
@@ -154,7 +157,7 @@ import MotionCta from './../components/MotionCta'
             {topic && topic.videos.map((video)=>{
             console.log(video,'map')
                 return(
-                   <EditVideo courseId={courseId} topicId={topic._id} video={video} />
+                   <EditVideo lastVideo={lastVideo} setError={setError} courseId={courseId} topicId={topic._id} video={video} />
                 )
         })}
         </>
@@ -163,7 +166,7 @@ import MotionCta from './../components/MotionCta'
 
 
 
-const EditVideo = ({video,courseId,topicId}) => {
+const EditVideo = ({video,courseId,topicId,setError,lastVideo}) => {
     const [remove,setRemove] = useState(false)
     const [removed,setRemoved] = useState(false)
     const [deleteVideo,setDeleteVideo] = useState(false)
@@ -217,7 +220,10 @@ const EditVideo = ({video,courseId,topicId}) => {
                 </div>
                 <div className="cover">
                     <img className='thumbnail' src={import.meta.env.VITE_API_URL + video.thumbnailLink}/>
-                    <img className='delete' onClick={()=> setRemove(true)} src={whiteDelete} alt="" />
+                    <img className='delete' onClick={()=> {
+                        if(!lastVideo) setRemove(true)
+                        else setError('Cannot delete last video delete topic?')  
+                    }} src={whiteDelete} alt="" />
                 </div>
             </motion.div>
            </ComponentPopup>
