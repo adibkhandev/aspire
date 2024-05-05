@@ -9,15 +9,15 @@ import axios from 'axios'
 import {useNavigate} from 'react-router'
 import { Link } from "react-router-dom"
 import MotionCta from './../components/MotionCta'
-  const EditTopicVideos = ({deletePrompt,setDeletePrompt,deleteInitiated,setDeleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep,setError}) => {
+  const EditTopicVideos = ({setDeletePrompt,deleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep,setError}) => {
     const token = localStorage.getItem('accessToken')
     const [outClick,setOutClick] = useState(true)
-   
+    
     const [topicDeleteId,setTopicDeleteId] = useState(null)
     const navigate = useNavigate()
     useEffect(()=>{
-        console.log('truing')
-        if(deleteInitiated && topicDeleteId) deleteHandler(topicDeleteId)
+        console.log('truing',topicDeleteId)
+        if(topicDeleteId && deleteInitiated) deleteHandler(topicDeleteId)
     },[deleteInitiated])
     const deleteHandler = (id) => {
       console.log('clicks')
@@ -34,7 +34,7 @@ import MotionCta from './../components/MotionCta'
      
       axios.delete(url,headers)
          .then((response)=>{
-             console.log(response.data,'topic')
+             console.log(response.data,'topic','success')
              navigate('/')
          })
          .catch(err=>{
@@ -52,9 +52,9 @@ import MotionCta from './../components/MotionCta'
                setOutClick(true)
                console.log(outClick,'out')
             }}} className="edit-topic-cont">
-                  {deletePrompt && <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>}
+                 
                
-                  {topics && topics.map((topic)=><Topic setError={setError} setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} setTopicDeleteId={setTopicDeleteId} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
+                  {topics && topics.map((topic)=><Topic setTopicDeleteId={setTopicDeleteId} setError={setError} setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
 
                <div className="handy-btns">
                 <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
@@ -73,6 +73,7 @@ import MotionCta from './../components/MotionCta'
   const Topic = ({topic,courseId,outClick,setOutClick,setError,setPopupOpen,setDeletePrompt,setTopicDeleteId}) => {
    
     const [editingPopupThere,setEditingPopupThere] = useState(false)
+    const token = localStorage.getItem('accessToken')
   const topicRenameHandler = (e,topicId) => {
      if(e.target.value){
       let headers = {
@@ -83,7 +84,6 @@ import MotionCta from './../components/MotionCta'
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
         }
       }
-      console.log(selectedTopic,'selected')
       let data = {
         topicTitle:e.target.value
       } 
@@ -92,7 +92,7 @@ import MotionCta from './../components/MotionCta'
     axios.post(url,data,headers)
        .then((response)=>{
            console.log(response.data)
-           setTopicTitleChanged(true)
+        //    setTopicTitleChanged(true)
        })
        .catch(err=>{
           console.log(err)

@@ -2,12 +2,6 @@ import React, { useEffect ,useRef} from 'react'
 import { motion ,animate} from 'framer-motion'
 
 const Delete = ({deleteMode,setDeleteMode,setDeleteInitiated,deletePrompt,setDeletePrompt}) => {
-    const homeVariants = {
-        non:{
-        },
-        blur:{
-        }
-    }
     const scope = useRef(null)
     const animateDelete = async () => {
         if(deletePrompt){
@@ -31,7 +25,7 @@ const Delete = ({deleteMode,setDeleteMode,setDeleteInitiated,deletePrompt,setDel
     useEffect(()=>{
         animateDelete()
     },[deletePrompt])
- if(deleteMode) return (
+ if(deletePrompt) return (
     <motion.div
     transition={{delay:0.08}}
     ref={scope} 
@@ -41,7 +35,6 @@ const Delete = ({deleteMode,setDeleteMode,setDeleteInitiated,deletePrompt,setDel
         if(setDeleteMode) setDeleteMode(false)
     }}
       className='delete-screen'>
-        
           <motion.div
             initial={{y:"100vh"}}
             animate={deletePrompt?{y:0,scale:1}:{y:"100vh",scale:0.4}} 
@@ -58,12 +51,7 @@ const Delete = ({deleteMode,setDeleteMode,setDeleteInitiated,deletePrompt,setDel
                      setDeleteMode(false)
                      setTimeout(()=>{
                          window.location.reload()
-                     },800)
-                    }  
-                    // else{
-                    //     navigate('/')
-                    // }  
-                    
+                     },800)}
                    }} className="confirm">
                         Confirm
                    </div>

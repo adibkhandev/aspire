@@ -100,8 +100,9 @@ const EditCourse = () => {
       } 
      }} 
      className='edit-course-cont'>
-       { deletePrompt && <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated}></Delete>}
+       
         <Nav></Nav>
+        <Delete  setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
        <motion.form 
          className='stepCont' 
          style={popupOpen?{zIndex:2}:{zIndex:-1}}

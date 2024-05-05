@@ -22,7 +22,6 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
     useLayoutEffect(() => {
         if(popupRef){
             setHeight(popupRef.current.clientHeight);
-
         }
     });
     
@@ -244,8 +243,7 @@ const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,s
 
     
     useEffect(()=>{
-        if(deleteInitiated && !deleteCourse) return
-        submitDeletion()
+        if(deleteInitiated && !deleteCourse)submitDeletion()
     },[deleteInitiated])
 
 
@@ -386,7 +384,7 @@ const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,s
                         transition={{duration:0.2}}
                        >
                         <div className="div">
-                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
+                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video._id}</span> 
                         </div>
                         {
                             deleteMode && (
