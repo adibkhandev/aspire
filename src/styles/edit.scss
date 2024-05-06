@@ -122,6 +122,17 @@
 
 .edit-course-cont{
     position: initial;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: scroll;
+    // overflow-y: hidden;
+    contain: paint;
+    .courses{
+        justify-content: center;
+    }
+    .pfp-clicker{
+        margin-top: 0;
+    }
     .nav-container{
         position: initial !important;
     }

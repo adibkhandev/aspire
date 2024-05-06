@@ -147,7 +147,7 @@ export const Nav = ({}) => {
 }
 
 
-export const LandingNav = ({direction}) => {
+export const LandingNav = ({direction,popupOpen}) => {
   const lastscrollY = useRef(0)
     useEffect(()=>{
        console.log(direction,'f')
@@ -160,13 +160,27 @@ export const LandingNav = ({direction}) => {
     const decoded = token ? jwtDecode(token) : null
     const navigate = useNavigate()
     const {logout} = useContext(Context)
+    const homeVariants = {
+      non:{
+          filter:'blur(0px)',
+          scale:1,
+      },
+      blur:{
+          filter:'blur(5px)',
+          scale:1.01
+      }
+  }
       return (
         <motion.div
           initial={{top:0}}
           animate={direction=="up"?{top:0}:direction=="down"?{top:"-100%"}:{top:0}} 
           className='nav-container fav'>
           {/* Bar */}
-          <motion.div className="bar">
+          <motion.div
+           variants={homeVariants}
+           animate={!popupOpen?"non":"blur"} 
+           className="bar"
+          >
            <Link to={'/'}>
                <motion.img
                  initial={{x:"-220%"}}
@@ -269,6 +283,3 @@ export const LandingNav = ({direction}) => {
         </motion.div>
     )
 }
-
-
-

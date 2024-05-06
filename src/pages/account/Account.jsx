@@ -1,7 +1,7 @@
 import React, { useEffect, useState , useRef} from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { easeIn, motion , useDragControls , useMotionValueEvent , useScroll} from 'framer-motion'
-import { Nav} from './../Nav'
+import { Nav , LandingNav } from './../Nav'
 import earth from './../../assets/images/earth.svg'
 import squarePlay from './../../assets/images/square-play.svg'
 import axios from 'axios'
@@ -20,18 +20,16 @@ export const Account = () => {
     const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
     const decoded = accessToken? jwtDecode(accessToken):null
     const [popupOpen,setPopupOpen] = useState(false)
-
     const lastscrollY = useRef(0)
-  const [direction,setDirection] = useState(null)
-  const {scrollY} = useScroll();
-  console.log(scrollY,'sc')
+    const [direction,setDirection] = useState(null)
+    const {scrollY} = useScroll();
+    console.log(scrollY,'sc')
     useMotionValueEvent(scrollY,"change",(latest)=>{
       console.log(latest,'pattess',lastscrollY.current)
       if(latest>lastscrollY.current) setDirection("down")
       if(latest<lastscrollY.current) setDirection("up")
       lastscrollY.current = latest
     })
-
     useEffect(()=>{
         const url = import.meta.env.VITE_API_URL + '/user/' + username
         const headers = {
@@ -51,18 +49,19 @@ export const Account = () => {
     },[])
     const homeVariants = {
         non:{
-            filter:'brightness(100%) blur(0px)',
+            filter:'blur(0px)',
             scale:1,
         },
         blur:{
-            filter:'brightness(50%) blur(1px)',
+            filter:'blur(5px)',
             scale:1.01
         }
     }
     const scrollerRef = useRef(null)
     return (
         <div className='home-container'>
-            <Nav direction={direction}></Nav>
+            
+            <LandingNav homeVariants={homeVariants} popupOpen={popupOpen} direction={direction}></LandingNav>
             <Delete deleteMode={deleteMode} setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
             <Popup deleteMode={deleteMode} setDeleteMode={setDeleteMode} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
             <motion.div
