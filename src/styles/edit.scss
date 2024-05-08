@@ -46,6 +46,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: clamp(1em,2.3vw,1.1em);
+    
     .inputs{
         display: flex;
         flex-direction: column;
@@ -56,6 +58,19 @@
     }
     .linking{
         width: auto;
+    }
+    .handy-btns{
+        font-size: inherit;
+        margin-top: 1.6em;
+        margin-bottom: 1em;
+        // width: 38% !important;
+        // min-width: 18em;
+        @media (width>1000px) {
+            margin-top: 2em;
+        }
+        button , .secondary-btn{
+            font-size: inherit;
+        }
     }
 }
 

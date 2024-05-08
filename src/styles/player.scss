@@ -159,8 +159,11 @@
                 background-color: #303030;
                 border-radius: 4px;
                 cursor: pointer;
-                #first{
+                #borderBottom{
                     border-bottom: 1px solid #363636;
+                }
+                &:nth-child(1){
+                    background-color: black !important;
                 }
                 .option{
                     cursor: pointer;

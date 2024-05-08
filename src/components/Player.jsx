@@ -336,10 +336,10 @@ const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,s
                                 className="options"
                             >
                                 <Link to={`/${courseId}/${topic._id}/add/video`}>
-                                    <div className="option" id='first'>Add video to topic</div>
+                                    <div className="option" id='borderBottom'>Add video to topic</div>
                                 </Link>
                                 <Link to={`/${courseId}/add/topic`}>
-                                    <div className="option">Add new topic</div>
+                                    <div className="option" id='borderBottom'>Add new topic</div>
                                 </Link>
                                 <div onClick={()=>{
                                      setAdding(false)

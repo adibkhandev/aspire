@@ -3,12 +3,14 @@ import {motion} from 'framer-motion'
 import Player from '../../components/Player';
 import { jwtDecode } from "jwt-decode";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { useNavigate } from 'react-router';
 const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen,deleteInitiated,setDeletePrompt}) => {
   const [lastVal,setLastVal] = useState(0)
   const accessToken = localStorage.getItem('accessToken')?JSON.stringify(localStorage.getItem('accessToken')):null
   const decoded = accessToken? jwtDecode(accessToken):null
   const [height, setHeight] = useState(0);
   const popupRef = useRef(null);
+  const navigate = useNavigate()
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const isMediumDevice = useMediaQuery(
     "only screen and (min-width : 769px) and (max-width : 992px)"
@@ -55,6 +57,9 @@ const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen
          console.log(info.offset,info.offset.y)
          if(info.offset.y>170){
              setPopupOpen(null)
+         }
+         if(info.offset.y<-130){
+             navigate('/course/'+ course._id)
          }
             
         }  
