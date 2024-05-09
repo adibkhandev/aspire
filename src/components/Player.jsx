@@ -35,41 +35,38 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
         if(activeVideo){
             setActiveVideo(null)
         }
-
    },[course])
     const deleteHandler = () => {
-                let headers = {
-                    headers:{
-                        'Authorization':'Bearer ' + token,
-                        'Content-Type':'application/json',
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-                    }
+        let headers = {
+            headers:{
+                'Authorization':'Bearer ' + token,
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+            }
+        }
+        let url = `${import.meta.env.VITE_API_URL}/video/delete/${course._id}/course/`
+        
+        axios.delete(url,headers)
+            .then((response)=>{
+                setEditing(false)
+                if(setPopupOpen && setCourse){
+                    setTimeout(()=>{
+                    setPopupOpen(false)
+                    },500)
+                    setTimeout(()=>{
+                    window.location.reload()
+                },1000)
                 }
-                let url = `${import.meta.env.VITE_API_URL}/video/delete/${course._id}/course/`
-               
-                axios.delete(url,headers)
-                   .then((response)=>{
-//                       console.log(response.data)
-                         setEditing(false)
-                         if(setPopupOpen && setCourse){
-                             setTimeout(()=>{
-                                setPopupOpen(false)
-                             },500)
-                             setTimeout(()=>{
-                                window.location.reload()
-                            },1000)
-                         }
-                         else{
-                            navigate('/')
-                         }
-                        //  navigate('/')
-                         
-                    })
-                    .catch(err=>{
-                       console.log(err)
-                    })
+                else{
+                navigate('/')
                 }
+                    
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
     
                 
 //vid
@@ -164,7 +161,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                             (course && course.topics)? course.topics.map((topic)=>{
 //                                // console.log(topic,'topic')
                                 return (
-                                    <CourseNav deleteCourse={deleteCourse} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
+                                    <CourseNav key={topic._id} deleteCourse={deleteCourse} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setDeleteMode={setDeleteMode} deleteMode={deleteMode} activeVideo={activeVideo} containerRef={containerRef} courseId={course._id} author={course.uploadedBy} topic={topic} adding={adding} setAdding={setAdding} setActiveVideo={setActiveVideo} />   
                                 )
                               }
                             ):''

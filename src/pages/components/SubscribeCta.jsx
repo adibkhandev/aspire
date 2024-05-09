@@ -8,7 +8,11 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
     console.log(courseId,'ids')
     useEffect(()=>{
       if(courseId && user.subscribedCourses) {
-        checkSubscribeState(user.subscribedCourses)
+        const subscribedTo = user.subscribedCourses.map(course=>{
+          return course
+        })
+        console.log(subscribedTo,'to')
+        checkSubscribeState(subscribedTo)
       }
     },[user,courseId])
   const checkSubscribeState = (subscribeArray) => {

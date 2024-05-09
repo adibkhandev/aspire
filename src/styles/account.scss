@@ -95,6 +95,7 @@ body{
                 line-height: normal;
                 line-height: 1.1;
                 margin-bottom: 0.3em;
+                text-shadow: 2px 6px 3px rgba(0,0,0,0.3);
             }
             .fields{
                 color: #838383;
@@ -118,6 +119,7 @@ body{
                     border: 1px solid #3A3A3A;
                     margin-right: 0.5em;
                     margin-bottom: 0.5em;
+                    box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(255, 255, 255, 0.05) inset;
                 }
                 .empty-field{
                     width: 18em;
@@ -143,6 +145,7 @@ body{
                 font-weight: 400;
                 padding: 0.8em 0 ;
                 width: 11em;
+                box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(255, 255, 255, 0.05) inset;
                 @media (width<550px) {
                     width: 9.7em;
                 }
