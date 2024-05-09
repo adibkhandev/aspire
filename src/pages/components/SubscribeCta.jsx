@@ -7,26 +7,20 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
     const [justNow,setJustNow]=useState(false)
     console.log(courseId,'ids')
     useEffect(()=>{
-      const subscribedTo = user ? (user.subscribedCourses.map(course=>{
-          return course._id
-      })):null
-      console.log(subscribedTo,'const')
-      console.log(user.subscribedCourses,'asee')
-        if(courseId) {
-          console.log(subscribedTo.includes(courseId),'tooo')
-          if(subscribedTo){
-            if(subscribedTo.includes(courseId)){
-                  setSubscribedState(true)
-                  console.log('turning true')
-              }
-              else{
-                  setSubscribedState(false)
-                  console.log('turning false')
-              }
-          }
-        }
-    },[courseId,subscribedState,justNow])
-
+      if(courseId && user.subscribedCourses) {
+        checkSubscribeState(user.subscribedCourses)
+      }
+    },[user,courseId])
+  const checkSubscribeState = (subscribeArray) => {
+      if(subscribeArray.includes(courseId)){
+        setSubscribedState(true)
+        console.log('turning true')
+      }
+      else{
+          setSubscribedState(false)
+          console.log('turning false')
+      }
+  }
     const subscribe = () => {
         const data = {
             courseId:courseId

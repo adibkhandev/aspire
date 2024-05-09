@@ -2,3 +2,35 @@
     position: fixed;
     bottom: 0;
 }
+
+//swiper
+.swiper{
+    overflow-x: hidden;
+    overflow-y: visible !important;
+    // .swiper-slide {
+    //     padding-bottom: 50px;
+    //   }
+    padding: 50px !important;
+    margin: -50px !important;
+}
+
+
+//toast delete
+.toast-cont{
+    bottom: 0%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    .toast{
+       width: 80%;
+       max-width: 46em;
+    }
+ }
+ .toast{
+   width: 80%;
+   max-width:46em;
+   margin-bottom: 2em;
+   z-index: 3;
+ }
