@@ -14,24 +14,7 @@
   overflow: hidden;
   
 }
-.toast-cont{
-   bottom: 0%;
-   position: absolute;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100vw;
-   .toast{
-      width: 80%;
-      max-width: 46em;
-   }
-}
-.toast{
-  width: 80%;
-  max-width:46em;
-  margin-bottom: 2em;
-  z-index: 3;
-}
+
 .stepCont{
     position: absolute;
     top: 0;

@@ -8,7 +8,7 @@ import {motion , useScroll , useMotionValueEvent} from 'framer-motion'
 import { jwtDecode } from "jwt-decode";
 import ReactPlayer from 'react-player'
 import axios from 'axios'
-const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitiated,setDeletePrompt}) => {
+const Player = ({course,setCourse,setPopupOpen, setDeletePrompt ,deleteMode,setDeleteMode,setHeight,popupRef,deleteInitiated,isShort}) => {
     const [adding,setAdding]=useState(false)
     const [activeVideo,setActiveVideo] = useState(null)
     const containerRef = useRef(null)
@@ -71,7 +71,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                 
 //vid
     
-  return (
+ if(course && course._id)  return (
     <motion.div  
     onClick={(e)=>{
         e.stopPropagation()
@@ -149,7 +149,7 @@ const Player = ({course,setCourse,setPopupOpen,deleteMode,setDeleteMode,setHeigh
                 <h1 className="description">
                    {activeVideo?activeVideo.description:course.description}
                 </h1>
-                <SubscribeCta courseId={course._id} subscribedState={subscribedState} setSubscribedState={setSubscribedState} ></SubscribeCta>
+                <SubscribeCta isShort={isShort} courseId={course._id} subscribedState={subscribedState} setSubscribedState={setSubscribedState} ></SubscribeCta>
         </div>
         <div className="total-cont">
             <div ref={containerRef} className="topper-cont">

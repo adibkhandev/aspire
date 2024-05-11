@@ -1,30 +1,35 @@
 import React , {useEffect , useState , useRef} from 'react'
 import axios from 'axios';
 import { motion } from 'framer-motion';
-const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemove,courseId}) => {
+const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemove,courseId,isShort}) => {
     const token = localStorage.getItem('accessToken');
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [justNow,setJustNow]=useState(false)
     console.log(courseId,'ids')
+    const checkSubscribeState = (subscribeArray) => {
+      console.log('runs')
+        if(subscribeArray.includes(courseId)){
+          setSubscribedState(true)
+          console.log('turning true')
+        }
+        else{
+            setSubscribedState(false)
+            console.log('turning false')
+        }
+    }
+    // console.log(courseId,'idddd')
     useEffect(()=>{
-      if(courseId && user.subscribedCourses) {
+      const userDirect = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null
+      console.log(userDirect,'direct')
+      if(courseId && userDirect && userDirect.subscribedCourses) {
         const subscribedTo = user.subscribedCourses.map(course=>{
-          return course
+          if(isShort && course._id) return course._id
+          else return course
         })
-        console.log(subscribedTo,'to')
+        console.log(subscribedTo,'to',isShort)
         checkSubscribeState(subscribedTo)
       }
     },[user,courseId])
-  const checkSubscribeState = (subscribeArray) => {
-      if(subscribeArray.includes(courseId)){
-        setSubscribedState(true)
-        console.log('turning true')
-      }
-      else{
-          setSubscribedState(false)
-          console.log('turning false')
-      }
-  }
     const subscribe = () => {
         const data = {
             courseId:courseId

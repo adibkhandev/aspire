@@ -321,6 +321,7 @@ const Videos = ({thumbnails,uploadedCourses,setCourseAcitve,setPopupOpen}) => {
                   return (
                     <div className="videoCont">
                         <img draggable="false" onClick={()=>{
+                            console.log(course,'non-popu')
                             setCourseAcitve(course)
                             setPopupOpen(true)
                          }} src={import.meta.env.VITE_API_URL+course.coverPhotoLink} alt="" />

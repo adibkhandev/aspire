@@ -67,7 +67,7 @@ const Popup = ({course,deleteMode,setDeleteMode,setCourse,popupOpen,setPopupOpen
     >
         {
             course?(
-               <Player setPopupOpen={setPopupOpen} deleteMode={deleteMode} setDeleteMode={setDeleteMode}  deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} popupOpen={popupOpen} course={course} setCourse={setCourse} popupRef={popupRef} setHeight={setHeight}/>
+               <Player setPopupOpen={setPopupOpen} deleteMode={deleteMode} setDeleteMode={setDeleteMode}  deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} popupOpen={popupOpen} course={course} isShort={true} setCourse={setCourse} popupRef={popupRef} setHeight={setHeight}/>
             ):''
         }
        

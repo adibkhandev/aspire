@@ -8,6 +8,8 @@ const Course = () => {
     let {courseId} = useParams()
     const navigate = useNavigate()
     const token = localStorage.getItem('accessToken')
+    let [deletePrompt,setDeletePrompt] = useState(false)
+    let [deleteInitiated,setDeleteInitiated] = useState(false)
 useEffect(()=>{
     const url = import.meta.env.VITE_API_URL + '/video/get/' + courseId
     console.log(localStorage.getItem('accessToken'),'a')
@@ -22,7 +24,7 @@ useEffect(()=>{
      }
             axios.get(url,headers)
             .then((response)=>{
-                console.log(response.data,'course data')
+                console.log(response.data.populatedCourse,'course popu')
                 setCourse(response.data.populatedCourse)
                 localStorage.setItem('userData',JSON.stringify(response.data.user))
             })
@@ -33,7 +35,13 @@ useEffect(()=>{
   return (
     <div className='course-cont'>
       <Nav></Nav>
-       {course? <Player course={course} />:''}
+       {course? 
+        <Player 
+         course={course} 
+         deleteInitiated={deleteInitiated} 
+         setDeletePrompt={setDeletePrompt}
+        />:''}
+          
     </div>
   )
 }
