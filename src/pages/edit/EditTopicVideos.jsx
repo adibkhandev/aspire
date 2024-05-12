@@ -9,7 +9,7 @@ import axios from 'axios'
 import {useNavigate} from 'react-router'
 import { Link } from "react-router-dom"
 import MotionCta from './../components/MotionCta'
-  const EditTopicVideos = ({setDeletePrompt,deleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep,setError}) => {
+  const EditTopicVideos = ({scrollerContRef,setDeletePrompt,deleteInitiated,setPopupOpen,setTopicTitleChanged,selectedTopic,setSelectedTopic,topics,courseId,setStep,setError}) => {
     const token = localStorage.getItem('accessToken')
     const [outClick,setOutClick] = useState(true)
     
@@ -46,25 +46,27 @@ import MotionCta from './../components/MotionCta'
   } 
     
      return(
-        <div onClick={e=>{
-            e.stopPropagation()
-            if(!outClick){
-               setOutClick(true)
-               console.log(outClick,'out')
-            }}} className="edit-topic-cont">
-                 
-               
-                  {topics && topics.map((topic)=><Topic setTopicDeleteId={setTopicDeleteId} setError={setError} setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
+        <div className="edit-holder">
+            <div onClick={e=>{
+                e.stopPropagation()
+                if(!outClick){
+                setOutClick(true)
+                console.log(outClick,'out')
+                }}} className="edit-topic-cont">
+                    //add nav when here and scrolled
+                
+                    {topics && topics.map((topic)=><Topic setTopicDeleteId={setTopicDeleteId} setError={setError} setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
 
-               <div className="handy-btns">
-                <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
-                    setStep(1)
-                }} className="secondary-btn">
-                    Go back
-                </motion.div>
-                <MotionCta submit={true} changesMade={true} text={'Continue'}></MotionCta>
-               </div>
-         </div>
+                <div className="handy-btns">
+                    <motion.div  whileTap={{ scale: 0.98 }} onClick={()=>{
+                        setStep(1)
+                    }} className="secondary-btn">
+                        Go back
+                    </motion.div>
+                    <MotionCta submit={true} changesMade={true} text={'Continue'}></MotionCta>
+                </div>
+            </div>
+        </div>
      )
   }
 

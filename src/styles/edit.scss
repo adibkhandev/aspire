@@ -152,6 +152,11 @@
         position: initial !important;
     }
 }
+.edit-holder{
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+}
 .edit-topic-cont{
     padding-top: 5rem;
     padding-inline: 1.6rem;

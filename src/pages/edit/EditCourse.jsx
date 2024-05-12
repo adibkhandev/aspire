@@ -1,5 +1,5 @@
 import { jwtDecode } from 'jwt-decode'
-import React, { useEffect , useState } from 'react'
+import React, { useEffect , useState , useRef} from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import EditFirstStep from './EditFirstStep'
@@ -89,7 +89,6 @@ const EditCourse = () => {
       }
     }
     const [popupOpen,setPopupOpen] = useState(false)
-
     // console.log(skills,'skdsdksdsaldadasda',course.skills)  
     return (
     <div
