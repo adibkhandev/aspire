@@ -60,7 +60,6 @@ export const Account = () => {
     const scrollerRef = useRef(null)
     return (
         <div className='home-container'>
-            
             <LandingNav homeVariants={homeVariants} popupOpen={popupOpen} direction={direction}></LandingNav>
             <Delete deleteMode={deleteMode} setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
             <Popup deleteMode={deleteMode} setDeleteMode={setDeleteMode} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
@@ -74,70 +73,74 @@ export const Account = () => {
                 <div className="account-container" onClick={()=>{if(popupOpen){setPopupOpen(false)}}} >
                     <div className="details-container">
                         <div className="details">
-                            <div className="pfp-cont">
-                                {
-                                    userData?(
-                                        <img draggable="false" className='pfpImage' src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
-                                    ):(
-                                        <Skeleton
-                                         sx={{ bgcolor: '#2B2B2B' }}
-                                         className='pfpImage' variant='circlar' animation="wave"/>
-                                    )
-                                }
-                               
+                            <div className="first-half">
+                                <div className="pfp-cont">
+                                    {
+                                        userData?(
+                                            <img draggable="false" className='pfpImage' src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
+                                        ):(
+                                            <Skeleton
+                                            sx={{ bgcolor: '#2B2B2B' }}
+                                            className='pfpImage' variant='circlar' animation="wave"/>
+                                        )
+                                    }
+                                
+                                </div>
                             </div>
-                            <div className="text-cont">
-                                {
-                                    userData?(
-                                        <>
-                                        {
-                                            userData.username?(
-                                                <h1 className="username">
-                                                    {userData.username}
-                                                </h1>
-
-                                            ):''
-                                        }
-                                        <div className="fields">
-                                            {(userData.skills)?(
-                                                userData.skills.map((skill)=>{
-                                                    return <div className="field">{skill}</div>
-                                                })
-                                            ):(
-                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field' />
-                                            )}
-                                        </div>
-                                        {
-                                            (userData)?(
-                                                (decoded && decoded._id==userData.id)?(
-                                                    <Link to={`/${decoded._id}/edit`}>
-                                                    <motion.div
-                                                            whileTap={{scale:0.9}} 
-                                                            className="edit-btn-cont">
-                                                            <div className="edit-btn">
-                                                                Edit profile
-                                                            </div>
-                                                       
-                                                          </motion.div>
-                                                    </Link>
+                            <div className="second-half">
+                                <div className="text-cont">
+                                    {
+                                        userData?(
+                                            <>
+                                            {
+                                                userData.username?(
+                                                    <h1 className="username">
+                                                        {userData.username}
+                                                    </h1>
 
                                                 ):''
-                                            ):(
-                                               <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
-                                            )
-                                        }
-                                        </>
-                                         
-                                    ):(
-                                        <>
-                                            <Skeleton animation="wave"  sx={{ bgcolor: '#2B2B2B' , border:'none' }} className='empty-field-username' width={'70%'} />
+                                            }
                                             <div className="fields">
-                                               <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field' />
-                                               <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
+                                                {(userData.skills)?(
+                                                    userData.skills.map((skill)=>{
+                                                        return <div className="field">{skill}</div>
+                                                    })
+                                                ):(
+                                                    <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field' />
+                                                )}
                                             </div>
-                                        </>
-                                    )
-                                }
+                                            {
+                                                (userData)?(
+                                                    (decoded && decoded._id==userData.id)?(
+                                                        <Link to={`/${decoded._id}/edit`}>
+                                                        <motion.div
+                                                                whileTap={{scale:0.9}} 
+                                                                className="edit-btn-cont">
+                                                                <div className="edit-btn">
+                                                                    Edit profile
+                                                                </div>
+                                                        
+                                                            </motion.div>
+                                                        </Link>
+
+                                                    ):''
+                                                ):(
+                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
+                                                )
+                                            }
+                                            </>
+                                            
+                                        ):(
+                                            <>
+                                                <Skeleton animation="wave"  sx={{ bgcolor: '#2B2B2B' , border:'none' }} className='empty-field-username' width={'70%'} />
+                                                <div className="fields">
+                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field' />
+                                                <Skeleton variant='rectengular' animation="wave" sx={{ bgcolor: '#2B2B2B' }} className='empty-field-btn' />
+                                                </div>
+                                            </>
+                                        )
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

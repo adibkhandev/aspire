@@ -36,6 +36,7 @@ body{
     }
     padding: 3em 0;
     .details{
+        font-size: inherit;
         width: 100%;
         // height: 4.6em;
         display: flex;
@@ -62,14 +63,27 @@ body{
         //     transform: scale(0.8);
         //     margin-left: 6%;
         // }
+        .first-half , .second-half{
+            width: 50%;
+            display: flex;
+            align-items: center;
+        }
+        .first-half{
+            justify-content: flex-end;
+        }
+        .second-half{
+            justify-content: flex-start;
+        }
+        
         
         .pfp-cont{
             border-radius: 12000px;
             overflow: hidden;
             font-size: 1em;
             height: max-content;
+            margin-right: 1.4em;
             aspect-ratio: 1/1;
-            width: 7em;
+            width: 6.7em;
             .pfpImage{
                 width: 100%;
                 height: 100%;
@@ -80,7 +94,6 @@ body{
             font-size: 2em;
             // width: 46%;
             // min-width: 10rem;
-            margin-left: 0.6em;
             // margin-top: -0.1em;
             height: 100%;
             display: flex;
@@ -107,17 +120,31 @@ body{
                 display: flex;
                 flex-wrap: wrap;
                 width: 100%;
-                max-width: 45vw;
+                font-size: 0.2em;
+                max-width: 26em;
+                @media (width<1000px) {
+                    max-width: 24em;
+                }
+                @media (width<800px) {
+                    max-width: 20em;
+                }
+                @media (width<467px) {
+                    max-width: 24em;
+                }
+                @media (width<320px) {
+                    max-width: 20em;
+                }
+                
                 
                 margin-bottom: 0.4em;
                 .field{
+                    font-size: inherit;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-size: 0.9em;
                     padding: 0.4em 2.2em;
-                    border-radius: 6px;
-                    border: 1px solid #3A3A3A;
+                    border-radius: 0.4em;
+                    border: 0.9px solid #3A3A3A;
                     margin-right: 0.5em;
                     margin-bottom: 0.5em;
                     box-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(255, 255, 255, 0.05) inset;
