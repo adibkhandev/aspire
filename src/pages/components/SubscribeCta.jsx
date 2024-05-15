@@ -90,8 +90,12 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
           console.log(err)
        })
     }
+    console.log('ashe')
   return (
     <motion.div
+      onClick={()=>{
+         console.log('clicks')
+      }}
       className="subscription">
         <svg   viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <motion.path  
@@ -104,6 +108,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
         </svg>
         <h1
           onClick={()=>{
+            console.log('clicks')
             if(subscribedState){
               unsubscribe()
             }
@@ -130,7 +135,7 @@ export const DelayedSubscribeCta = ({subscribedState,setSubscribedState,setSubsc
   const unsubscribe = () => {
     const data = {
       courseId:courseId
-  }
+    }
   const headers = {
       headers:{
           'Authorization':'Bearer ' + token,
@@ -140,6 +145,7 @@ export const DelayedSubscribeCta = ({subscribedState,setSubscribedState,setSubsc
       }
     }
     const url =  import.meta.env.VITE_API_URL +  `/user/unsubscribe` 
+    console.log('sending data',data)
     axios.post(url,data,headers)
     .then((response)=>{
         console.log(response.data.user,'unssubbss')

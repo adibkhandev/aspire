@@ -94,7 +94,7 @@ const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideos}) => 
       let url = `${import.meta.env.VITE_API_URL}/video/get/${subscribe}/compress`
       axios.get(url)
           .then(res=>{
-              console.log(res,'card-data')
+              console.log(res.data.data,'card-data')
               setCardData(res.data.data)
               // if(res.data.data) setValidVideos(()=>validVideos+1)
           })
