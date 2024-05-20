@@ -1,87 +1,87 @@
-@keyframes loader-bottom-slide {
-    to{
-        transform: translateY(150vw);
-    }
-}
-@keyframes loader-top-slide {
-    to{
-        transform: translateY(-150vw);
-    }
-}
-@keyframes go-left {
-    to{
-        transform: translateX(-80vw);
-    }
-}
-@keyframes go-right {
-    to{
-        transform: translateX(90vw);
-    }
-}
-@keyframes pulse-effect{
-    0%{
-        opacity: 0.4;
-    }
-    50%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0.4;
-    }
-}
-@keyframes mover{
-    0%{
-        height: 50%;
-    }
-    5%{
-        height: 50%;
-    }
+// @keyframes loader-bottom-slide {
+//     to{
+//         transform: translateY(150vw);
+//     }
+// }
+// @keyframes loader-top-slide {
+//     to{
+//         transform: translateY(-150vw);
+//     }
+// }
+// @keyframes go-left {
+//     to{
+//         transform: translateX(-80vw);
+//     }
+// }
+// @keyframes go-right {
+//     to{
+//         transform: translateX(90vw);
+//     }
+// }
+// @keyframes pulse-effect{
+//     0%{
+//         opacity: 0.4;
+//     }
+//     50%{
+//         opacity: 1;
+//     }
+//     100%{
+//         opacity: 0.4;
+//     }
+// }
+// @keyframes mover{
+//     0%{
+//         height: 50%;
+//     }
+//     5%{
+//         height: 50%;
+//     }
 
-  20%{
-    height: 30%;
-  }
-  25%{
-    height: 30%;
-  }
-  45%{
-    height: 50%;
-  }
+//   20%{
+//     height: 30%;
+//   }
+//   25%{
+//     height: 30%;
+//   }
+//   45%{
+//     height: 50%;
+//   }
 
-    50%{
-        height: 50%;
-    }
-  55%{
-    height: 50%;
-  }
-  70%{
-        height: 60%;
-  }
-  85%{
-    height: 60%;
-  }
-    95%{
-        height: 50%;
-    }
-    100%{
-        height: 50%;
-    }
-}
-.mover{
-    animation: mover 15s ease-in-out infinite forwards ;
-    animation-delay: 2s;
-}
-.pulse{
-    animation: pulse-effect 2s ease-in-out infinite forwards;
-}
-.goRight{
-    animation:go-right  1.8s ease-out forwards;
-}
-.goLeft{
-    animation: go-left 1.8s ease-out forwards;
-}
-.bottomSlide{
-    animation: loader-bottom-slide 1s ease-out 2s forwards;
-}
-.topSlide{
-    animation: loader-top-slide 1s ease-out 2s forwards;
-}
+//     50%{
+//         height: 50%;
+//     }
+//   55%{
+//     height: 50%;
+//   }
+//   70%{
+//         height: 60%;
+//   }
+//   85%{
+//     height: 60%;
+//   }
+//     95%{
+//         height: 50%;
+//     }
+//     100%{
+//         height: 50%;
+//     }
+// }
+// .mover{
+//     animation: mover 15s ease-in-out infinite forwards ;
+//     animation-delay: 2s;
+// }
+// .pulse{
+//     animation: pulse-effect 2s ease-in-out infinite forwards;
+// }
+// .goRight{
+//     animation:go-right  1.8s ease-out forwards;
+// }
+// .goLeft{
+//     animation: go-left 1.8s ease-out forwards;
+// }
+// .bottomSlide{
+//     animation: loader-bottom-slide 1s ease-in 2s forwards;
+// }
+// .topSlide{
+//     animation: loader-top-slide 1s ease-in 2s forwards;
+// }
