@@ -7,9 +7,9 @@ export const Loader = ({children,userType,setUserType}) => {
         <>
             <div className="loader-cont">
               <motion.div 
-                initial={{height:'20%'}}
-                animate={!userType?{height:['20%','75%','20%']}:{y:'-150vh'}} 
-                transition={!userType?{duration:6,repeat:Infinity,repeatType:'loop'}:{duration:escapeTime,delay:0.6}}
+                initial={{height:'25%'}}
+                animate={!userType?{height:['25%','70%','25%']}:{y:'-150vh'}} 
+                transition={!userType?{duration:6,repeat:Infinity,repeatType:'loop'}:{duration:0.1,delay:0.6}}
                 onClick={()=>{
                     setUserType('teacher')
                 }
@@ -23,9 +23,20 @@ export const Loader = ({children,userType,setUserType}) => {
                             your mode
                         </motion.h1>
                     </div>
-                    <div className={`tap-info ${!userType?'pulse':'vanish'}`}>
+                    <motion.div
+                      initial={{opacity:0.5}}
+                      animate={!userType?{
+                           opacity:1
+                      }:{}} 
+                      transition={!userType?{
+                           delay:0.6,
+                           duration:0.6,
+                           repeat:Infinity,
+                           repeatType:'mirror'
+                      }:{}} 
+                      className={`tap-info ${!userType?'pulse':'vanish'}`}>
                        Tap here if you are a teacher
-                    </div>
+                    </motion.div>
                 </motion.div>
 
 
@@ -36,16 +47,25 @@ export const Loader = ({children,userType,setUserType}) => {
                 <motion.div 
                 //    animate={value?{height:`${100-value}%`}:{height:auto}} 
                 animate={!userType?{y:0}:{y:'100vh'}}
-                transition={{duration:escapeTime,delay:0.6}}
+                transition={{duration:0.1,delay:0.6}}
                   onClick={()=>{
                      setUserType('student')
                    }
                  } 
-                 className={!userType?"student-cont bottomSlide":"student-cont"}>
-                    <div 
+                 className={"student-cont"}>
+                    <motion.div
+                       initial={{opacity:0.5}}
+                       animate={!userType?{
+                            opacity:1
+                       }:{}} 
+                       transition={!userType?{
+                            duration:0.6,
+                            repeat:Infinity,
+                            repeatType:'mirror'
+                       }:{}}
                        className={`tap-info ${!userType?'pulse':'vanish'}`}>
                        Tap here if you are a student
-                    </div>
+                    </motion.div>
                 </motion.div>
             </div>
         </>
