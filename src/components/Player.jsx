@@ -24,7 +24,9 @@ const Player = ({course,setCourse,setPopupOpen, setDeletePrompt ,deleteMode,setD
             setHeight(popupRef.current.clientHeight);
         }
     });
-    
+    useEffect(()=>{
+       console.log(subscribedState,'changing subs to')
+    },[subscribedState])
    useEffect(()=>{
        if(deleteCourse && deleteInitiated) deleteHandler()
    },[deleteInitiated])

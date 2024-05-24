@@ -29,7 +29,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
         console.log(subscribedTo,'to',isShort)
         checkSubscribeState(subscribedTo)
       }
-    },[user,courseId])
+    },[courseId])
     const subscribe = () => {
         const data = {
             courseId:courseId
