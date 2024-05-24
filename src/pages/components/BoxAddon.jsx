@@ -5,7 +5,7 @@ import { TextField , Popper } from '@mui/material';
 import {Chip} from '@mui/material';
 import { StyledEngineProvider } from '@mui/material/styles';
 
-export const BoxAddon = ({skills,num,setError,setSkills,defaultSkills}) => {
+export const BoxAddon = ({ref,skills,num,setError,setSkills,defaultSkills}) => {
 const list = ['Physics','Chemistry','Hoe','Music','Dance','Acting','Art','Finance']
 let [open,setOpen] = useState(true)
 const [outtaLimit,setOuttaLimit]=useState(()=>{ return false
@@ -13,7 +13,7 @@ const [outtaLimit,setOuttaLimit]=useState(()=>{ return false
 useEffect(()=>{
    console.log(outtaLimit,'limit')
 },[outtaLimit])
-let inputRef = useRef(null)
+let inputFieldRef = useRef(null)
 let muiInputRef = useRef(null)
 return (
      <StyledEngineProvider injectFirst>
@@ -25,21 +25,24 @@ return (
            value={skills}
            blurOnSelect={true}
            PopperComponent={(props) => (
-             <Popper  style={{marginTop:'1000px'}} id='popper' {...props} />
+             !outtaLimit? <Popper  style={{marginTop:'1000px'}} id='popper' {...props} />:''
            )}
            getOptionLabel={(option) => option}
            onChange={(e,value)=>{
              console.log(value,'value')
-             if(value.length>6){
+             if(value.length>5){
                  setOuttaLimit(true)
                  setError('Max number of interests reached')
              }
-             if(value<1){
+             if(value.length<1){
               setOuttaLimit(true)
               setError('Minimum number of interests reached')
              }
-             if(6<value<1){
+             if(value.length<5 || value.length>1){
                  setSkills(value)
+             }
+             if(value.length<5){
+                setOuttaLimit(false)
              }
            }}
            
@@ -55,7 +58,18 @@ return (
             ))}
             ref={muiInputRef}
             renderInput={(params) => (
-              <TextField ref={inputRef} sx={{outline:'none',padding:'0'}} placeholder='Search for skills'{...params}  />
+               <TextField 
+               onClick={()=>{
+                 setError('Max number of interests reached')
+               }}
+               onKeyDown={e=>{
+                  console.log(e,'e')
+                  if(outtaLimit){
+                     e.preventDefault()
+                     setError('Max number of interests reached')
+                     inputFieldRef.current.blur()
+                  }
+               }}  sx={{outline:'none',padding:'0'}} inputRef={inputFieldRef} placeholder='Search for skills'{...params}  /> 
             )}
             sx={
               {

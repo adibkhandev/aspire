@@ -110,6 +110,7 @@ const EditProfile = () => {
 
     ////
   const [mode,setMode] = useState('edit')
+  const titleRef = useRef(null)
   return (
     <div className="edit">
     <Nav></Nav>
@@ -126,10 +127,10 @@ const EditProfile = () => {
               <Image setRemovePfp={setRemovePfp} popupthere={popupthere} setPopupthere={setPopupthere} existing={user.pfp} file={imageFile} input={clickRef}></Image>
               <input className='hidden' onChange={(e)=>imageHandler(e)} ref={clickRef} type="file" name="profile" id="" />
               <div className="data">
-                  <div className="title">
+                  <div ref={titleRef} className="title">
                       Skills
                   </div>
-              <BoxAddon skills={skills} setSkills={setSkills} setError={setError} num={5}></BoxAddon>
+              <BoxAddon ref={titleRef} skills={skills} setSkills={setSkills} setError={setError} num={5}></BoxAddon>
               <div className="lock-cont">
                 <div className="icon-cont">
                   <img onClick={()=>{
