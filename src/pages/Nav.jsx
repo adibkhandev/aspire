@@ -14,7 +14,7 @@ import { Drawer } from '@mui/material';
 import { Link , useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { motion , useMotionValueEvent, useScroll , useTransform} from 'framer-motion'
-export const Nav = ({}) => {
+export const Nav = ({setError}) => {
   const lastscrollY = useRef(0)
   const [direction,setDirection] = useState(null)
   const {scrollY} = useScroll();
@@ -55,8 +55,8 @@ export const Nav = ({}) => {
 
             <img onClick={()=>{
                 console.log('clcik')
-                setDrawerOpen(true)
-                
+                if(token) setDrawerOpen(true)
+                else setError('Signup to experience all features')
             }} className='ham' src={hamburger} alt="" />
 
           </motion.div>

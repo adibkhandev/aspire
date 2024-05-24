@@ -19,7 +19,7 @@ export const Login = () => {
         <>
             <Loader userType={userType} setUserType={setUserType}>
                 <div className="login-container">
-                    <Nav></Nav>
+                    <Nav setError={setError}></Nav>
                     <div style={mode=='signup'?{left:'0'}:{left:'-100vw'}} className="content">
                         <Signup setError={setError} setMode={setMode} userType={userType}></Signup>
                         <Signin setError={setError} setMode={setMode} userType={userType}></Signin>
