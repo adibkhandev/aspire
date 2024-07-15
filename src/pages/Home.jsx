@@ -1,10 +1,11 @@
-import React ,{useContext, useEffect} from 'react'
+import React ,{useContext, useEffect, useState} from 'react'
 import {jwtDecode} from 'jwt-decode'
 import { useNavigate } from 'react-router'
 import { Context } from './login/AuthContext'
 import { Nav } from './Nav'
 export const Home = () => {
     const {token,refreshToken} = useContext(Context)
+    
     const navigate = useNavigate()
     useEffect(()=>{
          if(token.accessToken && token.refreshToken) {
@@ -21,10 +22,11 @@ export const Home = () => {
     },[])
     return (
         <>
-        <div className="home">
-           <Nav></Nav>
-
-        </div>
+        
+              <div className="home">
+                 <Nav></Nav>
+      
+              </div>
         </>
     )
 }

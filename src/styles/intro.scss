@@ -1,0 +1,81 @@
+.center{
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    // &::before{
+    //     content: '';
+    //     position: absolute;
+    //     left: -5px;
+    //     top: 0;
+    //     width: 10px;
+    //     height: 10px;
+    //     background-color: blue;
+    // }
+}
+.rest{
+    font-family: "Krona One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #CACACA;
+    z-index: -2;
+}
+.star{
+    position: relative;
+    background-color: #252525;
+}
+.star , rest{
+    font-family: "Krona One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #CACACA;
+  }
+  .intro-frame{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .origin{
+        width: 1px;
+        height: 1px;
+        position: relative;
+        // animation: rotator 2s linear  infinite ;
+        // @keyframes rotator {
+        //     100%{
+        //         transform-origin: center;
+        //         transform: rotate(360deg);
+        //     }
+          
+        // }
+        .star{
+            
+        }
+        .orbit-container{
+            position: absolute;
+            top: 0;
+            width: 1px;
+            height: 1px;
+            display: flex;
+            justify-content: center;
+            // animation: rotator 2s linear  infinite ;
+            // @keyframes rotator {
+            //     100%{
+            //         transform-origin: center;
+            //         transform: rotate(360deg);
+            //     }
+              
+            // }
+        }
+        
+    }
+    .freedom{
+        font-family: Gilroy-Thin;
+        color: #FFFFFF;
+        font-size: 1.6em;
+        line-height: 1;
+       
+    }
+  }
+  .rest{
+    
+  }
