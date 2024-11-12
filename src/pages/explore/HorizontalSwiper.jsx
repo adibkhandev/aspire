@@ -4,6 +4,7 @@ import 'swiper/css';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import smallPlay from './../../assets/images/small-play.svg'
+import emptyPfp from './../../assets/images/empty_pfp2.svg'
 import {Skeleton} from '@mui/material'
 export const HorizontalSwiper = ({skill}) => {
     const [courses,setCourses] = useState()
@@ -214,33 +215,35 @@ export const SpecificHorizontalSwiper = ({attribute,token,skill}) => {
 export const CoursePack = ({info}) =>{
     console.log(info,'innnn')
         return(
-            <div className="course-pack-cont">
-                <div className="author">
-                    <div className="pfp">
-                        <img src={import.meta.env.VITE_API_URL + info.uploaderPicture} alt="" />
-                    </div>
-                    <div className="texts">
-                        <Link to={`/${info.uploaderName}`}>
-                            <div className="username">{info.uploaderName}</div>
-                            <div className="view">View profile</div>
-                       </Link>
-                    </div>
-                </div>
                 <Link to={`/course/${info.courseId}`}>
-                    <div className="cover-image">
-                        <img src={import.meta.env.VITE_API_URL + info.cover} alt="" />
-                    </div>
-                    <div className="specs">
-                        <div className="name">{info.courseName}</div>
-                        <div className="videoCount">
-                            <div className="num">
-                            {info.videos}
+                    <div className="course-pack-cont">
+                        <div className="author">
+                            <Link to={`/profile/${info.uploaderName}`}>
+                            <div className="pfp">
+                                <img src={info.uploaderPicture?import.meta.env.VITE_API_URL + info.uploaderPicture:emptyPfp} alt="" />
                             </div>
-                            <img src={smallPlay} alt="" />
+                            </Link>
+                            <div className="texts">
+                                <Link to={`/profile/${info.uploaderName}`}>
+                                    <div className="username">{info.uploaderName}</div>
+                                    <div className="view">View profile</div>
+                            </Link>
+                            </div>
                         </div>
+                            <div className="cover-image">
+                                <img src={import.meta.env.VITE_API_URL + info.cover} alt="" />
+                            </div>
+                            <div className="specs">
+                                <div className="name">{info.courseName}</div>
+                                <div className="videoCount">
+                                    <div className="num">
+                                      {info.videos}
+                                    </div>
+                                    <img src={smallPlay} alt="" />
+                                </div>
+                            </div>
                     </div>
                 </Link>
-            </div>
         )
 
 }

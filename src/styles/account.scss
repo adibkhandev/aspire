@@ -1,3 +1,4 @@
+$border-color:#272727;
 body{
     margin: 0;
 }
@@ -20,8 +21,8 @@ body{
 .account-container{
     scroll-behavior: smooth;
     width: 100%;
-    overflow-y: scroll;
-    min-height: 100vh;
+    // overflow-y: scroll;
+    // min-height: 100vh;
     position: relative;
     
 }
@@ -194,17 +195,19 @@ body{
     .video-grids{
         width: 100%;
         height: auto;
-        overflow-x: hidden;
-        
+        overflow: hidden;
         .playlists{
             width: 100%;
-            height: 100%;
+            // height: 100%;
+            height: auto;
+            height: min-content;
             display: flex;
             flex-shrink: 0;
             transition: margin 1s linear;
             .grid{
                 width: 100%;
-                min-height: 100%;
+                // min-height: 100%;
+                height: fit-content;
                 display: flex;
                 justify-content: center;
                 align-items: flex-start;
@@ -307,9 +310,7 @@ body{
    grid-template-columns: repeat(3,1fr);
 //    grid-gap:0.2px;
    grid-auto-rows: max-content;
-   $border-color:#272727;
    .videoCont{
-    position: relative;
        &:nth-child(3n-2){
         border-right: 1px $border-color solid;
         border-bottom: 1px $border-color solid;
@@ -323,10 +324,14 @@ body{
         border-left: 1px $border-color solid;
         border-bottom: 1px $border-color solid;
        }
+   }
+   .videoCont , .skull{
+    position: relative;
+    cursor: pointer;
        width: 100%;
        height: auto;
        aspect-ratio: 9/16 ;
-       background-color: #2e2e2e;
+      
        
        img{
         width: 100%;
@@ -385,7 +390,7 @@ body{
 
 
 .delete-screen{
-    position: absolute;
+    position: fixed;
     z-index: -1;
     top: 0;
     height: 100vh;
@@ -442,3 +447,19 @@ body{
     }
 }
 
+.skeleton-post{
+    background-color: #363636;
+       :nth-child(3n-2){
+        border-right: 0.19em $border-color solid;
+        border-bottom: 0.19em $border-color solid;
+       }
+       :nth-child(3n-1){
+        // border-right: 1px #616161 solid;
+        // border-left: 1px #616161 solid;
+        border-bottom: 0.19em $border-color solid;
+       }
+       :nth-child(3n){
+        border-left: 0.19em $border-color solid;
+        border-bottom: 0.19em $border-color solid;
+       }
+}

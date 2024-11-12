@@ -39,8 +39,15 @@
         // background-color: blue;
         // min-width: 300px;
         width: 36vw !important;
-        @media (width<650px) {
-            width: 60vw !important;
+        @media (width<1100px) {
+            width: 45vw !important;
+        }
+
+        @media (width<550px) {
+            width: 45vw !important;
+        }
+        @media (width<400px) {
+            width: 55vw !important;
         }
         max-width: 400px;
         .nav-cont{
@@ -60,20 +67,24 @@
 
         }
         .options{
-            padding-left: 1rem;
-            padding-top: 0.4rem;
-            font-size: 2vw;
+            padding-left: 0.9em;
+            padding-top: 0.1em;
+            // font-size: 2vw;
+            font-size: clamp(1rem,4vw,2rem);
+            @media (width<1100px) {
+                font-size: clamp(1.4rem,4.2vw,2rem);
+            }
+            @media (width<550px) {
+                font-size: clamp(1.1rem,4vw,2.2rem);
+            }
             
             .option{
                 display: flex;
                 align-items: center;
                 width: 100%;
-                font-size: clamp(1rem,3vw,1.1rem);
-                @media (width>800px) {
-                    font-size: clamp(1.1rem,1.7vw,2rem);
-                }
                 height: 3em;
                 position: relative;
+                font-size: inherit;
                 h1{
                     color: #A1A1A1;
                     font-family: Raleway;

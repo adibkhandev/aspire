@@ -165,6 +165,8 @@ const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideos}) => 
        }
     },[hidden,undo])
     if(cardData) return(
+      // <Link to={`/course/${cardData.courseId}`}>
+      
       <motion.div
        ref={scope}
        className="card-container">
@@ -198,7 +200,7 @@ const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideos}) => 
                             <img src={import.meta.env.VITE_API_URL + cardData.uploaderPicture} alt="" />
                         </div>
                         <div className="author-name">
-                            {cardData.courseId}
+                            {cardData.courseName}
                         </div>
                        
                     </div>
@@ -219,6 +221,7 @@ const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideos}) => 
           </AnimatePresence>
               
       </motion.div>
+      //</Link>
     )
 } 
 

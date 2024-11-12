@@ -4,6 +4,7 @@ import { easeIn, motion , useDragControls , useMotionValueEvent , useScroll} fro
 import { Nav , LandingNav } from './../Nav'
 import earth from './../../assets/images/earth.svg'
 import squarePlay from './../../assets/images/square-play.svg'
+import emptyPfp from './../../assets/images/empty_pfp.svg'
 import axios from 'axios'
 import Popup from './Popup'
 import { Link } from "react-router-dom";
@@ -59,7 +60,7 @@ export const Account = () => {
     }
     const scrollerRef = useRef(null)
     return (
-        <div className='home-container'>
+        <div  onClick={()=>{if(popupOpen){setPopupOpen(false)}}} className='home-container'>
             <LandingNav homeVariants={homeVariants} popupOpen={popupOpen} direction={direction}></LandingNav>
             <Delete deleteMode={deleteMode} setDeleteMode={setDeleteMode} setDeletePrompt={setDeletePrompt} deletePrompt={deletePrompt} setDeleteInitiated={setDeleteInitiated} ></Delete>
             <Popup deleteMode={deleteMode} setDeleteMode={setDeleteMode} deleteInitiated={deleteInitiated} setDeletePrompt={setDeletePrompt} setPopupOpen={setPopupOpen} popupOpen={popupOpen}  course={courseActive} setCourse={setCourseAcitve}></Popup>
@@ -70,14 +71,14 @@ export const Account = () => {
               animate={!popupOpen?"non":"blur"}
               transition={{delay:0.08}}
               >
-                <div className="account-container" onClick={()=>{if(popupOpen){setPopupOpen(false)}}} >
+                <div className="account-container" >
                     <div className="details-container">
                         <div className="details">
                             <div className="first-half">
                                 <div className="pfp-cont">
                                     {
                                         userData?(
-                                            <img draggable="false" className='pfpImage' src={userData?import.meta.env.VITE_API_URL + userData.pfp:''} alt="" />
+                                            <img draggable="false" className='pfpImage' src={userData.pfp?import.meta.env.VITE_API_URL + userData.pfp:emptyPfp} alt="" />
                                         ):(
                                             <Skeleton
                                             sx={{ bgcolor: '#2B2B2B' }}
@@ -156,6 +157,9 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
     let [navState,setNavState] = useState(0)
     let hasVideo = false
     const navigate = useNavigate()
+    const firstSlideRef = useRef(null)
+    const secondSlideRef = useRef(null)
+    const [loading,setLoading] = useState(false)
     const videoNavVariants = {
         first:{
             x:0
@@ -194,52 +198,46 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
         <motion.div 
          className="line"
          animate={navState==0?{x:0}:{x:'100%'}}
-         transition={{ease:'linear' , duration:0.4}}
+         transition={{ease:'easeIn' , type:'spring' , duration:0.6}}
         ></motion.div>
     </div>
     <div className="video-grids">
+        {
+            userData && loading?(
+                <div className="videoListCont skeleton-post">
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                </div>
+
+            ):''
+        }
         <motion.div 
+          style={navState==0 && !loading?{height:firstSlideRef.current?firstSlideRef.current.clientHeight:0}:{ height:secondSlideRef.current?secondSlideRef.current.clientHeight:0,}}
           animate={navState==0?"first":"second"}
+          onAnimationStart={()=>setLoading(true)}
+          onAnimationComplete={()=>setLoading(false)}
           variants={videoNavVariants} 
           transition={{ease:'linear', duration:0.4}}
           className="playlists"
         >
 
-            <div style={{order:userData.userType=='student'?2:1}} className="grid">
-                {userData?(
-                  userData.uploadedCourses && userData.uploadedCourses.length?(
+            <div ref={userData.userType=='student'?secondSlideRef:firstSlideRef} style={{order:userData.userType=='student'?2:1}} className="grid">
+                {userData.uploadedCourses && userData.uploadedCourses.length ?(
                       <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
                    ):(
                       <Empty userType={userData.userType} />
-                   )
-                ):(
-                    <div className="videoListCont">
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    </div>
-                )}
+                   )}
             </div>
-            <div style={{order:userData.userType=='student'?1:2}} className="grid">
-                {userData?(
-                    userData.subscribedCourses &&  userData.subscribedCourses.length?(
+            <div ref={userData.userType=='student'?firstSlideRef:secondSlideRef} style={{order:userData.userType=='student'?1:2}} className="grid">
+                {userData.subscribedCourses &&  userData.subscribedCourses.length?(
                       <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.subscribedCourses} thumbnails={userData.thumbnails}/>
                    ):(
                       <Empty userType={userData.userType=="student"?"teacher":"student"} />
-                   )
-                ):(
-                    <div className="videoListCont">
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                        <Skeleton variant='rectengular' animation="wave" className='videoCont' />
-                    </div>
-                )}
+                   )}
             </div>
           </motion.div>
     </div>

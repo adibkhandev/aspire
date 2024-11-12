@@ -37,6 +37,9 @@ const Player = ({course,setCourse,setPopupOpen, setDeletePrompt ,deleteMode,setD
         if(activeVideo){
             setActiveVideo(null)
         }
+        if(editing){
+            setEditing(false)
+        }
    },[course])
     const deleteHandler = () => {
         let headers = {
@@ -76,9 +79,12 @@ const Player = ({course,setCourse,setPopupOpen, setDeletePrompt ,deleteMode,setD
  if(course && course._id)  return (
     <motion.div  
     onClick={(e)=>{
-        e.stopPropagation()
-//        console.log(e.target.className,'Tefwr')
+        //        console.log(e.target.className,'Tefwr')
+        if(editing){
+            setEditing(false)
+        }
         if(e.target.className == 'content-cont'){
+            e.stopPropagation()
             if(deleteMode){
              setDeleteMode(false)
             }
@@ -87,9 +93,6 @@ const Player = ({course,setCourse,setPopupOpen, setDeletePrompt ,deleteMode,setD
             }
             if(activeVideo){
                 setActiveVideo(null)
-            }
-            if(editing){
-                setEditing(false)
             }
             else if(popupRef){
                navigate(`/course/${course._id}`)

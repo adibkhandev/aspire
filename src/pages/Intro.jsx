@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useAnimate } from 'framer-motion'
+import { spring, useAnimate } from 'framer-motion'
 import { motion } from 'framer-motion'
 const Intro = () => {
   let duration = 1
@@ -11,7 +11,7 @@ const Intro = () => {
       console.log('animating')
       await animate(scope.current,{
           scale:1
-      },{duration:0.6,type:'spring'})
+      },{delay:0.4,duration:0.4,type:'spring'})
       await animate('.star',{
          marginRight:0
       },{delay:0.4})
@@ -21,18 +21,20 @@ const Intro = () => {
     }
     popOut()
     const popIn = async() => {
+      //side wing
       await animate('.rest',{
-        x:'-20vw',
+        x:'-10rem',
         scale:0
-      })
+      },{duration:0.4})
+      //A
       await animate('.star',{
-        marginRight:'-10vw'
+        marginRight:'-3rem'
       })
       await animate(scope.current,{
         scale:0
-      },{duration:0.2,delay:0.2})
+      },{duration:0.2,delay:0.2,type:spring})
     }
-    setTimeout(popIn,3000)
+    setTimeout(popIn,2000)
 
   })
   return (
@@ -42,8 +44,8 @@ const Intro = () => {
           ref={scope}
           initial={{scale:0}}
           className="center">
-              <motion.h1 initial={{marginRight:'-10vw'}} className='star'>A</motion.h1> 
-              <motion.span initial={{x:'-20vw'}} className='rest'>spire</motion.span>
+              <motion.h1 initial={{marginRight:'-3rem'}} className='star'>A</motion.h1> 
+              <motion.span initial={{x:'-10rem'}} className='rest'>spire</motion.span>
         </motion.div>
       </motion.div>
         
