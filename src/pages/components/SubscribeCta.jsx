@@ -5,28 +5,28 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
     const token = localStorage.getItem('accessToken');
     const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
     const [justNow,setJustNow]=useState(false)
-    console.log(courseId,'ids')
+//    console.log(courseId,'ids')
     const checkSubscribeState = (subscribeArray) => {
-      console.log('runs')
+//      console.log('runs')
         if(subscribeArray.includes(courseId)){
           setSubscribedState(true)
-          console.log('turning true')
+//          console.log('turning true')
         }
         else{
             setSubscribedState(false)
-            console.log('turning false')
+//            console.log('turning false')
         }
     }
-    // console.log(courseId,'idddd')
+//    // console.log(courseId,'idddd')
     useEffect(()=>{
       const userDirect = localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null
-      console.log(userDirect,'direct')
+//      console.log(userDirect,'direct')
       if(courseId && userDirect && userDirect.subscribedCourses) {
         const subscribedTo = user.subscribedCourses.map(course=>{
           if(isShort && course._id) return course._id
           else return course
         })
-        console.log(subscribedTo,'to',isShort)
+//        console.log(subscribedTo,'to',isShort)
         checkSubscribeState(subscribedTo)
       }
     },[courseId])
@@ -45,14 +45,14 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
           const url =  import.meta.env.VITE_API_URL +  `/user/subscribe` 
           axios.post(url,data,headers)
           .then((response)=>{
-              console.log(response.data.user,'response receiving')
+//              console.log(response.data.user,'response receiving')
               setSubscribedState(true)
               setUser(response.data.user)
               localStorage.setItem('userData',JSON.stringify(response.data.user))
               
            })
            .catch((err)=>{
-              console.log(err.response.status)
+//              console.log(err.response.status)
            })
     }
     const unsubscribe = () => {
@@ -70,7 +70,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
       const url =  import.meta.env.VITE_API_URL +  `/user/unsubscribe` 
       axios.post(url,data,headers)
       .then((response)=>{
-          console.log(response.data.user,'unssubbss')
+//          console.log(response.data.user,'unssubbss')
           setUser(response.data.user)
           localStorage.setItem('userData',JSON.stringify(response.data.user))
           setSubscribedState(false)
@@ -80,21 +80,21 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
             setRemove(true)
             // setTimeout(()=>{
             //   setSubscribed(subscribed=>{
-            //     // console.log(subscribed,'did',courseId)
+//            //     // console.log(subscribed,'did',courseId)
             //     return subscribed.filter((subscribe=>subscribe !== courseId ))
             //   })
             // },1000)
           }
        })
        .catch((err)=>{
-          console.log(err)
+//          console.log(err)
        })
     }
-    console.log('ashe')
+//    console.log('ashe')
   return (
     <motion.div
       onClick={()=>{
-         console.log('clicks')
+//         console.log('clicks')
       }}
       className="subscription">
         <svg   viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +108,7 @@ const SubscribeCta = ({subscribedState,setSubscribedState,setSubscribed,setRemov
         </svg>
         <h1
           onClick={()=>{
-            console.log('clicks')
+//            console.log('clicks')
             if(subscribedState){
               unsubscribe()
             }
@@ -131,7 +131,7 @@ export const DelayedSubscribeCta = ({subscribedState,setSubscribedState,setSubsc
   const token = localStorage.getItem('accessToken');
   const [user,setUser] = useState(localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null)
   const [justNow,setJustNow]=useState(false)
-  console.log(courseId,'delayy')
+//  console.log(courseId,'delayy')
   const unsubscribe = () => {
     const data = {
       courseId:courseId
@@ -145,15 +145,15 @@ export const DelayedSubscribeCta = ({subscribedState,setSubscribedState,setSubsc
       }
     }
     const url =  import.meta.env.VITE_API_URL +  `/user/unsubscribe` 
-    console.log('sending data',data)
+//    console.log('sending data',data)
     axios.post(url,data,headers)
     .then((response)=>{
-        console.log(response.data.user,'unssubbss')
+//        console.log(response.data.user,'unssubbss')
         setUser(response.data.user)
         localStorage.setItem('userData',JSON.stringify(response.data.user))
       })
       .catch((err)=>{
-        console.log(err)
+//        console.log(err)
       })
     }
     
@@ -161,17 +161,17 @@ const [isUnsubscribed,setIsUnsubscribed]=useState(false)
     
 
 useEffect(()=>{
-   console.log('state --' , subscribedState)
+//   console.log('state --' , subscribedState)
 },[subscribedState])
     
 const timerRef = useRef(null)
     
 useEffect(()=>{
-  console.log(isUnsubscribed,'is unsubscribing')
+//  console.log(isUnsubscribed,'is unsubscribing')
     if(isUnsubscribed){
-      console.log('turning tho')
+//      console.log('turning tho')
        timerRef.current = setTimeout(unsubscribe,8000)
-       console.log('setting timeout')
+//       console.log('setting timeout')
     }
     return()=> clearTimeout(timerRef.current)
 },[isUnsubscribed])
@@ -211,7 +211,7 @@ return (
       </svg>
       <h1
         onClick={()=>{
-            console.log('on')
+//            console.log('on')
             setUndo(false)
             setIsUnsubscribed(true)
             setSubscribedState(false)

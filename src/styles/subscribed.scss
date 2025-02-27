@@ -1,12 +1,13 @@
+
 .subscribed-page{
     scroll-behavior: smooth;
-    .nav-container{
-        // position: initial;
-    }
     .cards{
         font-size: clamp(0.78rem,2.9vw,1.2rem);
         padding: 1.2em 1.4em;
         padding: 1.2em 1.4em 0.2em 1.4em;
+        display: flex;
+        flex-direction: column;
+        // gap:1em;
         .empty-container{
             padding-right: 3vw;
             padding-bottom: 6em;
@@ -14,15 +15,14 @@
         
         padding-block: 1em;
         .card{
-            width: 100%;
             margin-bottom: 1em;
-            // margin-block: 1em;
+            width: 100%;
             border-radius: 4px;
             background-color: #2C2C2C;
             box-shadow: 0 2px 1px rgba(0,0,0,0.09), 0 4px 2px rgba(0,0,0,0.09), 0 8px 4px rgba(0,0,0,0.09), 0 16px 8px rgba(0,0,0,0.09), 0 32px 16px rgba(0,0,0,0.09);
             .card-cont{
                 padding:0.4em 1em 0.6em 1em;
-
+                position: relative;
                 .desc-cont{
                     display: flex;
                     justify-content: space-between;
