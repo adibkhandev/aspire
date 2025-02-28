@@ -49,37 +49,45 @@ export const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideo
 
     useEffect(()=>{
 //      console.log('changing to ' , remove)
-         if(remove && !undo){
+         if(remove){
             const cardAnimation = async() => {
               await animate('.card',{
                 x:'-140%'
               },{
                 duration:1,
-                delay:3
+                delay:3,
+                onComplete: ()=>{
+                  setHidden(true)
+                }
               })
-              setHidden(true)
+              console.log('has turned',hidden)
             }
             cardAnimation()
          }
          else{
 //           console.log('anime called')
+//     undo
           const reverseCardAnimation = async() => {
             await animate('.card',{
               x:0
             },{
               duration:0.2,
             })
+            console.log('has turned tto',hidden)
           }
           reverseCardAnimation()
          }
-    },[remove,undo])
+    },[remove])
     useEffect(()=>{
-       if(hidden && !undo){
+       if(hidden && remove){
           const cardLeaves = async() => {
             await animate('.decoy',{
               height:'0px'
             },{
               duration:1,
+              onPlay: ()=>{
+                 console.log('shrinkkk')
+              }
             })
 //            console.log('turned to disappear')
             
@@ -90,18 +98,24 @@ export const Card = ({subscribe,setSubscribed,setEmpty,setValidVideos,validVideo
           }
           cardLeaves()
        }
-       if(undo){
+
+       //undo
+       if(!remove && hidden){
         const reviveSize = async()=> {
           await animate('.decoy',{
-            height:`${cardRef.current.clientHeight}px`
+            height:`${cardRef.current.clientHeight}px`,
+            marginBlock:'0.6em',
           },{
             duration:0.2,
+            onPlay: ()=>{
+              console.log('shrinkkk')
+           }
           })
         }
          reviveSize()
          setHidden(false)
        }
-    },[hidden,undo])
+    },[hidden,remove])
 
 
 

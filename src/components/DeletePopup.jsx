@@ -8,55 +8,10 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
     const [isLeaving,setIsLeaving] = useState(false)
     const left = useRef(false)
 
-  ////////////////
-
-
-    // const leaveHandler = () => {
-    //    setIsLeaving(!undo)
-    // }
-
-    // useEffect(()=>{
-    //   console.log(undo,'unnnnooooo')
-    //   const timeoutFunction = setTimeout(()=>{
-    //       leaveHandler()    
-    //   },5000)
-    //   return()=>{
-    //     clearTimeout(timeoutFunction)
-    //   }
-    // },[undo])
-
-
-
-
-
-    //////////////
-    // useEffect(()=> {
-    //   console.log('leaving>',isLeaving)
-    //       if(isLeaving){
-    //         const removeTo = async() => {
-    //           await animate(scope.current,{
-    //             x:'-140%'
-    //           },{
-    //             duration:1,
-    //             delay:1
-    //           })
-    //           await animate(scope.current,{
-    //             height:0,
-    //             marginBlock:0
-    //           },{
-    //             delay:1,
-    //            duration:0.7,
-    //          })
-    //          if(setValidVideos)setValidVideos(validVideos-1)
-    //         }
-    //         removeTo()
-            
-    //       }
-    // },[isLeaving])
 
     const [timeUp,setTimeUp] = useState(false)
     useEffect(()=>{
-      if(timeUp && !undo){
+      if(timeUp && remove){
         const removeFinalized = async() => {
           await animate(scope.current,{
             x:'-200vw'
@@ -68,7 +23,7 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
           })
           await animate(scope.current,{
             height:0,
-            marginBlock:0
+            margin:0
           },{
            duration:0.7,
          })
@@ -79,11 +34,11 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
   
     useEffect(()=>{
       if(remove) left.current = true
-      if(remove && !undo){
+      if(remove){
         const spaceOpen = async() => {
           await animate(scope.current,{
             height:'4em',
-           
+            // marginTop:'1em'
           },{
             duration:0.6
           })
@@ -92,7 +47,7 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
           },{
           })
           await animate('.warn',{
-            y:'200%',
+            y:'calc(200% )',
           },{
             duration:0.5,
           })
@@ -116,6 +71,7 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
         /////
        spaceOpen()
      }
+     //undo
      else{
         const reverse = async() => {
          await animate(scope.current,{
@@ -124,7 +80,8 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
            delay:1,
          })
          await animate('.warn',{
-           y:'-200%'
+           y:'-200%',
+          //  marginTop:0,
          },{
           duration:0.5,
         })
@@ -133,13 +90,12 @@ const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos})
         })
         await animate(scope.current,{
           height:0,
-          margin:0
         })
           console.log('coming rth')
         }
           reverse()
      }
-  },[remove,undo])
+  },[remove])
      return(
       <motion.div
         ref={scope}

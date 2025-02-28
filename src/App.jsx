@@ -21,7 +21,6 @@ import Subscribed from './pages/account/Subscribed'
 import Intro from './pages/Intro'
 const App = () => {
   const [loaded,setLoaded] = useState(false)
-  
   useEffect(() => {
     let loading = setTimeout(()=>{
          setLoaded(true)
@@ -33,7 +32,7 @@ const App = () => {
   return (
     <>
     {
-      loaded?(
+      true?(
         <BrowserRouter>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GG_APP_ID || ''}>
           <AuthContextProvider>
