@@ -61,8 +61,7 @@ const Player = ({course,setCourse,setPopupOpen, setDeletePrompt ,deleteMode,setD
                     },500)
                     setTimeout(()=>{
                     window.location.reload()
-                },1000)
-                }
+                },1000)}
                 else{
                 navigate('/')
                 }
@@ -229,7 +228,7 @@ const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,s
             }
             axios.post(url,data,headers)
                .then((response)=>{
-                  console.log(response)
+                  console.log(response,'sass')
                   if(response.status==201){
                      setDeleteMode(false)
                      setDeletePrompt(false)
@@ -353,7 +352,7 @@ const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,s
             </div>
             {
                 (topic && topic.videos)?topic.videos.map((video)=>{
-//                    // console.log(video.videoLink,'link')
+                   console.log(video,'link')
                     return(
                       <motion.div 
                         onClick={()=>{
@@ -386,7 +385,7 @@ const CourseNav = ({deleteCourse,deleteMode, deleteInitiated ,setDeletePrompt ,s
                         transition={{duration:0.2}}
                        >
                         <div className="div">
-                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video._id}</span> 
+                            {video.number}  &nbsp; &nbsp; <span className='name-video'>{video.title}</span> 
                         </div>
                         {
                             deleteMode && (

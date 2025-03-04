@@ -211,35 +211,40 @@ const Grids = ({userData , setCourseAcitve,setPopupOpen}) => {
                     <Skeleton variant='rectengular' animation="wave" className='skull' />
                     <Skeleton variant='rectengular' animation="wave" className='skull' />
                     <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
+                    <Skeleton variant='rectengular' animation="wave" className='skull' />
                 </div>
 
             ):''
         }
-        <motion.div 
-          style={navState==0 && !loading?{height:firstSlideRef.current?firstSlideRef.current.clientHeight:0}:{ height:secondSlideRef.current?secondSlideRef.current.clientHeight:0,}}
-          animate={navState==0?"first":"second"}
-          onAnimationStart={()=>setLoading(true)}
-          onAnimationComplete={()=>setLoading(false)}
-          variants={videoNavVariants} 
-          transition={{ease:'linear', duration:0.4}}
-          className="playlists"
-        >
+        {
+            <motion.div 
+            style={navState==0 && !loading?{height:firstSlideRef.current?firstSlideRef.current.clientHeight:0}:{ height:secondSlideRef.current?secondSlideRef.current.clientHeight:0,}}
+            animate={navState==0?"first":"second"}
+            onAnimationStart={()=>setLoading(true)}
+            onAnimationComplete={()=>setLoading(false)}
+            variants={videoNavVariants} 
+            transition={{ease:'linear', duration:0.4}}
+            className="playlists"
+            >
 
-            <div ref={userData.userType=='student'?secondSlideRef:firstSlideRef} style={{order:userData.userType=='student'?2:1}} className="grid">
-                {userData.uploadedCourses && userData.uploadedCourses.length ?(
-                      <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
-                   ):(
-                      <Empty userType={userData.userType} />
-                   )}
-            </div>
-            <div ref={userData.userType=='student'?firstSlideRef:secondSlideRef} style={{order:userData.userType=='student'?1:2}} className="grid">
-                {userData.subscribedCourses &&  userData.subscribedCourses.length?(
-                      <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.subscribedCourses} thumbnails={userData.thumbnails}/>
-                   ):(
-                      <Empty userType={userData.userType=="student"?"teacher":"student"} />
-                   )}
-            </div>
-          </motion.div>
+                <div ref={userData.userType=='student'?secondSlideRef:firstSlideRef} style={{order:userData.userType=='student'?2:1}} className="grid">
+                    {userData.uploadedCourses && userData.uploadedCourses.length && !loading?(
+                        <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.uploadedCourses} thumbnails={userData.thumbnails}/>
+                    ):(
+                        <Empty userType={userData.userType} />
+                    )}
+                </div>
+                <div ref={userData.userType=='student'?firstSlideRef:secondSlideRef} style={{order:userData.userType=='student'?1:2}} className="grid">
+                    {userData.subscribedCourses &&  userData.subscribedCourses.length && !loading?(
+                        <Videos setPopupOpen={setPopupOpen} setCourseAcitve={setCourseAcitve} uploadedCourses={userData.subscribedCourses} thumbnails={userData.thumbnails}/>
+                    ):(
+                        <Empty userType={userData.userType=="student"?"teacher":"student"} />
+                    )}
+                </div>
+            </motion.div>
+        }
     </div>
 </div>
 )}

@@ -60,7 +60,7 @@ return (
             renderInput={(params) => (
                <TextField 
                onClick={()=>{
-                 setError('Max number of interests reached')
+                //  setError('Max number of interests reached')
                }}
                onKeyDown={e=>{
                   console.log(e,'e')

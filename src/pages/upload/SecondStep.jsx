@@ -155,7 +155,7 @@ const SecondStep = ({setStep,error,setError,onlyVideo,video}) => {
             }
           }} onFocus={()=>{
              console.log('kiraa')
-          }} ref={input} className="hidden" type="file" name="video" id="" />
+          }} ref={input} accept='.mp4' className="hidden" type="file" name="video" id="" />
         </div>
       </div>
     )

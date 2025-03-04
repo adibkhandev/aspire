@@ -53,7 +53,6 @@ import MotionCta from './../components/MotionCta'
                 setOutClick(true)
                 console.log(outClick,'out')
                 }}} className="edit-topic-cont">
-                    //add nav when here and scrolled
                 
                     {topics && topics.map((topic)=><Topic setTopicDeleteId={setTopicDeleteId} setError={setError} setPopupOpen={setPopupOpen} setDeletePrompt={setDeletePrompt} outClick={outClick} setOutClick={setOutClick} courseId={courseId} topic={topic} />)}
 
