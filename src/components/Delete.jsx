@@ -65,4 +65,65 @@ const Delete = ({deleteMode,setDeleteMode,setDeleteInitiated,deletePrompt,setDel
   )
 }
 
+
+export const LogoutPopup = ({logout,loggingOut,setLoggingOut}) => {
+    const scope = useRef(null)
+    const animateDelete = async () => {
+        if(loggingOut){
+            await animate(scope.current,{
+                backdropFilter:'brightness(50%) blur(10px)',
+                background:'#2727270c',
+                zIndex:5
+                
+            })
+        }
+        else{
+            await animate(scope.current,{
+                backdropFilter:'brightness(100%) blur(0px)',
+                background:'transparent',
+            })
+            await animate(scope.current,{
+                zIndex:-1
+            })
+        }
+    } 
+    useEffect(()=>{
+        animateDelete()
+    },[loggingOut])
+ if(loggingOut) return (
+    <motion.div
+    transition={{delay:0.08}}
+    ref={scope} 
+    onClick={(e)=>{
+        e.stopPropagation()
+        setLoggingOut(false)
+    }}
+      className='delete-screen'>
+          <motion.div
+            initial={{y:"100vh"}}
+            animate={loggingOut?{y:0,scale:1}:{y:"100vh",scale:0.4}} 
+            transition={loggingOut?{delay:0.2}:{delay:0}}
+            className="delete-dialog">
+               <div className="text">
+                    Are you sure you want to discontinue?
+               </div>
+               <div className="options">
+                   <div onClick={()=>{
+                       setLoggingOut(false)
+                       logout()
+                    }} className="confirm">
+                        Confirm
+                   </div>
+                   <div onClick={()=>{
+                       setLoggingOut(false)
+                    }} className="cancel">
+                        Cancel
+                   </div>
+               </div>
+          </motion.div>
+
+    </motion.div>
+  )
+}
+
 export default Delete

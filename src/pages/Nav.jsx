@@ -14,23 +14,25 @@ import { Drawer } from '@mui/material';
 import { Link , useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { motion , useMotionValueEvent, useScroll , useTransform} from 'framer-motion'
+import { LogoutPopup } from '../components/Delete'
 export const Nav = ({setError}) => {
   const lastscrollY = useRef(0)
   const [direction,setDirection] = useState(null)
   const {scrollY} = useScroll();
-////  console.log(scrollY,'sc')
+  console.log(scrollY,'sc')
     useMotionValueEvent(scrollY,"change",(latest)=>{
-////      console.log(latest,'kattess',lastscrollY.current)
+      console.log(latest,'kattess',lastscrollY.current)
       if(latest>lastscrollY.current) setDirection("down")
       if(latest<lastscrollY.current) setDirection("up")
       lastscrollY.current = latest
     })
     useEffect(()=>{
-////       console.log(direction,'f')
-////       console.log(lastscrollY)
+       console.log(direction,'f')
+       console.log(lastscrollY)
     },[direction])
-////    console.log('declaring state',direction)
+    console.log('declaring state',direction)
     const [drawerOpen,setDrawerOpen] = useState(false)
+    const [loggingOut,setLoggingOut] = useState(false)
     const token = localStorage.getItem('accessToken')
     const user = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null
     const decoded = token ? jwtDecode(token) : null
@@ -41,6 +43,7 @@ export const Nav = ({setError}) => {
           initial={{top:0}}
           animate={direction=="up"?{top:0}:direction=="down"?{top:"-100%"}:{top:0}} 
           className='nav-container fav'>
+             <LogoutPopup loggingOut={loggingOut} setLoggingOut={setLoggingOut} logout={logout} ></LogoutPopup>
           {/* Bar */}
           <motion.div className="bar">
            <Link to={'/'}>
@@ -54,7 +57,7 @@ export const Nav = ({setError}) => {
 
 
             <img onClick={()=>{
-////                console.log('clcik')
+                console.log('clcik')
                 if(token) setDrawerOpen(true)
                 else setError('Signup to experience all features')
             }} className='ham' src={hamburger} alt="" />
@@ -68,7 +71,7 @@ export const Nav = ({setError}) => {
               variant="temporary"
               onClose={(event,reason)=>{
                   setDrawerOpen(false)
-////                  console.log(reason,'reason')
+                  console.log(reason,'reason')
               }}
             >
                <div className="drawer-cont">
@@ -128,7 +131,11 @@ export const Nav = ({setError}) => {
                           <img src={upload} alt="" />
                           <h1>Contribute</h1>
                        </div>
-                       <div onClick={(e)=>logout()} className="option">
+                       <div onClick={(e)=>{
+                          // logout()
+                          setDrawerOpen(false)
+                          setLoggingOut(true)
+                        }} className="option">
                           <img className='giveMargin' src={logouticon} alt="" />
                           <h1>Logout</h1>
                        </div>
@@ -150,11 +157,12 @@ export const Nav = ({setError}) => {
 export const LandingNav = ({direction,popupOpen}) => {
   const lastscrollY = useRef(0)
     useEffect(()=>{
-////       console.log(direction,'f')
-////       console.log(lastscrollY)
+       console.log(direction,'f')
+       console.log(lastscrollY)
     },[direction])
-////    console.log('declaring state',direction)
+    console.log('declaring state',direction)
     const [drawerOpen,setDrawerOpen] = useState(false)
+    const [loggingOut,setLoggingOut] = useState(false)
     const token = localStorage.getItem('accessToken')
     const user = localStorage.getItem('userData')?JSON.parse(localStorage.getItem('userData')):null
     const decoded = token ? jwtDecode(token) : null
@@ -175,6 +183,7 @@ export const LandingNav = ({direction,popupOpen}) => {
           initial={{top:0}}
           animate={direction=="up"?{top:0}:direction=="down"?{top:"-100%"}:{top:0}} 
           className='nav-container fav'>
+             <LogoutPopup loggingOut={loggingOut} setLoggingOut={setLoggingOut} logout={logout} ></LogoutPopup>
           {/* Bar */}
           <motion.div
            variants={homeVariants}
@@ -192,7 +201,7 @@ export const LandingNav = ({direction,popupOpen}) => {
 
 
             <img onClick={()=>{
-////                console.log('clcik')
+                console.log('clcik')
                 setDrawerOpen(true)
                 
             }} className='ham' src={hamburger} alt="" />
@@ -206,7 +215,7 @@ export const LandingNav = ({direction,popupOpen}) => {
               variant="temporary"
               onClose={(event,reason)=>{
                   setDrawerOpen(false)
-////                  console.log(reason,'reason')
+                  console.log(reason,'reason')
               }}
             >
                <div className="drawer-cont">
@@ -266,7 +275,11 @@ export const LandingNav = ({direction,popupOpen}) => {
                           <img src={upload} alt="" />
                           <h1>Contribute</h1>
                        </div>
-                       <div onClick={(e)=>logout()} className="option">
+                       <div onClick={(e)=>{
+                          //  logout()
+                          setDrawerOpen(false)
+                          setLoggingOut(true)
+                        }} className="option">
                           <img className='giveMargin' src={logouticon} alt="" />
                           <h1>Logout</h1>
                        </div>

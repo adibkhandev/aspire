@@ -1,6 +1,5 @@
 import { useState , useEffect , useRef} from "react"
 import { motion , useAnimate } from "framer-motion"
-import whiteDelete from './../assets/images/white-delete.svg'
 import whiterDelete from './../assets/images/whiter-delete.svg'
 import zIndex from "@mui/material/styles/zIndex"
 const DeletePopup = ({remove,setRemove,undo,setUndo,setValidVideos,validVideos}) => {
